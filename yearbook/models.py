@@ -48,10 +48,26 @@ class Institution(models.Model):
         Institution.check_duplicate(institution_name, self.institution_city, self.institution_state)
         self.institution_name=institution_name
 
-    def set_institution_location(self, institution_city, institution_state):
-        Institution.check_duplicate(self.institution_name, institution_city, institution_state)
+    def set_institution_city(self, institution_city):
+        Institution.check_duplicate(self.institution_name, institution_city, self.institution_state)
         self.institution_city = institution_city
+
+    def set_institution_state(self, institution_state):
+        Institution.check_duplicate(self.institution_name, self.set_institution_name, institution_state)
         self.institution_state = institution_state
+
+    def set_institution_location(self, institution_city, institution_state):
+        self.set_institution_city(institution_city)
+        self.set_institution_state(institution_state)
+
+    def get_institution_name(self):
+        return str(self.institution_name)
+
+    def get_institution_city(self):
+        return str(self.institution_city)
+
+    def get_institution_state(self):
+        return str(self.institution_state)
 
     def __str__(self):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
@@ -76,6 +92,12 @@ class InstitutionYear(models.Model):
         InstitutionYear.check_duplicate(self.institution, year)
         self.year = year
         self.school_year= str(int(year - 1)) + "-" + str(year)
+
+    def get_institution_year(self):
+        return int(self.year)
+
+    def get_institution_academic_year(self):
+        return str(academic.year)
     
     def __str__(self):
         return str(self.institution) + " | " + str(self.school_year)
@@ -98,6 +120,9 @@ class InstitutionYearProfile(models.Model):
 
     def set_is_educator(self, is_educator):
         self.is_educator = is_educator
+
+    def get_is_educator(self):
+        return bool(self.is_educator)
 
     def __str__(self):
         return self.yearbook_user.user.first_name + " " + self.yearbook_user.user.last_name + " | " + str(self.institution_year) + (" | Educator" if self.is_educator else "")
