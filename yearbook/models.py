@@ -19,12 +19,6 @@ class YearbookUser(models.Model):
         YearbookUser.check_duplicate(user)
         return cls(user=user, bio=bio)
 
-    def set_user_bio(self, bio):
-        self.bio = bio
-
-    def get_user_bio(self):
-        return str(self.bio)
-    
     def __str__(self):
         return str(self.user.first_name) + " " + str(self.user.last_name)
 
@@ -60,15 +54,6 @@ class Institution(models.Model):
         self.set_institution_city(institution_city)
         self.set_institution_state(institution_state)
 
-    def get_institution_name(self):
-        return str(self.institution_name)
-
-    def get_institution_city(self):
-        return str(self.institution_city)
-
-    def get_institution_state(self):
-        return str(self.institution_state)
-
     def __str__(self):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
 
@@ -93,12 +78,6 @@ class InstitutionYear(models.Model):
         self.year = year
         self.school_year= str(int(year - 1)) + "-" + str(year)
 
-    def get_institution_year(self):
-        return int(self.year)
-
-    def get_institution_academic_year(self):
-        return str(academic.year)
-    
     def __str__(self):
         return str(self.institution) + " | " + str(self.school_year)
 
@@ -121,9 +100,6 @@ class InstitutionYearProfile(models.Model):
     def set_is_educator(self, is_educator):
         self.is_educator = is_educator
 
-    def get_is_educator(self):
-        return bool(self.is_educator)
-
     def __str__(self):
         return self.yearbook_user.user.first_name + " " + self.yearbook_user.user.last_name + " | " + str(self.institution_year) + (" | Educator" if self.is_educator else "")
 
@@ -138,9 +114,6 @@ class Signature(models.Model):
 
     def set_signature(self, signature):
         self.signature = signature
-
-    def get_signature(self):
-        return str(self.signature)
 
     def __str__(self):
         return "Author: " + self.author.user.first_name + " | Recipient: " + self.recipient.yearbook_user.user.first_name + " | " + self.signature
