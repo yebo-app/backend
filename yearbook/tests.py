@@ -11,7 +11,7 @@ class YearbookUserTests(TestCase):
     def test_user_created_with_default_bio(self):
         test_user = User(username="test_case", first_name="test", last_name="case")
         test_yearbook_user = YearbookUser.create(test_user)
-        self.assertIs(test_yearbook_user.get_user_bio(), "")
+        self.assertIs(test_yearbook_user.bio, "")
 
 class InstitutionTests(TestCase):
     def test_check_static_duplicates(self):
@@ -69,4 +69,4 @@ class SignatureTests(TestCase):
         test_institution_year = InstitutionYear.create(test_institution, 2020)
         test_institution_year_profile = InstitutionYearProfile.create(test_yearbook_user, test_institution_year, False)
         test_signature = Signature.create(test_yearbook_user, test_institution_year_profile)
-        self.assertIs(test_signature.get_signature(), "")
+        self.assertIs(test_signature.signature, "")

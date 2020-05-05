@@ -19,12 +19,6 @@ class YearbookUser(models.Model):
         YearbookUser.check_duplicate(user)
         return cls(user=user, bio=bio)
 
-    def set_user_bio(self, bio):
-        self.bio = bio
-
-    def get_user_bio(self):
-        return str(self.bio)
-    
     def __str__(self):
         return str(self.user.first_name) + " " + str(self.user.last_name)
 
@@ -48,10 +42,17 @@ class Institution(models.Model):
         Institution.check_duplicate(institution_name, self.institution_city, self.institution_state)
         self.institution_name=institution_name
 
-    def set_institution_location(self, institution_city, institution_state):
-        Institution.check_duplicate(self.institution_name, institution_city, institution_state)
+    def set_institution_city(self, institution_city):
+        Institution.check_duplicate(self.institution_name, institution_city, self.institution_state)
         self.institution_city = institution_city
+
+    def set_institution_state(self, institution_state):
+        Institution.check_duplicate(self.institution_name, self.set_institution_name, institution_state)
         self.institution_state = institution_state
+
+    def set_institution_location(self, institution_city, institution_state):
+        self.set_institution_city(institution_city)
+        self.set_institution_state(institution_state)
 
     def __str__(self):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
@@ -76,7 +77,7 @@ class InstitutionYear(models.Model):
         InstitutionYear.check_duplicate(self.institution, year)
         self.year = year
         self.school_year= str(int(year - 1)) + "-" + str(year)
-    
+
     def __str__(self):
         return str(self.institution) + " | " + str(self.school_year)
 
@@ -113,9 +114,6 @@ class Signature(models.Model):
 
     def set_signature(self, signature):
         self.signature = signature
-
-    def get_signature(self):
-        return str(self.signature)
 
     def __str__(self):
         return "Author: " + self.author.user.first_name + " | Recipient: " + self.recipient.yearbook_user.user.first_name + " | " + self.signature
