@@ -39,20 +39,16 @@ class Institution(models.Model):
         return cls(institution_name=institution_name, institution_city=institution_city, institution_state=institution_state)
   
     def set_institution_name(self, institution_name):
-        Institution.check_duplicate(institution_name, self.institution_city, self.institution_state)
+        #Institution.check_duplicate(institution_name, self.institution_city, self.institution_state)
         self.institution_name=institution_name
 
     def set_institution_city(self, institution_city):
-        Institution.check_duplicate(self.institution_name, institution_city, self.institution_state)
+        #Institution.check_duplicate(self.institution_name, institution_city, self.institution_state)
         self.institution_city = institution_city
 
     def set_institution_state(self, institution_state):
-        Institution.check_duplicate(self.institution_name, self.set_institution_name, institution_state)
+        #Institution.check_duplicate(self.institution_name, self.set_institution_name, institution_state)
         self.institution_state = institution_state
-
-    def set_institution_location(self, institution_city, institution_state):
-        self.set_institution_city(institution_city)
-        self.set_institution_state(institution_state)
 
     def __str__(self):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
