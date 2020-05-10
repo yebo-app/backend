@@ -1,5 +1,9 @@
 {% extends 'yearbook/base.html' %}
 
+{% block pagetitle %}
+	{{ page_title }}
+{% endblock %}
+
 {% block content %}
 	<h1>{{ institutionyear.institution.institution_name }} | {{ institutionyear.school_year }}</h1>
 	<h3>Current Yearbook Profiles</h3>
