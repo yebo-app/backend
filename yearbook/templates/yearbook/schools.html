@@ -1,0 +1,10 @@
+{% extends 'yearbook/base.html' %}
+
+{% block content %}
+	<h1>Institutions currently registered on yebo:</h1>
+	<ul>
+		{% for institution in institutions %}
+			<li><p>School: {{ str(institution) }}</p></li>
+		{% endfor %}
+	</ul>
+{% endblock %}

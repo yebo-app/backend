@@ -1,13 +1,35 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from datetime import date
 
 # Create your models here.
 
 class YearbookUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='avatars', default='default.png')
     bio = models.TextField(max_length=140, default= "")
-   
+    
+    def register(self, institution, start_year, end_year, is_educator):
+        if start_year > end_year:
+            raise Exception("Start Year: " + str(start_year) + " cannot be greater than End Year: " + str(end_year))
+        if start_year < institution.institution_year_founded:
+            raise Exception ("Start Year: " + str(start_year) + " cannot be less than Founding Year of the Institution: " + str(institution.institution_year_founded))
+        for year in range(start_year + 1, end_year + 1):
+            try:
+                iy = InstitutionYear.objects.all().get(institution=institution, year=year)
+            except InstitutionYear.DoesNotExist:
+                iy = InstitutionYear.create(institution, year)
+                iy.save()
+            iyp = InstitutionYearProfile.create(self, iy, is_educator)
+            iyp.save()
+        institution.update_unique_users()
+    
+    def write_signature(self, recipient, message):
+        s = Signature.create(self, recipient, message)
+        s.save()
+        return s
+
     @classmethod
     def check_duplicate(cls, user):
          for yearbook_user in YearbookUser.objects.all():
@@ -26,6 +48,8 @@ class Institution(models.Model):
     institution_name = models.CharField(max_length=100, default= "")
     institution_city = models.CharField(max_length=100, default= "")
     institution_state = models.CharField(max_length=2, default= "")
+    institution_year_founded = models.IntegerField(default=date.today().year)
+    unique_members = models.IntegerField(default=0)
 
     @classmethod
     def check_duplicate(cls, institution_name, institution_city, institution_state):
@@ -34,9 +58,14 @@ class Institution(models.Model):
                 raise Exception("Institution with name: " + str(institution_name) + " in: " + str(institution_city) + ", " + str(institution_state) + " already exists.")
 
     @classmethod
-    def create(cls, institution_name, institution_city="", institution_state=""):
+    def create(cls, institution_name, institution_city, institution_state, institution_year_founded):
         Institution.check_duplicate(institution_name, institution_city, institution_state)
-        return cls(institution_name=institution_name, institution_city=institution_city, institution_state=institution_state)
+        institution = cls(institution_name=institution_name, institution_city=institution_city, institution_state=institution_state, institution_year_founded=institution_year_founded)
+        institution.save()
+        for year in range(institution_year_founded, date.today().year + 1):
+            iy = InstitutionYear.create(institution, year)
+            iy.save()
+        return institution
   
     def set_institution_name(self, institution_name):
         #Institution.check_duplicate(institution_name, self.institution_city, self.institution_state)
@@ -49,6 +78,15 @@ class Institution(models.Model):
     def set_institution_state(self, institution_state):
         #Institution.check_duplicate(self.institution_name, self.set_institution_name, institution_state)
         self.institution_state = institution_state
+
+    def update_unique_users(self):
+        yu_set = []
+        for iy in list(self.institutionyear_set.all()):
+            for iyp in list(iy.institutionyearprofile_set.all()):
+                yu_set.append(iyp.yearbook_user)
+        self.unique_members = len(set(yu_set))
+        self.save()
+        return self.unique_members
 
     def __str__(self):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
@@ -79,6 +117,7 @@ class InstitutionYear(models.Model):
 
 class InstitutionYearProfile(models.Model):
     yearbook_user = models.ForeignKey(YearbookUser, on_delete=models.CASCADE)
+    yearbook_picture = models.ImageField(upload_to='yearbook_pictures', default='default.png')
     institution_year = models.ForeignKey(InstitutionYear, on_delete=models.CASCADE)
     is_educator = models.BooleanField(default= False)
    

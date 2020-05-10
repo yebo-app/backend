@@ -15,7 +15,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class YearbookUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.YearbookUser
-        fields = ['user', 'bio']
+        fields = ['url', 'user', 'bio']
 
     def create(self, validated_data):
         instance = YearbookUserSerializer.Meta.model.create(**validated_data)
@@ -25,7 +25,7 @@ class YearbookUserSerializer(serializers.HyperlinkedModelSerializer):
 class InstitutionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Institution
-        fields = ['institution_name', 'institution_city', 'institution_state']
+        fields = ['url', 'institution_name', 'institution_city', 'institution_state', 'institution_year_founded']
     
     def create(self, validated_data):
         instance = InstitutionSerializer.Meta.model.create(**validated_data)
@@ -44,7 +44,7 @@ class InstitutionSerializer(serializers.HyperlinkedModelSerializer):
 class InstitutionYearSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.InstitutionYear
-        fields = ['institution','year', 'school_year']
+        fields = ['url', 'institution', 'year', 'school_year']
 
     def create(self, validated_data):
         instance = InstitutionYearSerializer.Meta.model.create(**validated_data)
@@ -60,7 +60,7 @@ class InstitutionYearSerializer(serializers.HyperlinkedModelSerializer):
 class InstitutionYearProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.InstitutionYearProfile
-        fields = ['yearbook_user', 'institution_year', 'is_educator']
+        fields = ['url', 'yearbook_user', 'institution_year', 'is_educator']
 
     def create(self, validated_data):
         instance = InstitutionYearProfileSerializer.Meta.model.create(**validated_data)
@@ -71,7 +71,7 @@ class InstitutionYearProfileSerializer(serializers.HyperlinkedModelSerializer):
 class SignatureSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Signature
-        fields = ['author', 'recipient', 'signature']
+        fields = ['url', 'author', 'recipient', 'signature']
 
     def create(self, validated_data):
         instance = SignatureSerializer.Meta.model.create(**validated_data)
