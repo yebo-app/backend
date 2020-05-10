@@ -1,5 +1,9 @@
 {% extends 'yearbook/base.html' %}
 
+{% block pagetitle %}
+	{{ page_title }}
+{% endblock %}
+
 {% block content %}
 	<h1>Yearbook Profile</h1>
 	<h3><a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ institutionyearprofile.yearbook_user.id }}">{{ institutionyearprofile.yearbook_user.user.first_name }} {{ institutionyearprofile.yearbook_user.user.last_name }}</a></h3>
