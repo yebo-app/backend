@@ -1,0 +1,16 @@
+{% extends 'yearbook/base.html' %}
+
+{% block content %}
+	<h1>Yearbook Profile</h1>
+	<h3><a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ institutionyearprofile.yearbook_user.id }}">{{ institutionyearprofile.yearbook_user.user.first_name }} {{ institutionyearprofile.yearbook_user.user.last_name }}</a></h3>
+	{% if institutionyearprofile.is_educator %}
+		<p>Educator</p>
+	{% endif %}
+	<p>Picture Goes Here</p>
+
+	<h2>Signatures</h2>
+	{% for signature in signatures %}
+	<strong>From <a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ signature.author.id }}">{{ signature.author }}</a></strong>
+		<p>{{ signature.signature }}</p>
+	{% endfor %}
+{% endblock %}

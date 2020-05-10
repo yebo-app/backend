@@ -1,0 +1,11 @@
+{% extends 'yearbook/base.html' %}
+
+{% block content %}
+	<h1>{{ institutionyear.institution.institution_name }} | {{ institutionyear.school_year }}</h1>
+	<h3>Current Yearbook Profiles</h3>
+	<ul>
+		{% for iyp in institutionyearprofiles %}
+		<li><a href="profile/{{ iyp.id }}">{{ iyp.yearbook_user.user.first_name }} {{ iyp.yearbook_user.user.last_name }}</a></li>
+		{% endfor %}
+	</ul>
+{% endblock %}
