@@ -1,5 +1,9 @@
 {% extends 'yearbook/base.html' %}
 
+{% block pagetitle %}
+	{{ page_title }}
+{% endblock %}
+
 {% block content %}
 	<h1>{{ user.user.first_name }} {{ user.user.last_name }}</h1>
 	<p>{{ user.bio }}</p>
