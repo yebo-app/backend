@@ -23,6 +23,12 @@ class YearbookUser(models.Model):
                 iy.save()
             iyp = InstitutionYearProfile.create(self, iy, is_educator)
             iyp.save()
+        institution.update_unique_users()
+    
+    def write_signature(self, recipient, message):
+        s = Signature.create(self, recipient, message)
+        s.save()
+        return s
 
     @classmethod
     def check_duplicate(cls, user):
@@ -43,6 +49,7 @@ class Institution(models.Model):
     institution_city = models.CharField(max_length=100, default= "")
     institution_state = models.CharField(max_length=2, default= "")
     institution_year_founded = models.IntegerField(default=date.today().year)
+    unique_members = models.IntegerField(default=0)
 
     @classmethod
     def check_duplicate(cls, institution_name, institution_city, institution_state):
@@ -71,6 +78,15 @@ class Institution(models.Model):
     def set_institution_state(self, institution_state):
         #Institution.check_duplicate(self.institution_name, self.set_institution_name, institution_state)
         self.institution_state = institution_state
+
+    def update_unique_users(self):
+        yu_set = []
+        for iy in list(self.institutionyear_set.all()):
+            for iyp in list(iy.institutionyearprofile_set.all()):
+                yu_set.append(iyp.yearbook_user)
+        self.unique_members = len(set(yu_set))
+        self.save()
+        return self.unique_members
 
     def __str__(self):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)

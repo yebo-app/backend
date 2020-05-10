@@ -1,0 +1,10 @@
+{% extends 'yearbook/base.html' %}
+
+{% block content %}
+	<h1>Institutions currently registered:</h1>
+	<ul>
+		{% for institution in institutions %}
+			<li><a href="/institutions/{{ institution.id }}">{{ institution }}</a></li>
+		{% endfor %}
+	</ul>
+{% endblock %}
