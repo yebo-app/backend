@@ -8,7 +8,7 @@
 	<h1>Users currently registered:</h1>
 	<ul>
 		{% for yearbook_user in users %}
-		<li><a href="u/{{ yearbook_user.id }}">{{ yearbook_user }}</a></li>
+		<li><a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ yearbook_user.id }}">{{ yearbook_user }}</a></li>
 		{% endfor %}
 	</ul>
 {% endblock %}

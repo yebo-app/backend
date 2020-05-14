@@ -10,7 +10,7 @@
 	<p>Currently there are {{ institution.unique_members }} members of this school</p>
 	<ul>
 	{% for iy in institutionyears %}
-		<li><a href="year/{{ iy.id}}">{{ iy.school_year }}</a></li>
+		<li><a href="{{ request.scheme }}://{{ request.get_host }}/year/{{ iy.id }}">{{ iy.school_year }}</a></li>
 	{% endfor %}
 	</ul>
 {% endblock %}

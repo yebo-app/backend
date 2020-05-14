@@ -6,5 +6,5 @@
 
 {% block content %}
 	<h1>Homepage</h1>
-	<h4><a href="/institutions">Institutions</a></h4>
+	<h4><a href = "{{ request.scheme }}://{{ request.get_host }}/institutions">Institutions</a></h4>
 {% endblock %}

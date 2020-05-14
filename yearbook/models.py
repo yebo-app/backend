@@ -8,7 +8,7 @@ from datetime import date
 class YearbookUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars', default='default.png')
-    bio = models.TextField(max_length=140, default= "")
+    bio = models.CharField(max_length=140, default= "")
     
     def register(self, institution, start_year, end_year, is_educator):
         if start_year > end_year:
@@ -29,6 +29,9 @@ class YearbookUser(models.Model):
         s = Signature.create(self, recipient, message)
         s.save()
         return s
+    
+    def set_bio(self, bio):
+        self.bio = bio
 
     @classmethod
     def check_duplicate(cls, user):
@@ -141,7 +144,7 @@ class InstitutionYearProfile(models.Model):
 class Signature(models.Model):
     author = models.ForeignKey(YearbookUser, on_delete=models.CASCADE)
     recipient = models.ForeignKey(InstitutionYearProfile, on_delete=models.CASCADE)
-    signature = models.TextField(default= "")
+    signature = models.CharField(max_length= 280)
 
     @classmethod
     def create(cls, author, recipient, signature=""):

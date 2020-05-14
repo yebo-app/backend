@@ -1,0 +1,14 @@
+{% extends 'yearbook/base.html' %}
+
+{% block pagetitle %}
+{{ page_title }}
+{% endblock %}
+
+{% block content %}
+<h2>You have been logged out</h2>
+<div class="border-top pt-3">
+    <small class="text-muted">
+        <a href="{% url 'login' %}">Login to Yebo Again</a>
+    </small>
+</div>
+{% endblock %}
