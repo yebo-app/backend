@@ -58,17 +58,26 @@ def institutionyearprofile(request, id):
 
 def register(request):
     if request.method == 'POST':
-        form = YearbookUserRegistrationForm(request.POST)
-        if form.is_valid():
-            registration = form.save(commit=False)
-            YearbookUser.create(registration)
-            registration.save()
-            username = form.cleaned_data.get('username')
+        user_form = UserRegistrationForm(request.POST)
+        yearbook_user_form = YearbookUserRegistrationForm(request.POST)
+
+        if user_form.is_valid() and yearbook_user_form.is_valid():
+            user = user_form.save()
+            yearbook_user = yearbook_user_form.save(commit=False) # Don't save immediately to DB
+
+            yearbook_user.user = user # Pass in User from user form into YU form
+            yearbook_user.save() # Now save YU object with User object (one-to-one field)
+
+            username = user_form.cleaned_data.get('username')
+            password = user_form.cleaned_data.get('password')
             messages.success(request, f'Account created for {username}')
             return redirect('yu-update')
     else:
-        form = UserRegistrationForm()
-    return render(request, 'yearbook/register.html', {'form': form})
+        user_form = UserRegistrationForm()
+        yearbook_user_form = YearbookUserRegistrationForm()
+
+    context = {'user_form' : user_form, 'yearbook_user_form' : yearbook_user_form}
+    return render(request, 'yearbook/register.html', context)
 
 def sign(request, id):
     if request.method == 'POST':
