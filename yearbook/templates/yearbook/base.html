@@ -5,6 +5,15 @@
 
 	<body>
 		<p><a href="{{ request.scheme }}://{{ request.get_host }}">LOGO & NAVBAR (IN BASE TEMPLATE)</a></p>
+		<a href="{{ request.scheme }}://{{ request.get_host}}/u/{{user.id}}">{{user.first_name}}</a>
+		<a href="{% url 'logout' %}">logout</a>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endif %}
 		{% block content %}
 		{% endblock %}
 	</body>
