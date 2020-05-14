@@ -10,7 +10,8 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Join Yebo</legend>
-                {{ form.as_p}}
+                {{ user_form.as_p}}
+				{{ yearbook_user_form.as_p }}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Join Yebo!</button>
