@@ -71,7 +71,7 @@ def register(request):
             username = user_form.cleaned_data.get('username')
             password = user_form.cleaned_data.get('password')
             messages.success(request, f'Account created for {username}')
-            return redirect('yu-update')
+            return redirect('login')
     else:
         user_form = UserRegistrationForm()
         yearbook_user_form = YearbookUserRegistrationForm()
