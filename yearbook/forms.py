@@ -14,21 +14,14 @@ class UserRegistrationForm(UserCreationForm):
     last_name = forms.CharField()
     email = forms.EmailField()
 
+    def clean_email(self):
+        if User.objects.filter(email=self.cleaned_data['email']).exists():
+            raise forms.ValidationError("the given email is already registered")
+        return self.cleaned_data['email']
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name','username', 'email', 'password1', 'password2']
-    """
-    def save(self, commit=True):
-        user = super().save(commit=False)
-
-        user.first_name = self.cleaned_data('first_name')
-        user.last_name = self.cleaned_data('last_name')
-        user.email = self.cleaned_data('email')
-
-        if commit:
-            user.save()
-        return user
-    """
 
 class YearbookUserRegistrationForm(forms.ModelForm):
     class Meta:

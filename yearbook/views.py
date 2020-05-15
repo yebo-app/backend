@@ -63,6 +63,8 @@ def register(request):
 
         if user_form.is_valid() and yearbook_user_form.is_valid():
             user = user_form.save()
+            email = user_form.cleaned_data['email']
+
             yearbook_user = yearbook_user_form.save(commit=False) # Don't save immediately to DB
 
             yearbook_user.user = user # Pass in User from user form into YU form
