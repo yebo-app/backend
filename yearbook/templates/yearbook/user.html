@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{{ user.user.first_name }} {{ user.user.last_name }}</h1>
-	<p>{{ user.bio }}</p>
+	<h1>{{ yearbook_user.user.first_name }} {{ yearbook_user.user.last_name }}</h1>
+	<p>{{ yearbook_user.bio }}</p>
+	{% if user.yearbookuser == yearbook_user %}
+		<a href="{% url 'yu-update' %}">Update my profile</a>
+	{% endif %}
 {% endblock %}
 
