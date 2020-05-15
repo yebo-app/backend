@@ -1,0 +1,20 @@
+{% extends 'yearbook/base.html' %}
+
+{% block pagetitle %}
+{{ page_title }}
+{% endblock %}
+
+{% block content %}
+	<div class= "content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Create Institution</legend>
+                {{ form.as_p}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
