@@ -20,7 +20,7 @@ def home(request):
 def yearbookuser(request, id):
     yearbook_user = YearbookUser.objects.all().get(id=id)
     page_title = yearbook_user.user.first_name + " " + yearbook_user.user.last_name
-    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title}
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title}    
     return render(request, 'yearbook/user.html', context)
 
 def yearbookusers(request):
@@ -53,7 +53,19 @@ def institutionyearprofile(request, id):
     institutionyearprofile = InstitutionYearProfile.objects.all().get(id=id)
     signatures = list(Signature.objects.all().filter(recipient=institutionyearprofile))
     page_title = str(institutionyearprofile.yearbook_user) + " " + institutionyearprofile.institution_year.school_year + " " + institutionyearprofile.institution_year.institution.institution_name
-    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title}
+    
+    if request.method == "POST":
+        form = SignatureForm(request.POST)
+        if form.is_valid():
+            signature = form.save(commit=False)
+            signature.author = request.user.yearbookuser
+            signature.recipient = institutionyearprofile
+            signature.save()
+            # messages.success(request, f'Signature created for {username}')
+            return redirect('/profile/' + str(id))
+    else:
+        form = SignatureForm()
+    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'form' : form}
     return render(request, 'yearbook/institutionyearprofile.html', context)
 
 def register(request):
@@ -80,19 +92,6 @@ def register(request):
 
     context = {'user_form' : user_form, 'yearbook_user_form' : yearbook_user_form}
     return render(request, 'yearbook/register.html', context)
-
-def sign(request, id):
-    if request.method == 'POST':
-        form = SignatureForm(request.POST)
-        if form.is_valid():
-            signed = form.save(commit= False)
-            signed.author = request.YearbookUser
-            signed.recipient = request.InstitutionYearProfile
-            form.save()
-            return redirect('institutionyearprofile.html')
-    else:
-        form = SignatureForm()
-    return render(request, 'yearbook/institutionyearprofile.html', {'form': form})
 
 def updateyearbookuser(request):
     if request.method == 'POST':
