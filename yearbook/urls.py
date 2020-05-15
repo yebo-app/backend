@@ -7,6 +7,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('yearbookuserupdate/', views.updateyearbookuser, name='yu-update'),
     path('createinstitution/', views.createinstitution, name= 'create-institution'),
+    path('registeriyp/', views.registeriyp, name = 'registeriyp'),
+    path('iypupdate/', views.iypupdate, name = 'iypudate'),
     path('login/', auth_views.LoginView.as_view(template_name='yearbook/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='yearbook/logout.html'), name='logout'),
     path('passwordreset/', auth_views.PasswordResetView.as_view(template_name='yearbook/passwordresetform.html'), name='reset_password'),

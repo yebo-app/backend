@@ -100,7 +100,19 @@ def updateyearbookuser(request):
         form = YearbookUserUpdateForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Profile Updated Succeessfully')
+            messages.success(request, 'Profile Updated Successfully')
+            return redirect('home')
+    else:
+        form = YearbookUserUpdateForm()
+    return render(request, 'yearbook/yearbookuserupdate.html', {'form': form})
+
+def iypupdate(request):
+    if request.method == 'POST':
+        instance = get_object_or_404(YearbookUser, id=request.user.yearbookuser.id)
+        form = IYPUpdateForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile Updated Successfully')
             return redirect('home')
     else:
         form = YearbookUserUpdateForm()
@@ -118,6 +130,23 @@ def createinstitution(request):
         form = InstitutionCreationForm()
     context = {'form' : form}
     return render(request, 'yearbook/createinstitution.html', {'form': form})
+
+def registeriyp(request):
+    if request.method == 'POST':
+        instance = get_object_or_404(YearbookUser, id=request.user.yearbookuser.id)
+        form = InstitutionYearProfileCreationForm(request.POST)
+        if form.is_valid():
+            institution = form.cleaned_data.get("institution")
+            start_year = form.cleaned_data.get("start_year")
+            end_year = form.cleaned_data.get("end_year")
+            is_educator = form.cleaned_data.get("is_educator")
+            instance.register(institution, start_year, end_year, is_educator)
+            messages.success(request, 'Profiles Created')
+            return redirect('home')
+    else:
+        form = InstitutionYearProfileCreationForm()
+    context = {'form': form}
+    return render(request, 'yearbook/registeriyp.html', {'form': form})
 
 '''
 class UserViewset(viewsets.ModelViewSet):
