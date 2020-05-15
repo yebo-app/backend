@@ -17,21 +17,23 @@
 {% endif %}
 
 <h2>Signatures</h2>
+{% if user.is_authenticated and user.yearbookuser != institutionyearprofile.yearbook_user %}
 <div class="content-section"></div>
-<form method="POST">
-	{% csrf_token %}
-	<fieldset class="form-group">
-		<legend class="border-bottom mb-4">Sign Yearbook!</legend>
-		{{form.as_p}}
-	</fieldset>
-	<div class="form-group">
-		<button class="btn btn-outline-info" type="submit">Sign</button>
-	</div>
-</form>
+	<form method="POST">
+		{% csrf_token %}
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4">Sign Yearbook!</legend>
+			{{ form.as_p }}
+		</fieldset>
+		<div class="form-group">
+			<button class="btn btn-outline-info" type="submit">Sign</button>
+		</div>
+	</form>
 </div>
+{% endif %}
+
 {% for signature in signatures %}
-<strong>From <a
-		href="{{ request.scheme }}://{{ request.get_host }}/u/{{ signature.author.id }}">{{ signature.author }}</a></strong>
-<p>{{ signature.signature }}</p>
+	<strong>From <a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ signature.author.id }}">{{ signature.author }}</a></strong>
+	<p>{{ signature.signature }}</p>
 {% endfor %}
 {% endblock %}
