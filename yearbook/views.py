@@ -95,8 +95,8 @@ def sign(request, id):
     return render(request, 'yearbook/institutionyearprofile.html', {'form': form})
 
 def updateyearbookuser(request):
-    instance = get_object_or_404(YearbookUser, id=request.user.yearbookuser.id)
     if request.method == 'POST':
+        instance = get_object_or_404(YearbookUser, id=request.user.yearbookuser.id)
         form = YearbookUserUpdateForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
