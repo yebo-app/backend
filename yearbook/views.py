@@ -18,9 +18,9 @@ def home(request):
     return render(request, 'yearbook/home.html', context)
 
 def yearbookuser(request, id):
-    user = YearbookUser.objects.all().get(id=id)
-    page_title = user.user.first_name + " " + user.user.last_name
-    context = {'user' : user, 'page_title' : page_title}
+    yearbook_user = YearbookUser.objects.all().get(id=id)
+    page_title = yearbook_user.user.first_name + " " + yearbook_user.user.last_name
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title}
     return render(request, 'yearbook/user.html', context)
 
 def yearbookusers(request):
@@ -93,11 +93,11 @@ def sign(request, id):
     return render(request, 'yearbook/institutionyearprofile.html', {'form': form})
 
 def updateyearbookuser(request):
+    instance = get_object_or_404(YearbookUser, id=request.user.yearbookuser.id)
     if request.method == 'POST':
-        form = YearbookUserUpdateForm(request.POST)
+        form = YearbookUserUpdateForm(request.POST, instance=instance)
         if form.is_valid():
-            updated = form.save(commit= False)
-            updated.set_bio(updated)
+            form.save()
             messages.success(request, 'Profile Updated Succeessfully')
             return redirect('home')
     else:
