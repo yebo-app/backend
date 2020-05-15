@@ -98,10 +98,25 @@ def updateyearbookuser(request):
         if form.is_valid():
             updated = form.save(commit= False)
             updated.set_bio(updated)
+            messages.success(request, 'Profile Updated Succeessfully')
             return redirect('home')
     else:
         form = YearbookUserUpdateForm()
     return render(request, 'yearbook/yearbookuserupdate.html', {'form': form})
+
+def createinstitution(request):
+    if request.method == 'POST':
+        form = InstitutionCreationForm(request.POST)
+        if form.is_valid():
+            created = form.save(commit= False)
+            Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
+            messages.success(request, 'Institution Created')
+            return redirect('home')
+    else:
+        form = InstitutionCreationForm()
+    context = {'form' : form}
+    return render(request, 'yearbook/createinstitution.html', {'form': form})
+
 '''
 class UserViewset(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')

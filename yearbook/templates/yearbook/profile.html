@@ -1,0 +1,26 @@
+{% extends 'yearbook/base.html' %}
+
+{% block pagetitle %}
+{{ page_title }}
+{% endblock %}
+
+{% block content %}
+<h1>Yebo Profile</h1>
+<p>{{ user.first_name }} {{ user.last_name }}</p>
+
+<p>Picture Goes Here</p>
+
+<h2>Yearbooks</h2>
+<div class="content-section"></div>
+<form method="POST">
+	{% csrf_token %}
+	<fieldset class="form-group">
+		<legend class="border-bottom mb-4">Sign Yearbook!</legend>
+		{{form.as_p}}
+	</fieldset>
+	<div class="form-group">
+		<button class="btn btn-outline-info" type="submit">Sign</button>
+	</div>
+</form>
+</div>
+{% endblock %}

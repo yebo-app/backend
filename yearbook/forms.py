@@ -44,3 +44,8 @@ class YearbookUserUpdateForm(forms.ModelForm):
     class Meta:
         model = YearbookUser
         fields= ['bio']
+
+class InstitutionCreationForm(forms.ModelForm):
+    class Meta:
+        model = Institution
+        fields  = ['institution_name', 'institution_city', 'institution_state', 'institution_year_founded']
