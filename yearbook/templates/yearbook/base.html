@@ -133,7 +133,7 @@
 				<div class="navbar-container main-menu-content" data-menu="menu-container">
 					<!-- include /static/includes/mixins-->
 					<ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-						<li class="nav-item"><a class="nav-link" href="#"><i class="feather icon-home"></i><span data-i18n="Dashboard">Home</span></a></li>
+						<li class="nav-item"><a class="nav-link" href="{{ request.scheme }}://{{ request.get_host }}"><i class="feather icon-home"></i><span data-i18n="Dashboard">Home</span></a></li>
 						<li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-zap"></i><span data-i18n="Starter kit">Sign</span></a>
 							<ul class="dropdown-menu">
 								
@@ -169,7 +169,7 @@
 		<div class="drag-target"></div>
 		 <!-- BEGIN: Footer-->
 		 <footer class="footer footer-static footer-light navbar-shadow">
-			<p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/yebo_portfolio" target="_blank">yebo!</a>All rights Reserved</span><span class="float-md-right d-none d-md-block"></span>
+			<p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="{{ request.scheme }}://{{ request.get_host }}" target="_blank">yebo!</a>All rights Reserved</span><span class="float-md-right d-none d-md-block"></span>
 				<button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
 			</p>
 		</footer>
