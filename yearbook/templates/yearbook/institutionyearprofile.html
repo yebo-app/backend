@@ -12,6 +12,9 @@
 <p>Educator</p>
 {% endif %}
 <p>Picture Goes Here</p>
+{% if user.yearbookuser == yearbook_user %}
+		<p><a href="{% url 'iypupdate' %}">Update my profile</a></p>
+{% endif %}
 
 <h2>Signatures</h2>
 <div class="content-section"></div>
