@@ -36,9 +36,21 @@ class SignatureForm(forms.ModelForm):
 class YearbookUserUpdateForm(forms.ModelForm):
     class Meta:
         model = YearbookUser
-        fields= ['bio']
+        fields= ['bio', 'avatar']
+
+class IYPUpdateForm(forms.ModelForm):
+    class Meta:
+        model = InstitutionYearProfile
+        fields = ['yearbook_picture']
 
 class InstitutionCreationForm(forms.ModelForm):
     class Meta:
         model = Institution
         fields  = ['institution_name', 'institution_city', 'institution_state', 'institution_year_founded']
+
+class InstitutionYearProfileCreationForm(forms.Form):
+    institution = forms.ModelChoiceField(Institution.objects.all())
+    start_year = forms.IntegerField()
+    end_year = forms.IntegerField()
+    is_educator = forms.BooleanField(label='Check if you were a teacher', required= False)
+   

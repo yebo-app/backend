@@ -6,9 +6,19 @@
 
 {% block content %}
 	<h1>{{ yearbook_user.user.first_name }} {{ yearbook_user.user.last_name }}</h1>
+	<img class="profile-pic" src="{{request.yearbook_user.user.avatar}}">
 	<p>{{ yearbook_user.bio }}</p>
 	{% if user.yearbookuser == yearbook_user %}
 		<a href="{% url 'yu-update' %}">Update my profile</a>
 	{% endif %}
+	{% if user.yearbookuser == yearbook_user %}
+		<a href="{% url 'registeriyp' %}">Add School Information</a>
+	{% endif %}
+	<h1>Education History:</h1>
+	<ul>
+		{% for iyp in institutionyearprofiles %}
+		<li><a href="{{ request.scheme }}://{{ request.get_host }}/profile/{{ iyp.id }}">{{ iyp.institution_year }}</a></li>
+		{% endfor %}
+	</ul>
 {% endblock %}
 
