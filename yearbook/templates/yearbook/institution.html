@@ -8,9 +8,26 @@
 	<h1>{{ institution.institution_name }}</h1>
 	<p>Founded in {{ institution.institution_year_founded|add:"-1" }}</p>
 	<p>Currently there are {{ institution.unique_members }} members of this school</p>
-	<ul>
-	{% for iy in institutionyears %}
-		<li><a href="{{ request.scheme }}://{{ request.get_host }}/year/{{ iy.id }}">{{ iy.school_year }}</a></li>
-	{% endfor %}
-	</ul>
+	<div class="row">
+		<div class="col-12">
+		{% for iy in institutionyears %}
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">{{ iy.school_year }}</h4>
+			</div>
+			<div class="card-content">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<p>A year full of grace</p>
+							<!-- basic buttons -->
+							<a type="button" href="{{ request.scheme }}://{{ request.get_host }}/year/{{ iy.id }}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	</div>
 {% endblock %}

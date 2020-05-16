@@ -5,11 +5,37 @@
 {% endblock %}
 
 {% block content %}
-	<a href="/createinstitution/">Create New Institution</a>
+	<a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" href="/createinstitution/">Create New Institution</a>
 	<h1>Institutions currently registered:</h1>
-	<ul>
-		{% for institution in institutions %}
-			<li><a href="/institutions/{{ institution.id }}">{{ institution }}</a></li>
-		{% endfor %}
-	</ul>
+	
+	<div class="row match-height">
+	{% for institution in institutions %}
+	
+	<div class="col-xl-4 col-md-6 col-sm-12">
+		<div class="card">
+			<div class="card-content">
+				<div class="card-body" class="clickable" location= "/institutions/{{ institution.id }}" >
+					<img class="card-img img-fluid mb-1" src="#" alt="Picture for {{ institution }}">
+					<h5 class="mt-1"><a href= "/institutions/{{ institution.id }}">{{ institution }}</a></h5>
+					<p class="card-text">Founded in {{ institution.institution_year_founded|add:"-1" }}</p>
+					<hr class="my-1">
+					<div class="d-flex justify-content-between mt-2">
+						<div class="float-left">
+							<p class="font-medium-2 mb-0">{{ institution.unique_members }}</p>
+							<p class="">Members</p>
+						</div>
+						<div class="float-right">
+							<p class="font-medium-2 mb-0">NIL</p>
+							<p class="">Last Signed</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	{% endfor %}
+	
+	</div>
 {% endblock %}
