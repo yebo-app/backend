@@ -2,9 +2,8 @@
     File Name: swiper.js
     Description: swiper plugin
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 $(document).ready(function () {
   //initialize swiper when document ready

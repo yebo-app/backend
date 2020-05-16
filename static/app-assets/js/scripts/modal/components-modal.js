@@ -3,7 +3,9 @@
     Description: Modals are streamlined, but flexible, dialog prompts with the minimum
 				required functionality and smart defaults.
     ----------------------------------------------------------------------------------------
-*/
+    Item Name: yebo!  - 
+    Author URL: hhttp://www.themeforest.net/user/pixinvent
+==========================================================================================*/
 (function(window, document, $) {
 	'use strict';
 

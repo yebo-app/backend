@@ -10,20 +10,20 @@
     transform: scale(1); } }
 
 .line-scale-party > div:nth-child(1) {
-  animation-delay: -0.08s;
-  animation-duration: 1.27s; }
+  animation-delay: 0.57s;
+  animation-duration: 1.18s; }
 
 .line-scale-party > div:nth-child(2) {
-  animation-delay: 0.04s;
-  animation-duration: 0.74s; }
+  animation-delay: -0.02s;
+  animation-duration: 0.92s; }
 
 .line-scale-party > div:nth-child(3) {
-  animation-delay: 0.67s;
-  animation-duration: 1.09s; }
+  animation-delay: 0.7s;
+  animation-duration: 0.66s; }
 
 .line-scale-party > div:nth-child(4) {
-  animation-delay: 0.34s;
-  animation-duration: 0.37s; }
+  animation-delay: 0.8s;
+  animation-duration: 0.9s; }
 
 .line-scale-party > div {
   background-color: #b8c2cc;

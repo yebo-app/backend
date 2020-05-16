@@ -22,7 +22,7 @@
     text-decoration: none; }
   .btn:focus, .fc .fc-button:focus, .btn.focus, .fc .focus.fc-button {
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(115, 103, 240, 0.25); }
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25); }
   .btn.disabled, .fc .disabled.fc-button, .btn:disabled, .fc .fc-button:disabled {
     opacity: 0.65; }
 
@@ -34,26 +34,26 @@ fieldset:disabled .fc a.fc-button,
 
 .btn-primary {
   color: #fff;
-  background-color: #7367f0;
-  border-color: #7367f0; }
+  background-color: #000000;
+  border-color: #000000; }
   .btn-primary:hover {
     color: #fff;
-    background-color: #5344ed;
-    border-color: #4839eb; }
+    background-color: black;
+    border-color: black; }
   .btn-primary:focus, .btn-primary.focus {
-    box-shadow: 0 0 0 0.2rem rgba(136, 126, 242, 0.5); }
+    box-shadow: 0 0 0 0.2rem rgba(38, 38, 38, 0.5); }
   .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
-    background-color: #7367f0;
-    border-color: #7367f0; }
+    background-color: #000000;
+    border-color: #000000; }
   .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
   .show > .btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #4839eb;
-    border-color: #3e2dea; }
+    background-color: black;
+    border-color: black; }
     .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
     .show > .btn-primary.dropdown-toggle:focus {
-      box-shadow: 0 0 0 0.2rem rgba(136, 126, 242, 0.5); }
+      box-shadow: 0 0 0 0.2rem rgba(38, 38, 38, 0.5); }
 
 .btn-secondary {
   color: #2a2e30;
@@ -217,27 +217,27 @@ fieldset:disabled .fc a.fc-button,
       box-shadow: 0 0 0 0.2rem rgba(64, 64, 64, 0.5); }
 
 .btn-outline-primary, .fc .fc-button {
-  color: #7367f0;
-  border-color: #7367f0; }
+  color: #000000;
+  border-color: #000000; }
   .btn-outline-primary:hover, .fc .fc-button:hover {
     color: #fff;
-    background-color: #7367f0;
-    border-color: #7367f0; }
+    background-color: #000000;
+    border-color: #000000; }
   .btn-outline-primary:focus, .fc .fc-button:focus, .btn-outline-primary.focus, .fc .focus.fc-button {
-    box-shadow: 0 0 0 0.2rem rgba(115, 103, 240, 0.5); }
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5); }
   .btn-outline-primary.disabled, .fc .disabled.fc-button, .btn-outline-primary:disabled, .fc .fc-button:disabled {
-    color: #7367f0;
+    color: #000000;
     background-color: transparent; }
   .btn-outline-primary:not(:disabled):not(.disabled):active, .fc .fc-button:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .fc .fc-button:not(:disabled):not(.disabled).active,
   .show > .btn-outline-primary.dropdown-toggle,
   .fc .show > .dropdown-toggle.fc-button {
     color: #fff;
-    background-color: #7367f0;
-    border-color: #7367f0; }
+    background-color: #000000;
+    border-color: #000000; }
     .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .fc .fc-button:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .fc .fc-button:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-primary.dropdown-toggle:focus,
     .fc .show > .dropdown-toggle.fc-button:focus {
-      box-shadow: 0 0 0 0.2rem rgba(115, 103, 240, 0.5); }
+      box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5); }
 
 .btn-outline-secondary {
   color: #b8c2cc;
@@ -388,10 +388,10 @@ fieldset:disabled .fc a.fc-button,
 
 .btn-link {
   font-weight: 400;
-  color: #7367f0;
+  color: #000000;
   text-decoration: none; }
   .btn-link:hover {
-    color: #5e50ee;
+    color: black;
     text-decoration: none; }
   .btn-link:focus, .btn-link.focus {
     text-decoration: none;
@@ -476,7 +476,7 @@ input[type="button"].btn-block {
   background-color: #f1f1f1; }
 
 .fc .fc-view-container .fc-body .fc-day-top.fc-today a {
-  background-color: #7367f0;
+  background-color: #000000;
   color: #fff;
   padding: 5px 10px;
   margin-top: 2px;
@@ -507,17 +507,17 @@ input[type="button"].btn-block {
   height: auto;
   outline: none;
   text-shadow: none;
-  background-color: #7367f0;
+  background-color: #000000;
   color: #fff; }
   .fc .fc-button:not(:disabled).fc-button-active {
-    background-color: #4839eb; }
+    background-color: black; }
   .fc .fc-button:focus {
     outline: none;
     box-shadow: none; }
 
 .fc .fc-event {
-  background: #7367f0;
-  border: 1px solid #5e50ee;
+  background: #000000;
+  border: 1px solid black;
   padding: 1px 8px;
   border-radius: 1rem;
   border: none;

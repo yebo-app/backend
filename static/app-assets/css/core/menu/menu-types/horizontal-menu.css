@@ -4,9 +4,9 @@
 	It support light & dark version, filpped layout, right side icons, borders menu for
 	item seperation.
 	----------------------------------------------------------------------------------------
-	 Theme
+	Item Name: yebo!  - Theme
 	
-	 
+	
 ==========================================================================================*/
 /*========================================================
         DARK LAYOUT
@@ -118,7 +118,7 @@
       align-items: center;
       margin-right: 0; }
       .horizontal-menu .header-navbar.navbar-brand-center .navbar-header .navbar-brand .brand-logo {
-        background: url("../../../../../app-assets/images/logo/ yebo-logo.png") no-repeat;
+        background: url("../../../../../app-assets/images/logo/yebo!-logo.png") no-repeat;
         background-position: -65px -54px;
         height: 24px;
         width: 35px; }
@@ -179,7 +179,7 @@
           color: #626262; }
       .horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation > li > .dropdown-menu .active > a {
         background: #f8f8f8;
-        color: #7367f0;
+        color: #000000;
         font-weight: 500; }
       .horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation > li > .dropdown-menu .open.active > a {
         color: #626262;
@@ -195,8 +195,8 @@
       background: #f8f8f8;
       border-radius: 4px; }
     .horizontal-menu .header-navbar.navbar-horizontal ul#main-menu-navigation > li.active > a {
-      background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
-      box-shadow: 0px 0px 6px 1px rgba(115, 103, 240, 0.6);
+      background: linear-gradient(118deg, black, rgba(0, 0, 0, 0.7));
+      box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.6);
       color: #fff;
       border-radius: 4px; }
 
@@ -211,7 +211,7 @@
   text-transform: uppercase; }
 
 .horizontal-menu .navbar-dark .nav-item.active > a {
-  border-bottom: 2px solid #7367f0;
+  border-bottom: 2px solid #000000;
   background-color: #313c50; }
 
 .horizontal-menu .content.app-content .content-area-wrapper {
@@ -261,9 +261,8 @@
     light & dark version, filpped layout, right side icons, native scroll and borders menu
     item seperation.
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 /*========================================================
         DARK LAYOUT

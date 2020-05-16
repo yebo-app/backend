@@ -2,9 +2,9 @@
   File Name: customizer.js
   Description: Template customizer js.
   ----------------------------------------------------------------------------------------
-   
+  Item Name: yebo!  - 
   
-   
+  Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 (function (window, document, $) {

@@ -182,7 +182,7 @@ pre {
 
 .form-control::placeholder {
   font-size: 0.85rem;
-  color: rgba(34, 41, 47, 0.4);
+  color: rgba(0, 0, 0, 0.4);
   transition: all .2s ease; }
 
 .form-control:-ms-input-placeholder {
@@ -193,7 +193,7 @@ pre {
   transition: all .2s ease; }
 
 .form-control:focus ~ .form-control-position i {
-  color: #7367f0; }
+  color: #000000; }
 
 /* Form specific Scss */
 label {
@@ -289,8 +289,8 @@ select.form-control:not([multiple="multiple"]) {
   top: 0.08rem; }
 
 .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
-  background-color: #7367f0;
-  border-color: #7367f0; }
+  background-color: #000000;
+  border-color: #000000; }
 
 /* Floating label Group */
 .form-label-group {
@@ -310,17 +310,17 @@ select.form-control:not([multiple="multiple"]) {
     padding: .6rem;
     pointer-events: none;
     cursor: text;
-    color: rgba(34, 41, 47, 0.4);
+    color: rgba(0, 0, 0, 0.4);
     font-size: .85rem;
     opacity: 0; }
   .form-label-group > input, .form-label-group textarea {
     padding: .6rem; }
     .form-label-group > input:focus:not(:placeholder-shown) ~ label, .form-label-group > input:not(:active):not(:placeholder-shown) ~ label, .form-label-group textarea:focus:not(:placeholder-shown) ~ label, .form-label-group textarea:not(:active):not(:placeholder-shown) ~ label {
-      color: #7367f0 !important;
+      color: black !important;
       transition: all .25s ease-in-out;
       opacity: 1; }
     .form-label-group > input:not(:focus):not(:placeholder-shown) ~ label, .form-label-group textarea:not(:focus):not(:placeholder-shown) ~ label {
-      color: rgba(34, 41, 47, 0.4) !important; }
+      color: rgba(0, 0, 0, 0.4) !important; }
     .form-label-group > input:not(:placeholder-shown) ~ label, .form-label-group textarea:not(:placeholder-shown) ~ label {
       padding: .25rem 0;
       font-size: .7rem;
@@ -329,7 +329,7 @@ select.form-control:not([multiple="multiple"]) {
   .form-label-group.has-icon-left > label {
     left: 36px; }
 
-/*  yebo Custom Checkbox */
+/* yebo! Custom Checkbox */
 .vs-checkbox-con {
   position: relative;
   display: flex;
@@ -346,10 +346,10 @@ select.form-control:not([multiple="multiple"]) {
     top: 0; }
     .vs-checkbox-con input:checked ~ .vs-checkbox {
       transform: rotate(0deg);
-      border-color: #7367f0; }
+      border-color: #000000; }
       .vs-checkbox-con input:checked ~ .vs-checkbox .vs-checkbox--check {
         transform: translate(0);
-        background-color: #7367f0; }
+        background-color: #000000; }
         .vs-checkbox-con input:checked ~ .vs-checkbox .vs-checkbox--check .vs-icon {
           transform: translate(0);
           line-height: 1.2;
@@ -360,7 +360,7 @@ select.form-control:not([multiple="multiple"]) {
         font-size: 1.2rem; }
     .vs-checkbox-con input:active:checked + .vs-checkbox .vs-checkbox--check {
       transform: translate(3px);
-      background-color: #7367f0; }
+      background-color: #000000; }
       .vs-checkbox-con input:active:checked + .vs-checkbox .vs-checkbox--check .vs-icon {
         opacity: 1;
         transform: translate(6px); }
@@ -404,7 +404,7 @@ select.form-control:not([multiple="multiple"]) {
         align-items: center;
         color: #fff; }
 
-/*  yebo Custom Radio */
+/* yebo! Custom Radio */
 .vs-radio-con {
   position: relative;
   display: flex;
@@ -422,8 +422,8 @@ select.form-control:not([multiple="multiple"]) {
       transform: rotate(0deg);
       outline: 0; }
       .vs-radio-con input:checked ~ .vs-radio .vs-radio--circle {
-        background: #7367f0;
-        box-shadow: 0 3px 12px 0 rgba(115, 103, 240, 0.4);
+        background: black;
+        box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.4);
         opacity: 1;
         transform: scale(1); }
       .vs-radio-con input:checked ~ .vs-radio .vs-radio--border {
@@ -584,7 +584,7 @@ select.form-control:not([multiple="multiple"]) {
 
 /* Textarea with Counter */
 .counter-value {
-  background-color: #7367f0;
+  background-color: #000000;
   color: #fff;
   padding: 1px 6px;
   font-size: .6rem;
@@ -807,7 +807,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .btn.btn-outline-white:hover,
 .btn-white:hover {
-  color: #22292f !important; }
+  color: #000000 !important; }
 
 button,
 html [type="button"],
@@ -914,7 +914,7 @@ html [type="button"],
     cursor: pointer; }
     .dropdown .dropdown-menu .dropdown-item:hover {
       background-color: #f8f8f8;
-      color: #7367f0; }
+      color: #000000; }
     .dropdown .dropdown-menu .dropdown-item.active {
       color: #fff; }
     .dropdown .dropdown-menu .dropdown-item:active {
@@ -1109,9 +1109,8 @@ html [type="button"],
     Description: Contain header navigation bar, vertical main navigation bar and
     horiznotal main navigation bar related SCSS.
     ----------------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ================================================================================================*/
 .navbar-dark .hamburger-inner,
 .navbar-dark .hamburger-inner::before,
@@ -1190,7 +1189,7 @@ html [type="button"],
     .header-navbar .navbar-container .bookmark-wrapper ul.nav li > a.nav-link {
       padding: 1.4rem 0.5rem 1.35rem; }
       .header-navbar .navbar-container .bookmark-wrapper ul.nav li > a.nav-link i:hover {
-        color: #7367f0; }
+        color: #000000; }
     .header-navbar .navbar-container .bookmark-input {
       z-index: 1; }
     .header-navbar .navbar-container ul.nav li.dropdown .dropdown-menu {
@@ -1215,7 +1214,7 @@ html [type="button"],
       .header-navbar .navbar-container ul.nav li.dropdown-user .dropdown-menu-right .dropdown-item {
         padding: 10px; }
         .header-navbar .navbar-container ul.nav li.dropdown-user .dropdown-menu-right .dropdown-item:hover, .header-navbar .navbar-container ul.nav li.dropdown-user .dropdown-menu-right .dropdown-item:active {
-          background: #7367f0;
+          background: #000000;
           color: #fff !important; }
     .header-navbar .navbar-container ul.nav li a.dropdown-user-link {
       padding: 0.7rem 1rem;
@@ -1247,7 +1246,7 @@ html [type="button"],
       font-size: 1.5rem;
       color: #626262; }
       .header-navbar .navbar-container ul.nav li i.ficon:hover {
-        color: #7367f0; }
+        color: #000000; }
     .header-navbar .navbar-container ul.nav li .media-list {
       max-height: 18.2rem; }
     .header-navbar .navbar-container ul.nav li .scrollable-container {
@@ -1859,7 +1858,7 @@ body[data-col="1-column"] .header-navbar.floating-nav {
 
 .badge {
   color: #fff;
-  background-color: #7367f0;
+  background-color: #000000;
   font-weight: 400; }
   .badge[class*='badge-'] [class*='icon-'] {
     line-height: 1; }
@@ -1941,7 +1940,7 @@ body[data-col="1-column"] .header-navbar.floating-nav {
     .nav.nav-pills .nav-item.dropdown.show .nav-link {
       color: #fff; }
     .nav.nav-pills .nav-item.dropdown.show .dropdown-item.active:hover {
-      color: #7367f0; }
+      color: #000000; }
     .nav.nav-pills.nav-justified {
       width: 100%; }
       .nav.nav-pills.nav-justified .nav-item {
@@ -1973,9 +1972,9 @@ body[data-col="1-column"] .header-navbar.floating-nav {
           .nav.nav-pills.nav-justified .nav-link.active:hover, .nav.nav-pills.nav-justified .nav-link.active:focus {
             border: none; }
     .nav.nav-pills.nav-active-bordered-pill .nav-item a.nav-link.active {
-      border: 1px solid #7367f0;
+      border: 1px solid #000000;
       border-radius: 0.25rem;
-      color: #7367f0;
+      color: #000000;
       background-color: #fff; }
   .nav.nav-tabs {
     border: none;
@@ -1995,7 +1994,7 @@ body[data-col="1-column"] .header-navbar.floating-nav {
         .nav.nav-tabs .nav-item .nav-link.active {
           border: none;
           position: relative;
-          color: #7367f0;
+          color: #000000;
           transition: all .2s ease;
           background-color: transparent; }
           .nav.nav-tabs .nav-item .nav-link.active:after {
@@ -2006,8 +2005,8 @@ body[data-col="1-column"] .header-navbar.floating-nav {
             position: absolute;
             bottom: 0;
             top: 100%;
-            background: linear-gradient(30deg, #7367f0, rgba(115, 103, 240, 0.5)) !important;
-            box-shadow: 0 0 8px 0 rgba(115, 103, 240, 0.5) !important;
+            background: linear-gradient(30deg, black, rgba(0, 0, 0, 0.5)) !important;
+            box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5) !important;
             transform: translateY(0px);
             transition: all .2s linear; }
         .nav.nav-tabs .nav-item .nav-link.dropdown-toggle::after {
@@ -2136,9 +2135,9 @@ body[data-col="1-column"] .header-navbar.floating-nav {
   File Name: progress.scss
   Description: Extended bootstrap progress bar scss.
   ----------------------------------------------------------------------------------------
-   
+  Item Name: yebo!  - 
   
-   
+  
   ----------------------------------------------------------------------------------------
 
   Modifiers:       `progress-lg`
@@ -2166,9 +2165,9 @@ body[data-col="1-column"] .header-navbar.floating-nav {
 	File Name: list-group.scss
 	Description: Contain list item, list group related extended SCSS.
 	----------------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-	 
+	
 ================================================================================================*/
 ul.list-inline li {
   display: inline-block; }
@@ -2180,7 +2179,7 @@ ul.list-inline.list-inline-pipe > li + li:before {
 .list-group .list-group-item {
   line-height: 1.5; }
   .list-group .list-group-item.active:hover {
-    background-color: #7367f0; }
+    background-color: #000000; }
   .list-group .list-group-item.active:focus {
     outline: 0; }
     .list-group .list-group-item.active:focus:hover {
@@ -2208,7 +2207,7 @@ ul.list-inline.list-inline-pipe > li + li:before {
   box-shadow: 0px 2px 10px 0px rgba(184, 194, 204, 0.3); }
 
 .users-list li .badge {
-  color: #22292f; }
+  color: #000000; }
 
 .toast-bs-container {
   z-index: 1040;
@@ -2342,7 +2341,7 @@ _:-ms-lang(x),
 .pagination .page-item {
   border-radius: 5rem; }
   .pagination .page-item.prev-item .page-link, .pagination .page-item.next-item .page-link, .pagination .page-item.first .page-link, .pagination .page-item.last .page-link {
-    color: #7367f0; }
+    color: #000000; }
   .pagination .page-item.prev-item.disabled .page-link, .pagination .page-item.next-item.disabled .page-link, .pagination .page-item.first.disabled .page-link, .pagination .page-item.last.disabled .page-link {
     color: #6c757d; }
   .pagination .page-item:not(.prev-item) .page-link, .pagination .page-item:not(.next-item) .page-link, .pagination .page-item:not(.first) .page-link, .pagination .page-item:not(.last) .page-link, .pagination .page-item:not(.active) .page-link {
@@ -2357,7 +2356,7 @@ _:-ms-lang(x),
         content: "\e843";
         font-family: 'feather'; }
       .pagination .page-item.prev-item .page-link:hover {
-        background: #7367f0;
+        background: #000000;
         color: #fff; }
     .pagination .page-item.prev-item ~ .page-item:nth-child(2) {
       border-top-left-radius: 5rem;
@@ -2381,7 +2380,7 @@ _:-ms-lang(x),
         content: "\e844";
         font-family: 'feather'; }
       .pagination .page-item.next-item .page-link:hover {
-        background: #7367f0;
+        background: #000000;
         color: #fff; }
   .pagination .page-item.prev .page-link:before, .pagination .page-item.previous .page-link:before {
     content: "\e843";
@@ -2403,14 +2402,14 @@ _:-ms-lang(x),
     .pagination .page-item .page-link:focus {
       box-shadow: none; }
     .pagination .page-item .page-link:hover {
-      color: #7367f0; }
+      color: #000000; }
   .pagination .page-item.active {
     background-color: #f0f0f0;
     border-radius: 0; }
     .pagination .page-item.active .page-link {
       z-index: 3;
       border-radius: 5rem;
-      background-color: #7367f0;
+      background-color: #000000;
       color: #fff;
       transform: scale(1.05); }
   .pagination .page-item:first-child:not(.prev-item).active {
@@ -2451,7 +2450,7 @@ _:-ms-lang(x),
     .modal .modal-header .close span {
       font-weight: 400;
       font-size: 2rem;
-      color: #7367f0; }
+      color: #000000; }
     .modal .modal-header .close:hover, .modal .modal-header .close:focus, .modal .modal-header .close:active {
       opacity: 1;
       outline: none;
@@ -2464,7 +2463,7 @@ _:-ms-lang(x),
     .modal .modal-header[class*="bg-"] .modal-title {
       color: #fff; }
   .modal .modal-header.bg-primary .close span {
-    color: #7367f0; }
+    color: #000000; }
   .modal .modal-header.bg-success .close span {
     color: #28a745; }
   .modal .modal-header.bg-info .close span {
@@ -2511,7 +2510,7 @@ _:-ms-lang(x),
     border-top-left-radius: 0.3rem;
     border-top-right-radius: 0.3rem; }
   .popover.bs-popover-bottom .arrow:after {
-    border-bottom-color: #7367f0; }
+    border-bottom-color: #000000; }
 
 .icon-bg-circle {
   color: #fff;

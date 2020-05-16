@@ -2,9 +2,9 @@
 	File Name: editor-quill.js
 	Description: Quill is a modern rich text editor built for compatibility and extensibility.
 	----------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-   
+  
 ==========================================================================================*/
 (function (window, document, $) {
   'use strict';

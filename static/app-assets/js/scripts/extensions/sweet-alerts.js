@@ -2,9 +2,9 @@
 	File Name: sweet-alerts.js
 	Description: A beautiful replacement for javascript alerts
 	----------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-	 
+	Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 $(document).ready(function () {
 
@@ -45,7 +45,7 @@ $(document).ready(function () {
       type: 'info',
       html:
         'You can use <b>bold text</b>, ' +
-        '<a href="https://yebo.com/" target="_blank">links</a> ' +
+        '<a href="https://pixinvent.com/" target="_blank">links</a> ' +
         'and other HTML tags',
       showCloseButton: true,
       showCancelButton: true,

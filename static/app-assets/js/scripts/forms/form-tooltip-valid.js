@@ -2,7 +2,9 @@
     File Name: form-tooltip-valid.js
     Description: form tooltip validation etc..
     ----------------------------------------------------------------------------------------
-*/
+    Item Name: yebo!  - 
+    Author URL: hhttp://www.themeforest.net/user/pixinvent
+==========================================================================================*/
 (function(window, document, $) {
   'use strict';
 

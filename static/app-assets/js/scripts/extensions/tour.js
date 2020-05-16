@@ -2,9 +2,9 @@
 	File Name: tour.js
 	Description: tour
 	----------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-	 
+	Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 $(document).ready(function () {

@@ -5,7 +5,7 @@
   background: url(../../../app-assets/images/pages/faq.jpg) no-repeat;
   background-size: cover; }
   .faq-bg .form-control:focus ~ .form-control-position i {
-    color: #7367f0; }
+    color: #000000; }
 
 .faq .faq-content .faq-table-content {
   cursor: pointer;

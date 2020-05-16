@@ -3,7 +3,9 @@
     Description: Select2 is a jQuery-based replacement for select boxes.
     It supports searching, remote data sets, and pagination of results.
     ----------------------------------------------------------------------------------------
-*/
+    Item Name: yebo!  - 
+    Author URL: hhttp://www.themeforest.net/user/pixinvent
+==========================================================================================*/
 (function(window, document, $) {
 	'use strict';
 

@@ -3,7 +3,9 @@
     Description: Provide pagination links for your site or app with the multi-page
                 pagination component.
     ----------------------------------------------------------------------------------------
-*/
+    Item Name: yebo!  - 
+    Author URL: hhttp://www.themeforest.net/user/pixinvent
+==========================================================================================*/
 (function (window, document, $) {
   'use strict';
   // default pagination

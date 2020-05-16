@@ -2,9 +2,9 @@
   File Name: footer.js
   Description: Template footer js.
   ----------------------------------------------------------------------------------------
-   
+  Item Name: yebo!  - 
   
-   
+  Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 //Check to see if the window is top if not then display button

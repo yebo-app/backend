@@ -2,7 +2,9 @@
     File Name: picker-date-time.js
     Description: Pick a date/time Picker, Date Range Picker JS
     ----------------------------------------------------------------------------------------
-*/
+    Item Name: yebo!  - 
+    Author URL: hhttp://www.themeforest.net/user/pixinvent
+==========================================================================================*/
 (function(window, document, $) {
     'use strict';
 

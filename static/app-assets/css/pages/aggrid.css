@@ -11,7 +11,7 @@
   /*** TABLE SCROLLBAR ***/ }
   .aggrid .ag-icon-checkbox-checked,
   .aggrid .ag-icon-checkbox-indeterminate {
-    color: #7367f0 !important; }
+    color: #000000 !important; }
   .aggrid .ag-root-wrapper-body {
     min-height: calc(100% - 56px); }
   .aggrid .ag-header-cell-text {
@@ -44,7 +44,7 @@
       .aggrid .ag-paging-panel .ag-paging-button.ag-disabled {
         opacity: 0.5 !important; }
     .aggrid .ag-paging-panel span[ref="lbCurrent"] {
-      background-color: #7367f0; }
+      background-color: #000000; }
     .aggrid .ag-paging-panel span[ref="lbTotal"] {
       background-color: #dae1e7;
       color: #626262 !important; }

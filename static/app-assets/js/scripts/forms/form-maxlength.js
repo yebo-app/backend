@@ -4,9 +4,9 @@
 		feedback to the user about the maximum length of the field where the user is
 		inserting text. Uses the HTML5 attribute "maxlength" to work.
 	----------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-	 
+	Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 (function (window, document, $) {
   'use strict';
