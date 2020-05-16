@@ -55,18 +55,18 @@
   border: none;
   border-radius: 50%;
   background: #fff;
-  border: 5px solid #7367f0; }
+  border: 5px solid #000000; }
   .noUi-handle:after, .noUi-handle:before {
     display: none; }
 
 .circle-filled .noUi-handle {
-  background: #7367f0;
+  background: #000000;
   border-radius: 50%; }
   .circle-filled .noUi-handle:after, .circle-filled .noUi-handle:before {
     display: none; }
 
 .square .noUi-handle {
-  background: #7367f0;
+  background: #000000;
   border-radius: 3px; }
   .square .noUi-handle:before {
     display: block;
@@ -118,7 +118,7 @@
   height: 5px; }
 
 .noUi-connect {
-  background: #7367f0;
+  background: #000000;
   box-shadow: none; }
 
 .noUi-vertical {
@@ -131,7 +131,7 @@
     top: -5px;
     left: -6px; }
   .noUi-vertical.square .noUi-handle {
-    background: #7367f0;
+    background: #000000;
     border-radius: 3px; }
     .noUi-vertical.square .noUi-handle:before {
       display: block;

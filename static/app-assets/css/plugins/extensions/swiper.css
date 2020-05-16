@@ -2,9 +2,8 @@
     File Name: swiper.scss
     Description: swiper plugin scss.
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 /*========================================================
         DARK LAYOUT
@@ -24,15 +23,15 @@
   padding: 2rem 5.5rem;
   cursor: pointer; }
   .swiper-centered-slides.swiper-container .swiper-slide.swiper-slide-active {
-    border: 2px solid #7367f0; }
+    border: 2px solid #000000; }
     .swiper-centered-slides.swiper-container .swiper-slide.swiper-slide-active i {
-      color: #7367f0; }
+      color: #000000; }
 
 .swiper-centered-slides .swiper-button-next:after,
 .swiper-centered-slides .swiper-button-prev:after {
   border-radius: 50%;
-  background-color: #7367f0;
-  box-shadow: 0 2px 4px 0 rgba(34, 41, 47, 0.5) !important; }
+  background-color: #000000;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5) !important; }
 
 .swiper-centered-slides-2.swiper-container .swiper-slide {
   font-weight: 500;
@@ -42,8 +41,8 @@
   cursor: pointer; }
   .swiper-centered-slides-2.swiper-container .swiper-slide.swiper-slide-active {
     color: #fff;
-    background-color: #7367f0;
-    box-shadow: 0 3px 6px 0 rgba(115, 103, 240, 0.5) !important; }
+    background-color: #000000;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.5) !important; }
 
 /* cube effect */
 .swiper-cube-effect.swiper-container {
@@ -58,7 +57,7 @@
 
 .gallery-thumbs {
   padding: 10px 0;
-  background: #22292f; }
+  background: #000000; }
   .gallery-thumbs .swiper-slide {
     opacity: 0.4; }
   .gallery-thumbs .swiper-slide-thumb-active {

@@ -2,9 +2,8 @@
     File Name: content-sidebar.js
     Description: Invoices list datables configurations
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 
 $(document).ready(function() {

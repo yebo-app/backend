@@ -63,7 +63,7 @@
     border-radius: 50%; }
 
 .product-color-options .selected .b-primary {
-  border-color: #7367f0; }
+  border-color: #000000; }
 
 .product-color-options .selected .b-success {
   border-color: #28c76f; }
@@ -75,4 +75,4 @@
   border-color: #ff9f43; }
 
 .product-color-options .selected .b-black {
-  border-color: #22292f; }
+  border-color: #000000; }

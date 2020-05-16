@@ -54,8 +54,8 @@
     position: absolute; }
   .dataTables_wrapper .dt-checkboxes-select-all input:after,
   .dataTables_wrapper .dt-checkboxes-select input:after {
-    background-color: #7367f0;
-    border: 2px solid #7367f0;
+    background-color: #000000;
+    border: 2px solid #000000;
     font-family: "feather";
     content: "\e83f";
     font-size: 0.75rem;
@@ -74,7 +74,7 @@
     transform: translate(3px); }
   .dataTables_wrapper .dt-checkboxes-select-all input:checked:before,
   .dataTables_wrapper .dt-checkboxes-select input:checked:before {
-    border: 2px solid #7367f0;
+    border: 2px solid #000000;
     transform: rotate(0deg); }
   .dataTables_wrapper .dt-checkboxes-select-all input:checked:after,
   .dataTables_wrapper .dt-checkboxes-select input:checked:after {

@@ -2,9 +2,9 @@
   File Name: app.js
   Description: Template related app JS.
   ----------------------------------------------------------------------------------------
-   
+  Item Name: yebo!  - 
   
-   
+  Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 (function (window, document, $) {

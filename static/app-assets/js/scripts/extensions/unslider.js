@@ -2,9 +2,8 @@
     File Name: sweet-alerts.js
     Description: A beautiful replacement for javascript alerts
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 $(document).ready(function(){
 

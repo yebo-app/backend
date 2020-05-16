@@ -2,9 +2,9 @@
 	File Name: noui-slider.js
 	Description: noUiSlider is a lightweight JavaScript range slider library.
 	----------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-	 
+	
 ==========================================================================================*/
 $(document).ready(function () {
 

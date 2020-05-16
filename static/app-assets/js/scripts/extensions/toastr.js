@@ -2,9 +2,9 @@
 	File Name: toastr.js
 	Description: Toastr notifications
 	----------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-	 
+	Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 $(document).ready(function () {
 

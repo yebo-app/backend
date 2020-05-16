@@ -1,9 +1,9 @@
 //  File Name: app-ecommerce-details.js
 //  Description: App Ecommerce Details js.
 //  ----------------------------------------------------------------------------------------------
-//   
+//  Item Name: yebo!  - 
 //  
-//   
+//  
 // ================================================================================================
 $(document).ready(function () {
   var mySwiper14 = new Swiper('.swiper-responsive-breakpoints', {

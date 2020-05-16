@@ -100,7 +100,7 @@ html {
     html body p {
       line-height: 1.5rem; }
     html body.bg-full-screen-image {
-      background: url(../../app-assets/images/pages/ yebo-login-bg.jpg) no-repeat center center;
+      background: url(../../app-assets/images/pages/yebo!-login-bg.jpg) no-repeat center center;
       background-size: cover; }
     html body.blank-page .content {
       margin-left: 0; }
@@ -121,7 +121,7 @@ html {
     html body[data-col="1-column"] .content, html body[data-col="1-column"] .footer {
       margin-left: 0px !important; }
   html .pace .pace-progress {
-    background: #7367f0; }
+    background: #000000; }
 
 .app-content.center-layout {
   overflow: hidden; }
@@ -180,9 +180,8 @@ html {
     File Name: sidebar.scss
     Description: content sidebar specific scss.
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 .sidebar {
   position: relative;
@@ -258,9 +257,8 @@ body.fixed-footer footer.footer-dark {
     File Name: navigations.scss
     Description: Common mixin for menus, contain dark and light version scss.
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 .main-menu {
   z-index: 1031;
@@ -319,15 +317,15 @@ body.fixed-footer footer.footer-dark {
         .main-menu.menu-light .navigation > li:not(.open) > ul {
           display: none; }
         .main-menu.menu-light .navigation > li.active > a {
-          background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
-          box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.7);
+          background: linear-gradient(118deg, black, rgba(0, 0, 0, 0.7));
+          box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.7);
           color: #fff;
           font-weight: 400;
           border-radius: 4px; }
         .main-menu.menu-light .navigation > li .active {
           background: #f0f0f0; }
           .main-menu.menu-light .navigation > li .active > a {
-            color: #7367f0;
+            color: #000000;
             margin-bottom: 0; }
           .main-menu.menu-light .navigation > li .active .hover > a {
             background: whitesmoke; }
@@ -350,8 +348,8 @@ body.fixed-footer footer.footer-dark {
           .main-menu.menu-light .navigation > li ul .hover > a, .main-menu.menu-light .navigation > li ul:hover > a {
             color: #6c6c6c; }
           .main-menu.menu-light .navigation > li ul .active {
-            background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
-            box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.7);
+            background: linear-gradient(118deg, black, rgba(0, 0, 0, 0.7));
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.7);
             border-radius: 4px; }
             .main-menu.menu-light .navigation > li ul .active > a {
               color: #fff; }
@@ -437,15 +435,15 @@ body.fixed-footer footer.footer-dark {
         .main-menu.menu-dark .navigation > li:not(.open) > ul {
           display: none; }
         .main-menu.menu-dark .navigation > li.active > a {
-          background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
-          box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.7);
+          background: linear-gradient(118deg, black, rgba(0, 0, 0, 0.7));
+          box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.7);
           color: #fff;
           font-weight: 400;
           border-radius: 4px; }
         .main-menu.menu-dark .navigation > li .active {
           background: #090d22; }
           .main-menu.menu-dark .navigation > li .active > a {
-            color: #7367f0;
+            color: #000000;
             margin-bottom: 0; }
           .main-menu.menu-dark .navigation > li .active .hover > a {
             background: #0c102a; }
@@ -468,8 +466,8 @@ body.fixed-footer footer.footer-dark {
           .main-menu.menu-dark .navigation > li ul .hover > a, .main-menu.menu-dark .navigation > li ul:hover > a {
             color: #e6e6e6; }
           .main-menu.menu-dark .navigation > li ul .active {
-            background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
-            box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.7);
+            background: linear-gradient(118deg, black, rgba(0, 0, 0, 0.7));
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.7);
             border-radius: 4px; }
             .main-menu.menu-dark .navigation > li ul .active > a {
               color: #fff; }
@@ -542,12 +540,12 @@ body.fixed-footer footer.footer-dark {
       align-items: center;
       margin-top: 1.35rem; }
       .main-menu .navbar-header .navbar-brand .brand-logo {
-        background: url("../../app-assets/images/logo/ yebo-logo.png") no-repeat;
+        background: url("../../app-assets/images/logo/yebo!-logo.png") no-repeat;
         background-position: -65px -54px;
         height: 24px;
         width: 35px; }
       .main-menu .navbar-header .navbar-brand .brand-text {
-        color: #7367f0;
+        color: #000000;
         padding-left: 1rem;
         font-weight: 600;
         letter-spacing: 0.01rem;
@@ -619,13 +617,13 @@ body.fixed-footer footer.footer-dark {
   right: -2px;
   padding: 0; }
   .dropdown-notification .dropdown-menu.dropdown-menu-right::before {
-    background: #7367f0;
-    border-color: #7367f0; }
+    background: #000000;
+    border-color: #000000; }
 
 .dropdown-notification .dropdown-menu-header {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  background: #7367f0;
+  background: #000000;
   color: #fff;
   text-align: center; }
   .dropdown-notification .dropdown-menu-header .dropdown-header h3 {
@@ -1297,9 +1295,9 @@ body.fixed-footer .main-menu.menu-fixed {
 	File Name: search.scss
 	Description: Search  functionality.
 	----------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-	 
+	
 ==========================================================================================*/
 .navbar-container a.nav-link-search {
   float: left; }
@@ -1396,7 +1394,7 @@ body.fixed-footer .main-menu.menu-fixed {
     background: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2); }
     .navbar-container .bookmark-input input:focus {
-      border: 1px solid #7367f0; }
+      border: 1px solid #000000; }
   .navbar-container .bookmark-input .search-list {
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08); }
 
@@ -2207,9 +2205,8 @@ body.navbar-static .navbar-container .search-input.open {
     File Name: demo.scss
     Description: CSS used for demo purpose only. Remove this css from your project.
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 .fonticon-container > .fonticon-wrap {
   float: left;
@@ -2227,7 +2224,7 @@ body.navbar-static .navbar-container .search-input.open {
     width: 100px; }
 
 .fonticon-container:hover i {
-  color: #7367f0;
+  color: #000000;
   font-size: 2.9rem;
   transform: scale(1.3); }
 
@@ -2279,9 +2276,9 @@ body.navbar-static .navbar-container .search-input.open {
 	File Name: customizer.scss
 	Description: CSS used for demo purpose only. Remove this css from your project.
 	----------------------------------------------------------------------------------------
-	 
+	Item Name: yebo!  - 
 	
-	 
+	
 ==========================================================================================*/
 .customizer {
   width: 400px;
@@ -2314,7 +2311,7 @@ body.navbar-static .navbar-container .search-input.open {
     .customizer .customizer-close i {
       font-size: 1.71rem; }
   .customizer .customizer-toggle {
-    background: #7367f0;
+    background: #000000;
     color: #fff;
     display: block;
     box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.1);
@@ -2538,7 +2535,7 @@ Input Icon
   .has-icon-left .form-control-position i {
     position: relative;
     left: 5px;
-    color: rgba(34, 41, 47, 0.4); }
+    color: rgba(0, 0, 0, 0.4); }
 
 input[type="color"] {
   height: calc( 1.25em + 1.4rem + 1px); }
@@ -2579,7 +2576,7 @@ input[type="month"].form-control {
 
 .floating-label-form-group-with-focus label,
 .floating-label-form-group-with-value label {
-  color: #7367f0 !important;
+  color: #000000 !important;
   text-transform: uppercase;
   font-weight: 400; }
 
@@ -2598,7 +2595,7 @@ input[type="month"].form-control {
   .select2-container--classic .select2-selection--single:focus,
   .select2-container--default .select2-selection--single:focus {
     outline: 0;
-    border-color: #7367f0 !important;
+    border-color: #000000 !important;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15) !important; }
   .select2-container--classic .select2-selection--single .select2-selection__rendered i,
   .select2-container--default .select2-selection--single .select2-selection__rendered i {
@@ -2609,7 +2606,7 @@ input[type="month"].form-control {
 
 .select2-container--classic.select2-container--open .select2-selection--single,
 .select2-container--default.select2-container--open .select2-selection--single {
-  border-color: #7367f0 !important;
+  border-color: #000000 !important;
   outline: 0; }
 
 .select2-container--classic.select2-container--focus,
@@ -2617,7 +2614,7 @@ input[type="month"].form-control {
   outline: 0; }
   .select2-container--classic.select2-container--focus .select2-selection--multiple,
   .select2-container--default.select2-container--focus .select2-selection--multiple {
-    border-color: #7367f0 !important;
+    border-color: #000000 !important;
     outline: 0; }
 
 .select2-container--classic .select2-selection--multiple,
@@ -2627,12 +2624,12 @@ input[type="month"].form-control {
   .select2-container--classic .select2-selection--multiple:focus,
   .select2-container--default .select2-selection--multiple:focus {
     outline: 0;
-    border-color: #7367f0 !important;
+    border-color: #000000 !important;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15) !important; }
   .select2-container--classic .select2-selection--multiple .select2-selection__choice,
   .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #7367f0 !important;
-    border-color: #4839eb !important;
+    background-color: #000000 !important;
+    border-color: black !important;
     color: #fff;
     padding: 5px; }
   .select2-container--classic .select2-selection--multiple .select2-selection__rendered li .select2-search__field,
@@ -2719,7 +2716,7 @@ input[type="month"].form-control {
       margin-top: 0; }
 
 .select2 .form-control::focus {
-  border-color: #7367f0 !important; }
+  border-color: #000000 !important; }
 
 table.dataTable {
   border: 2px solid #f8f8f8; }
@@ -2756,9 +2753,9 @@ table.dataTable {
       border-bottom: 1px solid #dae1e7;
       border-right: 1px solid #dae1e7; }
   table.dataTable tbody tr.selected {
-    background-color: rgba(115, 103, 240, 0.05) !important;
-    color: #7367f0 !important;
-    box-shadow: 0 0 1px 0 #7367f0 !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    color: black !important;
+    box-shadow: 0 0 1px 0 black !important;
     border-radius: 5px; }
     table.dataTable tbody tr.selected td, table.dataTable tbody tr.selected th {
       border-bottom: 0; }

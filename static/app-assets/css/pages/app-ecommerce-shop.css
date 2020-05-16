@@ -31,7 +31,7 @@
   top: -7px; }
 
 .ecommerce-application .sidebar-shop .vs-radio-con input:checked ~ span {
-  color: #7367f0; }
+  color: #000000; }
 
 .ecommerce-application .sidebar-shop .filter-title {
   font-weight: 700; }
@@ -51,7 +51,7 @@
     .ecommerce-application .sidebar-shop .range-slider.noUi-horizontal .noUi-handle .noUi-tooltip {
       opacity: 0;
       font-size: .75rem;
-      background-color: #7367f0;
+      background-color: #000000;
       color: #fff;
       border-radius: .357rem;
       border: none;
@@ -94,9 +94,9 @@
       .ecommerce-application .ecommerce-header-items .view-options .view-btn-option .btn.view-btn i {
         font-size: 1.7rem; }
       .ecommerce-application .ecommerce-header-items .view-options .view-btn-option .btn.view-btn.active {
-        color: #7367f0 !important; }
+        color: #000000 !important; }
         .ecommerce-application .ecommerce-header-items .view-options .view-btn-option .btn.view-btn.active:hover, .ecommerce-application .ecommerce-header-items .view-options .view-btn-option .btn.view-btn.active:active {
-          color: #7367f0 !important; }
+          color: #000000 !important; }
       .ecommerce-application .ecommerce-header-items .view-options .view-btn-option .btn.view-btn:hover, .ecommerce-application .ecommerce-header-items .view-options .view-btn-option .btn.view-btn:active {
         color: #626262; }
   .ecommerce-application .ecommerce-header-items .view-options .select2 {
@@ -154,7 +154,7 @@
   .ecommerce-application .ecommerce-card .item-name a {
     color: #626262; }
     .ecommerce-application .ecommerce-card .item-name a:hover {
-      color: #7367f0; }
+      color: #000000; }
 
 .ecommerce-application .ecommerce-card .item-description {
   font-size: .875rem; }
@@ -179,7 +179,7 @@
     color: #ea5455; }
 
 .ecommerce-application .ecommerce-card .cart {
-  background-color: #7367f0;
+  background-color: #000000;
   color: #fff; }
   .ecommerce-application .ecommerce-card .cart .view-in-cart {
     color: #fff; }
@@ -262,7 +262,7 @@
           cursor: pointer;
           font-size: .875rem; }
           .ecommerce-application .list-view .ecommerce-card .card-content .card-body .item-company .company-name {
-            color: #7367f0; }
+            color: #000000; }
       .ecommerce-application .list-view .ecommerce-card .card-content .item-options {
         padding: 1rem; }
         .ecommerce-application .list-view .ecommerce-card .card-content .item-options .item-wrapper {
@@ -330,7 +330,7 @@
     .ecommerce-application .checkout-options .coupons .coupons-title p {
       margin-bottom: .5rem; }
   .ecommerce-application .checkout-options .coupons .apply-coupon {
-    color: #7367f0;
+    color: #000000;
     font-weight: 500;
     cursor: pointer; }
     .ecommerce-application .checkout-options .coupons .apply-coupon p {
@@ -352,7 +352,7 @@
   .ecommerce-application .checkout-options .detail .detail-amt.discount-amt {
     color: #28c76f; }
   .ecommerce-application .checkout-options .detail .detail-amt.emi-details {
-    color: #7367f0;
+    color: #000000;
     cursor: pointer; }
   .ecommerce-application .checkout-options .detail .detail-amt.total-amt {
     font-weight: 600; }
@@ -364,10 +364,10 @@
     top: 3px; }
 
 .ecommerce-application .wizard.checkout-tab-steps .steps ul li.error > a {
-  color: #7367f0; }
+  color: #000000; }
   .ecommerce-application .wizard.checkout-tab-steps .steps ul li.error > a .step {
-    border-color: #7367f0;
-    background-color: #7367f0; }
+    border-color: #000000;
+    background-color: #000000; }
 
 .ecommerce-application .wizard.checkout-tab-steps #checkout-address .form-group .error {
   color: #ea5455; }

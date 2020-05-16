@@ -2,9 +2,8 @@
         File Name: basic-inputs.js
         Description: Input field js for label type
         ----------------------------------------------------------------------------------------
-         
-        
-         
+        Item Name: yebo!  -     
+        Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 (function(window, document, $) {

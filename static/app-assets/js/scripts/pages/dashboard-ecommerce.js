@@ -2,9 +2,8 @@
     File Name: dashboard-ecommerce.js
     Description: dashboard ecommerce page content with Apexchart Examples
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 
 $(window).on("load", function () {

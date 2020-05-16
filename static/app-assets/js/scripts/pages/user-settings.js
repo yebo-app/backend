@@ -2,9 +2,8 @@
     File Name: user-settings.js
     Description: User Settings jQuery Plugin Intialization
     --------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 
 // profile picture upload

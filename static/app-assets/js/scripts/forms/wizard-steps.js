@@ -2,9 +2,8 @@
     File Name: wizard-steps.js
     Description: wizard steps page specific js
     ----------------------------------------------------------------------------------------
-     
+    Item Name: yebo!  - 
     
-     
 ==========================================================================================*/
 
 // Wizard tabs with numbers setup

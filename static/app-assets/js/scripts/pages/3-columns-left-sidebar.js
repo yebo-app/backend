@@ -2,7 +2,9 @@
     File Name: 3-columns-left-sidebar.js
     Description: Invoices list datables configurations
     ----------------------------------------------------------------------------------------
-*/
+    Item Name: yebo!  - 
+    Author URL: hhttp://www.themeforest.net/user/pixinvent
+==========================================================================================*/
 
 $(document).ready(function() {
     /***********************************

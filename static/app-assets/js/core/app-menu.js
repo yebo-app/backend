@@ -3,9 +3,9 @@
   Description: Menu navigation, custom scrollbar, hover scroll bar, multilevel menu
   initialization and manipulations
   ----------------------------------------------------------------------------------------
-   
+  Item Name: yebo!  - 
   
-   
+  Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 (function (window, document, $) {
   'use strict';

@@ -22,7 +22,7 @@
         color: #ea5455; }
     .users-list-wrapper a i.users-edit-icon:hover,
     .users-list-wrapper span i.users-edit-icon:hover {
-      color: #7367f0; }
+      color: #000000; }
 
 .users-list-wrapper .badge {
   text-transform: uppercase; }
@@ -48,4 +48,4 @@
   padding-bottom: 0; }
 
 .page-users-edit .users-avatar-shadow {
-  box-shadow: 2px 4px 14px 0 rgba(34, 41, 47, 0.4); }
+  box-shadow: 2px 4px 14px 0 rgba(0, 0, 0, 0.4); }
