@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-	<a href="{% url 'create-institution' $}">Create New Institution</a>
+	<a href="/createinstitution/">Create New Institution</a>
 	<h1>Institutions currently registered:</h1>
 	<ul>
 		{% for institution in institutions %}
