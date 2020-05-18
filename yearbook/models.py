@@ -121,6 +121,7 @@ class InstitutionYear(models.Model):
 class InstitutionYearProfile(models.Model):
     yearbook_user = models.ForeignKey(YearbookUser, on_delete=models.CASCADE)
     yearbook_picture = models.ImageField(upload_to='yearbook_pictures', default='default.png')
+    yearbook_quote = models.CharField(max_length=140, default= "")
     institution_year = models.ForeignKey(InstitutionYear, on_delete=models.CASCADE)
     is_educator = models.BooleanField(default= False)
    
@@ -131,12 +132,15 @@ class InstitutionYearProfile(models.Model):
                 raise Exception("InstitutionYearProfile with YearbookUser: " + str(yearbook_user) + " and InstitutionYear: " + str(institution_year) + " already exists.")
 
     @classmethod
-    def create(cls, yearbook_user, institution_year, is_educator=False):
+    def create(cls, yearbook_user, institution_year, yearbook_quote = "", is_educator=False):
         InstitutionYearProfile.check_duplicate(yearbook_user, institution_year) 
-        return cls(yearbook_user=yearbook_user, institution_year=institution_year, is_educator=is_educator)
+        return cls(yearbook_user=yearbook_user, institution_year=institution_year, yearbook_quote= yearbook_quote, is_educator=is_educator)
 
     def set_is_educator(self, is_educator):
         self.is_educator = is_educator
+    
+    def set_yearbook_quote(self, yearbook_quote):
+        self.yearbook_quote = yearbook_quote
 
     def __str__(self):
         return self.yearbook_user.user.first_name + " " + self.yearbook_user.user.last_name + " | " + str(self.institution_year) + (" | Educator" if self.is_educator else "")
