@@ -130,9 +130,9 @@ def createinstitution(request):
     context = {'form' : form}
     return render(request, 'yearbook/createinstitution.html', {'form': form})
 
-def registeriyp(request):
+def registeriyp(request, id):
     if request.method == 'POST':
-        instance = get_object_or_404(YearbookUser, id=request.user.yearbookuser.id)
+        instance = get_object_or_404(YearbookUser, id=id)
         form = InstitutionYearProfileCreationForm(request.POST)
         if form.is_valid():
             institution = form.cleaned_data.get("institution")

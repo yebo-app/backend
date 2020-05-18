@@ -9,7 +9,7 @@
 	<img class="profile-pic" src="{{request.yearbook_user.user.avatar}}">
 	<p>{{ yearbook_user.bio }}</p>
 	{% if user.yearbookuser == yearbook_user %}
-		<a href="{% url 'yu-update' %}">Update my profile</a>
+		<a href="{% url 'yu-update' yearbook_user.id %}">Update my profile</a>
 	{% endif %}
 	{% if user.yearbookuser == yearbook_user %}
 		<a href="{% url 'registeriyp' yearbook_user.id %}">Add School Information</a>
