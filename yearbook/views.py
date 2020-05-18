@@ -20,7 +20,16 @@ def home(request):
 def yearbookuser(request, id):
     yearbook_user = YearbookUser.objects.all().get(id=id)
     page_title = yearbook_user.user.first_name + " " + yearbook_user.user.last_name
-    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title}    
+
+    # Construct education history dictionary
+    history = {}
+    for iyp in InstitutionYearProfile.objects.all().filter(yearbook_user=yearbook_user):
+        institution = iyp.institution_year.institution
+        if institution not in history.keys():
+            history[institution] = []
+        history[institution].append(iyp)
+    
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'history' : history}    
     return render(request, 'yearbook/user.html', context)
 
 def yearbookusers(request):
