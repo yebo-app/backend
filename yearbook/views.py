@@ -94,8 +94,8 @@ def register(request):
     return render(request, 'yearbook/register.html', context)
 
 def updateyearbookuser(request, id):
+    instance = get_object_or_404(YearbookUser, id=id)
     if request.method == 'POST':
-        instance = get_object_or_404(YearbookUser, id=id)
         form = YearbookUserUpdateForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
@@ -103,11 +103,11 @@ def updateyearbookuser(request, id):
             return redirect('home')
     else:
         form = YearbookUserUpdateForm()
-    return render(request, 'yearbook/yearbookuserupdate.html', {'form': form})
+    return render(request, 'yearbook/yearbookuserupdate.html', {'form' : form, 'yearbookuser' : instance})
 
 def iypupdate(request, id):
+    instance = get_object_or_404(InstitutionYearProfile, id=id)
     if request.method == 'POST':
-        instance = get_object_or_404(InstitutionYearProfile, id=id)
         form = IYPUpdateForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
@@ -115,7 +115,7 @@ def iypupdate(request, id):
             return redirect('home')
     else:
         form = IYPUpdateForm()
-    return render(request, 'yearbook/iypupdate.html', {'form': form})
+    return render(request, 'yearbook/iypupdate.html', {'form' : form, 'institutionyearprofile' : instance})
 
 def createinstitution(request):
     if request.method == 'POST':
