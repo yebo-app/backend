@@ -105,7 +105,7 @@ def register(request):
 def updateyearbookuser(request, id):
     instance = get_object_or_404(YearbookUser, id=id)
     if request.method == 'POST':
-        form = YearbookUserUpdateForm(request.POST, instance=instance)
+        form = YearbookUserUpdateForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile Updated Successfully')
@@ -117,7 +117,7 @@ def updateyearbookuser(request, id):
 def iypupdate(request, id):
     instance = get_object_or_404(InstitutionYearProfile, id=id)
     if request.method == 'POST':
-        form = IYPUpdateForm(request.POST, instance=instance)
+        form = IYPUpdateForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile Updated Successfully')

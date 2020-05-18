@@ -17,9 +17,9 @@
 
 <p>Quote: {{ institutionyearprofile.yearbook_quote }}</p>
 
-<img class="round profile-pic" src="{{ institutionyearprofile.yearbook_user.avatar.url }}" height=80 width=80>
+<img class="round profile-pic" src="{{ institutionyearprofile.yearbook_picture.url }}" height=80 width=80>
 {% if user.is_authenticated and user.yearbookuser == institutionyearprofile.yearbook_user %}
-		<p><a href="{% url 'iypupdate' institutionyearprofile.id %}">Update my profile</a></p>
+	<p><a href="{% url 'iypupdate' institutionyearprofile.id %}">Update my profile</a></p>
 {% endif %}
 
 <h2>Signatures</h2>
