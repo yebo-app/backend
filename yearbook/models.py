@@ -7,7 +7,7 @@ from datetime import date
 
 class YearbookUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='avatars', default='default.png')
+    avatar = models.ImageField(upload_to='avatars', default='default_profile_picture.png')
     bio = models.CharField(max_length=140, default= "")
     
     def register(self, institution, start_year, end_year, is_educator):
@@ -52,6 +52,7 @@ class Institution(models.Model):
     institution_city = models.CharField(max_length=100, default= "")
     institution_state = models.CharField(max_length=2, default= "")
     institution_year_founded = models.IntegerField(default=date.today().year)
+    logo = models.ImageField(upload_to='logos', default='default_institution_logo.png')
     unique_members = models.IntegerField(default=0)
 
     @classmethod
@@ -120,8 +121,8 @@ class InstitutionYear(models.Model):
 
 class InstitutionYearProfile(models.Model):
     yearbook_user = models.ForeignKey(YearbookUser, on_delete=models.CASCADE)
-    yearbook_picture = models.ImageField(upload_to='yearbook_pictures', default='default.png')
-    yearbook_quote = models.CharField(max_length=140, default= "")
+    yearbook_picture = models.ImageField(upload_to='yearbook_pictures', default='default_profile_picture.png')
+    yearbook_quote = models.CharField(max_length=140, default="")
     institution_year = models.ForeignKey(InstitutionYear, on_delete=models.CASCADE)
     is_educator = models.BooleanField(default= False)
    
@@ -132,9 +133,9 @@ class InstitutionYearProfile(models.Model):
                 raise Exception("InstitutionYearProfile with YearbookUser: " + str(yearbook_user) + " and InstitutionYear: " + str(institution_year) + " already exists.")
 
     @classmethod
-    def create(cls, yearbook_user, institution_year, yearbook_quote = "", is_educator=False):
+    def create(cls, yearbook_user, institution_year, yearbook_quote="", is_educator=False):
         InstitutionYearProfile.check_duplicate(yearbook_user, institution_year) 
-        return cls(yearbook_user=yearbook_user, institution_year=institution_year, yearbook_quote= yearbook_quote, is_educator=is_educator)
+        return cls(yearbook_user=yearbook_user, institution_year=institution_year, yearbook_quote=yearbook_quote, is_educator=is_educator)
 
     def set_is_educator(self, is_educator):
         self.is_educator = is_educator
