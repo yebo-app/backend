@@ -6,15 +6,20 @@
 
 {% block content %}
 <h1>Yearbook Profile</h1>
+<h2>{{ institutionyearprofile.institution_year }}</h2>
 <h3><a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ institutionyearprofile.yearbook_user.id }}">{{ institutionyearprofile.yearbook_user.user.first_name }}
 		{{ institutionyearprofile.yearbook_user.user.last_name }}</a></h3>
-<p>{{ institutionyearprofile.yearbook_quote}}</p>
 {% if institutionyearprofile.is_educator %}
-<p>Educator</p>
+	<p>Educator</p>
+{% else %}
+	<p>Student</p>
 {% endif %}
-<p>Picture Goes Here</p>
+
+<p>Quote: {{ institutionyearprofile.yearbook_quote }}</p>
+
+<img class="round profile-pic" src="{{ institutionyearprofile.yearbook_picture.url }}" height=80 width=80>
 {% if user.is_authenticated and user.yearbookuser == institutionyearprofile.yearbook_user %}
-		<p><a href="{% url 'iypupdate' institutionyearprofile.id %}">Update my profile</a></p>
+	<p><a href="{% url 'iypupdate' institutionyearprofile.id %}">Update my profile</a></p>
 {% endif %}
 
 <h2>Signatures</h2>

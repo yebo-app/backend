@@ -6,19 +6,26 @@
 
 {% block content %}
 	<h1>{{ yearbook_user.user.first_name }} {{ yearbook_user.user.last_name }}</h1>
-	<img class="profile-pic" src="{{request.yearbook_user.user.avatar}}">
-	<p>{{ yearbook_user.bio }}</p>
+	<img class="round profile-pic" src="{{ yearbook_user.avatar.url }}" height=80 width=80>
+	<p>Bio: {{ yearbook_user.bio }}</p>
 	{% if user.yearbookuser == yearbook_user %}
-		<a href="{% url 'yu-update' yearbook_user.id %}">Update my profile</a>
-	{% endif %}
-	{% if user.yearbookuser == yearbook_user %}
-		<a href="{% url 'registeriyp' yearbook_user.id %}">Add School Information</a>
+		<p><a href="{% url 'yu-update' yearbook_user.id %}">Update my profile</a></p>
+		<p><a href="{% url 'registeriyp' yearbook_user.id %}">Add School Information</a></p>
 	{% endif %}
 	<h1>Education History:</h1>
-	<ul>
-		{% for iyp in institutionyearprofiles %}
-		<li><a href="{{ request.scheme }}://{{ request.get_host }}/profile/{{ iyp.id }}">{{ iyp.institution_year }}</a></li>
+	{% if not history %}
+		<p>This user has not joined any schools.</p>
+	{% else %}
+		{% for institution, iyps in history.items %}
+			<ul>
+			<li><a href="{% url 'institution' institution.id %}">{{ institution }}</a></li>
+			<ul>
+			{% for iyp in iyps %}
+				<li><a href="{% url 'institutionyearprofile' iyp.id %}">{{ iyp.institution_year.school_year }}</a></li>
+			{% endfor %}
+			</ul>
+			</ul>
 		{% endfor %}
-	</ul>
+	{% endif %}
 {% endblock %}
 
