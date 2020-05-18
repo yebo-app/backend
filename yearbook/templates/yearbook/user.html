@@ -12,7 +12,7 @@
 		<a href="{% url 'yu-update' %}">Update my profile</a>
 	{% endif %}
 	{% if user.yearbookuser == yearbook_user %}
-		<a href="{% url 'registeriyp' %}">Add School Information</a>
+		<a href="{% url 'registeriyp' yearbook_user.id %}">Add School Information</a>
 	{% endif %}
 	<h1>Education History:</h1>
 	<ul>
