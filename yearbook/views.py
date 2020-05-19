@@ -47,7 +47,17 @@ def institution(request, id):
 def institutions(request):
     institutions = list(Institution.objects.all())
     page_title = 'Institutions'
-    context = {'institutions' : institutions, 'page_title' : page_title}
+    if request.method == 'POST':
+        form = InstitutionCreationForm(request.POST)
+        if form.is_valid():
+            created = form.save(commit= False)
+            Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
+            messages.success(request, 'Institution Created')
+            return redirect('/institutions/')
+    else:
+        form = InstitutionCreationForm()
+
+    context = {'institutions' : institutions, 'page_title' : page_title, 'form' : form}
     return render(request, 'yearbook/institutions.html', context)
 
 def institutionyear(request, id):
