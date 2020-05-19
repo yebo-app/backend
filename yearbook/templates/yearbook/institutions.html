@@ -6,6 +6,21 @@
 
 {% block content %}
 	<a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" href="/createinstitution/">Create New Institution</a>
+
+	<!-- Div from createinstitution.html -->
+	<div class= "content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Create Institution</legend>
+                {{ form.as_p}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Create</button>
+            </div>
+        </form>
+    </div>  
+
 	<h1>Institutions currently registered:</h1>
 	
 	<div class="row match-height">
