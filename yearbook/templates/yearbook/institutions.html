@@ -5,21 +5,44 @@
 {% endblock %}
 
 {% block content %}
-	<a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" href="/createinstitution/">Create New Institution</a>
+	<!-- <a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" href="/createinstitution/">Create New Institution</a> -->
 
 	<!-- Div from createinstitution.html -->
-	<div class= "content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Create Institution</legend>
-                {{ form.as_p}}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Create</button>
-            </div>
-        </form>
-    </div>  
+	
+
+	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
+		Add new Institution
+	</button>
+
+	<!-- Modal -->
+	<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel1">Add Institution</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class= "content-section">
+						<form method="POST">
+							{% csrf_token %}
+							<fieldset class="form-group">
+								<legend class="border-bottom mb-4">Create Institution</legend>
+								{{ form.as_p}}
+							</fieldset>
+							<div class="form-group">
+								<button class="btn btn-outline-info" type="submit">Create</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
 
 	<h1>Institutions currently registered:</h1>
 	
