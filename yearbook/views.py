@@ -12,7 +12,6 @@ from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
-    # return HttpResponse("Hello from yearbook home")
     page_title = 'Home'
     context = {'page_title' : page_title}
     return render(request, 'yearbook/home.html', context)
@@ -71,7 +70,7 @@ def institutionyearprofile(request, id):
             signature.recipient = institutionyearprofile
             signature.save()
             # messages.success(request, f'Signature created for {username}')
-            return redirect('/profile/' + str(id))
+            return redirect(institutionyearprofile.get_absolute_url())
     else:
         form = SignatureForm()
     context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'form' : form}
@@ -94,7 +93,7 @@ def register(request):
             username = user_form.cleaned_data.get('username')
             password = user_form.cleaned_data.get('password')
             messages.success(request, f'Account created for {username}')
-            return redirect('login')
+            return redirect('/login/')
     else:
         user_form = UserRegistrationForm()
         yearbook_user_form = YearbookUserRegistrationForm()
@@ -104,27 +103,30 @@ def register(request):
 
 def updateyearbookuser(request, id):
     instance = get_object_or_404(YearbookUser, id=id)
-    if request.method == 'POST':
-        form = YearbookUserUpdateForm(request.POST, request.FILES, instance=instance)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile Updated Successfully')
-            return redirect('home')
-    else:
-        form = YearbookUserUpdateForm()
+    form = YearbookUserUpdateForm(request.POST or None, request.FILES or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Profile Updated Successfully')
+        return redirect(instance.get_absolute_url())
     return render(request, 'yearbook/yearbookuserupdate.html', {'form' : form, 'yearbookuser' : instance})
 
 def iypupdate(request, id):
     instance = get_object_or_404(InstitutionYearProfile, id=id)
-    if request.method == 'POST':
-        form = IYPUpdateForm(request.POST, request.FILES, instance=instance)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile Updated Successfully')
-            return redirect('home')
-    else:
-        form = IYPUpdateForm()
+    form = IYPUpdateForm(request.POST or None, request.FILES or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Profile Updated Successfully')
+        return redirect(instance.get_absolute_url())
     return render(request, 'yearbook/iypupdate.html', {'form' : form, 'institutionyearprofile' : instance})
+
+def signatureupdate(request, id):
+    instance = get_object_or_404(Signature, id=id)
+    form = SignatureUpdateForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Signature Updated Successfully')
+        return redirect(instance.recipient.get_absolute_url())
+    return render(request, 'yearbook/signatureupdate.html', {'form' : form, 'signature' : instance})
 
 def createinstitution(request):
     if request.method == 'POST':
@@ -133,7 +135,7 @@ def createinstitution(request):
             created = form.save(commit= False)
             Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
             messages.success(request, 'Institution Created')
-            return redirect('home')
+            return redirect('/institutions/')
     else:
         form = InstitutionCreationForm()
     context = {'form' : form}
@@ -150,7 +152,7 @@ def registeriyp(request, id):
             is_educator = form.cleaned_data.get("is_educator")
             instance.register(institution, start_year, end_year, is_educator)
             messages.success(request, 'Profiles Created')
-            return redirect('home')
+            return redirect(request.user.yearbookuser.get_absolute_url())
     else:
         form = InstitutionYearProfileCreationForm()
     context = {'form': form}
