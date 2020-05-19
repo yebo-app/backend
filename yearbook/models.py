@@ -8,7 +8,7 @@ from datetime import date
 class YearbookUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars', default='default_profile_picture.png')
-    bio = models.CharField(max_length=140, default= "")
+    bio = models.CharField(max_length=140, default="")
     
     def register(self, institution, start_year, end_year, is_educator):
         if start_year > end_year:
@@ -46,6 +46,9 @@ class YearbookUser(models.Model):
 
     def __str__(self):
         return str(self.user.first_name) + " " + str(self.user.last_name)
+
+    def get_absolute_url(self):
+        return "/u/%i" % self.id
 
 class Institution(models.Model):
     institution_name = models.CharField(max_length=100, default= "")
@@ -95,6 +98,9 @@ class Institution(models.Model):
     def __str__(self):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
 
+    def get_absolute_url(self):
+        return "/institution/%i" % self.id
+
 class InstitutionYear(models.Model):
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
     year = models.IntegerField(default= 0)
@@ -118,6 +124,9 @@ class InstitutionYear(models.Model):
 
     def __str__(self):
         return str(self.institution) + " | " + str(self.school_year)
+
+    def get_absolute_url(self):
+        return "/year/%i" % self.id
 
 class InstitutionYearProfile(models.Model):
     yearbook_user = models.ForeignKey(YearbookUser, on_delete=models.CASCADE)
@@ -145,6 +154,9 @@ class InstitutionYearProfile(models.Model):
 
     def __str__(self):
         return self.yearbook_user.user.first_name + " " + self.yearbook_user.user.last_name + " | " + str(self.institution_year) + (" | Educator" if self.is_educator else "")
+
+    def get_absolute_url(self):
+        return "/profile/%i" % self.id
 
 class Signature(models.Model):
     author = models.ForeignKey(YearbookUser, on_delete=models.CASCADE)

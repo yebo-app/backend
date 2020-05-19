@@ -24,7 +24,7 @@
 
 <h2>Signatures</h2>
 {% if user.is_authenticated and user.yearbookuser != institutionyearprofile.yearbook_user %}
-<div class="content-section"></div>
+<div class="content-section">
 	<form method="POST">
 		{% csrf_token %}
 		<fieldset class="form-group">
@@ -38,8 +38,13 @@
 </div>
 {% endif %}
 
-{% for signature in signatures %}
-	<strong>From <a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ signature.author.id }}">{{ signature.author }}</a></strong>
-	<p>{{ signature.signature }}</p>
-{% endfor %}
+<div>
+	{% for signature in signatures %}
+		<strong>From <a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ signature.author.id }}">{{ signature.author }}</a></strong>
+		<p>{{ signature.signature }}</p>
+		{% if user == signature.author.user %}
+			<a href="{% url 'signatureupdate' signature.id %}">Edit</a>
+		{% endif %}
+	{% endfor %}
+</div>
 {% endblock %}
