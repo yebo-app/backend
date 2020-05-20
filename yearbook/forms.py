@@ -46,6 +46,8 @@ class IYPUpdateForm(forms.ModelForm):
         fields = ['yearbook_quote', 'yearbook_picture']
 
 class SignatureUpdateForm(forms.ModelForm):
+    signature = forms.CharField(required=False)
+
     class Meta:
         model = Signature
         fields = ['signature']
