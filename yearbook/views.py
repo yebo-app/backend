@@ -75,7 +75,7 @@ def institutions(request):
             created = form.save(commit= False)
             Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
             messages.success(request, 'Institution Created')
-            return redirect('/institutions/')
+            return redirect('/institutions')
     else:
         form = InstitutionCreationForm()
 
@@ -93,6 +93,36 @@ def institutionyearprofile(request, id):
     institutionyearprofile = InstitutionYearProfile.objects.all().get(id=id)
     signatures = list(Signature.objects.all().filter(recipient=institutionyearprofile))
     page_title = str(institutionyearprofile.yearbook_user) + " " + institutionyearprofile.institution_year.school_year + " " + institutionyearprofile.institution_year.institution.institution_name
+
+    if request.user.is_authenticated:
+        queryset = Signature.objects.filter(author=request.user.yearbookuser)
+    else:
+        queryset = None
+
+    
+    signatureforms = []
+    i = 0
+    for signature in queryset:
+        instance = get_object_or_404(Signature, id=signature.id)
+        form = SignatureUpdateForm(request.POST or None, instance=instance)
+        signatureforms.append((form, signature, i))
+        if request.method == "POST":
+            for j in range(i + 1):
+                if "default" + str(j) in request.POST:
+                    form = signatureforms[j][0]
+                    if form.is_valid():
+                        form.save()
+                        return redirect(institutionyearprofile.get_absolute_url())
+        i += 1
+
+    # IYP Update Form
+    instance = get_object_or_404(InstitutionYearProfile, id=id)
+    iypupdateform = IYPUpdateForm(request.POST or None, request.FILES or None, instance=instance)
+    if iypupdateform.is_valid():
+        iypupdateform.save()
+        messages.success(request, 'Profile Updated Successfully')
+        return redirect(instance.get_absolute_url())
+
     # Signature Writing Form
     if request.method == "POST":
         signatureform = SignatureForm(request.POST)
@@ -105,23 +135,7 @@ def institutionyearprofile(request, id):
     else:
         signatureform = SignatureForm()
     
-    SignatureUpdateFormset = modelformset_factory(Signature, form=SignatureUpdateForm, extra=0)
-    if request.user.is_authenticated:
-        queryset = Signature.objects.filter(author=request.user.yearbookuser)
-    else:
-        queryset = None
-
-    if request.method == "POST":
-        formset = SignatureUpdateFormset(request.POST or None, request.FILES or None, queryset=queryset) 
-        if formset.is_valid():
-            for form in formset:
-                if form.has_changed():
-                    form.save()
-                    return redirect(institutionyearprofile.get_absolute_url())
-    else:
-        formset = SignatureUpdateFormset(queryset=queryset)
-
-    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'signatureform' : signatureform, 'formset' : formset}
+    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureforms' : signatureforms}
 
     return render(request, 'yearbook/institutionyearprofile.html', context)
 

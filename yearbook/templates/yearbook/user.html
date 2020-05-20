@@ -10,10 +10,10 @@
 	<p>Bio: {{ yearbook_user.bio }}</p>
 	{% if user.yearbookuser == yearbook_user %}
 	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
-		Add school Information
+		Add Education 
 	</button>
 	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default2">
-		Update Bio
+		Update Profile 
 	</button>
 	{% endif %}
 
@@ -25,7 +25,7 @@
 		<div class="modal-dialog modal-dialog-scrollable" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel1">Add Institution</h4>
+					<h4 class="modal-title" id="myModalLabel1">Add Education</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
@@ -40,7 +40,6 @@
 							<form method="POST">
 								{% csrf_token %}
 								<fieldset class="form-group">
-									<legend class="border-bottom mb-4">Register Under a School</legend>
 									{{ register_form.as_p}}
 								</fieldset>
 								<div class="form-group">
@@ -62,7 +61,7 @@
 		<div class="modal-dialog modal-dialog-scrollable" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel1">Add Institution</h4>
+					<h4 class="modal-title" id="myModalLabel1">Update Profile</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
@@ -77,7 +76,6 @@
 							<form method="POST" enctype="multipart/form-data">
 								{% csrf_token %}
 								<fieldset class="form-group">
-									<legend class="border-bottom mb-4">Update Profile</legend>
 									{{ update_form.as_p}}
 								</fieldset>
 								<div class="form-group">

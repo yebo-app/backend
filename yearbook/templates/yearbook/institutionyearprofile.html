@@ -18,27 +18,110 @@
 <p>Quote: {{ institutionyearprofile.yearbook_quote }}</p>
 
 <img class="round profile-pic" src="{{ institutionyearprofile.yearbook_picture.url }}" height=80 width=80>
-{% if user.is_authenticated and user.yearbookuser == institutionyearprofile.yearbook_user %}
-	<p><a href="{% url 'iypupdate' institutionyearprofile.id %}">Update my profile</a></p>
+
+
+<!-- Update IYP -->
+<!-- Only authorize if the user logged in is viewing their own profile -->
+{% if user.is_authenticated and user == institutionyearprofile.yearbook_user.user %}
+	<!-- Update IYP Button -->
+	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default0">
+		Update Profile 
+	</button>
+	
+	<!-- Update IYP Modal -->
+	<div class="modal fade text-left" id="default0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel1">Update Profile</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class= "content-section">
+						<form method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<fieldset class="form-group">
+								{{ iypupdateform.as_p}}
+							</fieldset>
+							<div class="form-group">
+								<button class="btn btn-outline-info" type="submit">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
 {% endif %}
 
+<!-- Display all Signatures under this IYP -->
 <h2>Signatures</h2>
-{% for signature in signatures %}
-	<strong>From </strong><a href="{% url 'user' signature.author.id %}">{{ signature.author }}</a>
-	<p>{{ signature.signature }}</p>
-{% endfor %}
+{% if not signatures %}
+	<p>There are currently no signatures under this profile.</p>
+{% else %}
+	{% for signature in signatures %}
+		<strong>From </strong><a href="{% url 'user' signature.author.id %}">{{ signature.author }}</a>
+		<p>{{ signature.signature }}</p>
+		{% for signatureform in signatureforms %}
+			{% if signatureform.1 == signature %}
+				<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default{{ signatureform.2 }}">
+					Edit Signature	
+				</button>
+				<div class="modal fade text-left" id="default{{ signatureform.2 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-scrollable" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel1">Edit Signature</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="content-section">
+									<form method="POST" enctype="multipart/form-data">
+										{% if not user.is_authenticated %}
+											<p>Log in to edit your signatures.</p>
+										{% elif user == institutionyearprofile.yearbook_user.user %}
+											<p>There are no signatures for you to update.</p>
+										{% else %}
+											<strong>From </strong><a href="{% url 'user' signatureform.1.author.id %}">{{ signatureform.1.author }}</a>
+											<p>{{ signatureform.1.signature }}</p>
+											{% csrf_token %}
+											<fieldset class="form-group">
+												{{ signatureform.0.as_p }}
+											</fieldset>
+											<div class="form-group">
+												<button class="btn btn-outline-info" type="submit" name="default{{ signatureform.2 }}">Update</button>
+											</div>
+										{% endif %}
+									</form>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+		<br> <!-- br for spacing purposes -->
+	{% endfor %}
+{% endif %}
 
-<!-- Sign -->
+<br> <!-- br for spacing purposes -->
+
+<!-- Signature Button -->
 <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
 	Sign Here
 </button>
 
-<!-- Modal -->
+<!-- Signature Modal -->
 <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel1">Add Institution</h4>
+				<h4 class="modal-title" id="myModalLabel1">Sign Yearbook</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -54,7 +137,6 @@
 							<form method="POST">
 								{% csrf_token %}
 								<fieldset class="form-group">
-									<legend class="border-bottom mb-4">Sign Yearbook!</legend>
 									{{ signatureform.as_p }}
 								</fieldset>
 								<div class="form-group">
@@ -63,52 +145,6 @@
 							</form>
 						{% endif %}
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Edit Signatures -->
-<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default2">
-	Edit Signatures
-</button>
-
-<!-- Modal -->
-<div class="modal fade text-left" id="default2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-scrollable" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel1">Edit Signatures</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="content-section">
-					<form method="POST" enctype="multipart/form-data">
-						{% if not user.is_authenticated %}
-							<p>Log in to edit your signatures.</p>
-						{% elif user == institutionyearprofile.yearbook_user.user %}
-							<p>There are no signatures for you to update.</p>
-						{% else %}
-							<legend class="border-bottom mb-4">Edit Signatures</legend>
-							{{ formset.management_form }}
-							{% for signatureupdateform in formset %}
-								{% if user.is_authenticated and user == signatureupdateform.instance.author.user %}
-									<strong>From </strong><a href="{% url 'user' signatureupdateform.instance.author.id %}">{{ signatureupdateform.instance.author }}</a>
-									<p>{{ signatureupdateform.instance.signature }}</p>
-									{% csrf_token %}
-									<fieldset class="form-group">
-										{{ signatureupdateform.as_p }}
-									</fieldset>
-								{% endif %}
-							{% endfor %}
-							<div class="form-group">
-								<button class="btn btn-outline-info" type="submit">Update</button>
-							</div>
-						{% endif %}
-					</form>	
 				</div>
 			</div>
 		</div>
