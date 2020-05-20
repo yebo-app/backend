@@ -12,6 +12,47 @@
 		<p><a href="{% url 'yu-update' yearbook_user.id %}">Update my profile</a></p>
 		<p><a href="{% url 'registeriyp' yearbook_user.id %}">Add School Information</a></p>
 	{% endif %}
+
+	<!-- Div from registeriyp.html -->
+	<div class= "content-section">
+		{% if not user.is_authenticated %}
+			<p>Log in to update your yearbook profile.</p>
+		{% elif user != yearbook_user.user %}
+			<p>You are not authorized to edit this yearbook profile.</p>
+		{% else %}
+			<form method="POST">
+        	    {% csrf_token %}
+            	<fieldset class="form-group">
+                	<legend class="border-bottom mb-4">Register Under a School</legend>
+	                {{ register_form.as_p}}
+    	        </fieldset>
+        	    <div class="form-group">
+            	    <button class="btn btn-outline-info" type="submit">Register</button>
+	            </div>
+    	    </form>
+        {% endif %}
+    </div>
+
+	<!-- Div from yearbookuserupdate.html -->
+	<div class= "content-section">
+        {% if not user.is_authenticated %}
+			<p>Log in to update your yearbook profile.</p>
+		{% elif user != yearbook_user.user %}
+			<p>You are not authorized to edit this yearbook profile.</p>
+		{% else %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Update Profile</legend>
+                    {{ update_form.as_p}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Update</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+
 	<h1>Education History:</h1>
 	{% if not history %}
 		<p>This user has not joined any schools.</p>

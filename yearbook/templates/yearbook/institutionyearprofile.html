@@ -23,28 +23,47 @@
 {% endif %}
 
 <h2>Signatures</h2>
-{% if user.is_authenticated and user.yearbookuser != institutionyearprofile.yearbook_user %}
+
+<!-- Div for Signature Creation-->
 <div class="content-section">
+	{% if not user.is_authenticated %}
+		<p>Log in to sign this yearbook profile.</p>
+	{% elif user.yearbookuser != institutionyearprofile.yearbook_user %}
 	<form method="POST">
 		{% csrf_token %}
 		<fieldset class="form-group">
 			<legend class="border-bottom mb-4">Sign Yearbook!</legend>
-			{{ form.as_p }}
+			{{ signatureform.as_p }}
 		</fieldset>
 		<div class="form-group">
 			<button class="btn btn-outline-info" type="submit">Sign</button>
 		</div>
 	</form>
+	{% endif %}
 </div>
-{% endif %}
 
-<div>
-	{% for signature in signatures %}
-		<strong>From <a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ signature.author.id }}">{{ signature.author }}</a></strong>
-		<p>{{ signature.signature }}</p>
-		{% if user == signature.author.user %}
-			<a href="{% url 'signatureupdate' signature.id %}">Edit</a>
-		{% endif %}
-	{% endfor %}
+<!-- Div for Signature Update-->
+<div class="content-section">
+	<form method="POST" enctype="multipart/form-data">
+		{{ formset.management_form }}
+		{% for signatureupdateform in formset %}
+			<strong>From </strong><a href="{% url 'user' signatureupdateform.instance.author.id %}">{{ signatureupdateform.instance.author }}</a>
+			<p>{{ signatureupdateform.instance.signature }}</p>
+			{% if not user.is_authenticated %}
+				<p>Log in to update this signature.</p>
+			{% elif user != signatureupdateform.instance.author.user %}	
+				<p>You are not authorized to edit this signature.</p>
+			{% else %}
+				{% csrf_token %}
+        		<fieldset class="form-group">
+    				<legend class="border-bottom mb-4">Update Signature</legend>
+					{{ signatureupdateform.as_p }}
+	  			</fieldset>
+   			{% endif %}
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit">Update</button>
+			</div>
+		{% endfor %}
+	</form>	
 </div>
 {% endblock %}
