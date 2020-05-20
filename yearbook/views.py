@@ -106,13 +106,20 @@ def institutionyearprofile(request, id):
         signatureform = SignatureForm()
     
     SignatureUpdateFormset = modelformset_factory(Signature, form=SignatureUpdateForm, extra=0)
-    queryset = Signature.objects.filter(author=request.user.yearbookuser)
-    formset = SignatureUpdateFormset(request.POST or None, request.FILES or None, queryset=queryset)
-    
-    if formset.is_valid():
-        for form in formset:
-            if form.has_changed():
-                form.save()
+    if request.user.is_authenticated:
+        queryset = Signature.objects.filter(author=request.user.yearbookuser)
+    else:
+        queryset = None
+
+    if request.method == "POST":
+        formset = SignatureUpdateFormset(request.POST or None, request.FILES or None, queryset=queryset) 
+        if formset.is_valid():
+            for form in formset:
+                if form.has_changed():
+                    form.save()
+                    return redirect(institutionyearprofile.get_absolute_url())
+    else:
+        formset = SignatureUpdateFormset(queryset=queryset)
 
     context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'signatureform' : signatureform, 'formset' : formset}
 
