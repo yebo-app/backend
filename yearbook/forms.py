@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.db import models
+from django.forms import modelformset_factory
 
 from .models import *
 
@@ -45,6 +46,8 @@ class IYPUpdateForm(forms.ModelForm):
         fields = ['yearbook_quote', 'yearbook_picture']
 
 class SignatureUpdateForm(forms.ModelForm):
+    signature = forms.CharField(required=False)
+
     class Meta:
         model = Signature
         fields = ['signature']
@@ -59,7 +62,3 @@ class InstitutionYearProfileCreationForm(forms.Form):
     start_year = forms.IntegerField()
     end_year = forms.IntegerField()
     is_educator = forms.BooleanField(label='Check if you were a teacher', required= False)
- 
-
-
-   

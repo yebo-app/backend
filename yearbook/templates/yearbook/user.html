@@ -9,9 +9,87 @@
 	<img class="round profile-pic" src="{{ yearbook_user.avatar.url }}" height=80 width=80>
 	<p>Bio: {{ yearbook_user.bio }}</p>
 	{% if user.yearbookuser == yearbook_user %}
-		<p><a href="{% url 'yu-update' yearbook_user.id %}">Update my profile</a></p>
-		<p><a href="{% url 'registeriyp' yearbook_user.id %}">Add School Information</a></p>
+	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
+		Add Education 
+	</button>
+	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default2">
+		Update Profile 
+	</button>
 	{% endif %}
+
+	<!-- Div from registeriyp.html -->
+	
+
+	<!-- Modal -->
+	<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel1">Add Education</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class= "content-section">
+						{% if not user.is_authenticated %}
+							<p>Log in to update your yearbook profile.</p>
+						{% elif user != yearbook_user.user %}
+							<p>You are not authorized to edit this yearbook profile.</p>
+						{% else %}
+							<form method="POST">
+								{% csrf_token %}
+								<fieldset class="form-group">
+									{{ register_form.as_p}}
+								</fieldset>
+								<div class="form-group">
+									<button class="btn btn-outline-info" type="submit">Register</button>
+								</div>
+							</form>
+						{% endif %}
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- Div from yearbookuserupdate.html -->
+	
+	<div class="modal fade text-left" id="default2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel1">Update Profile</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class= "content-section">
+						{% if not user.is_authenticated %}
+							<p>Log in to update your yearbook profile.</p>
+						{% elif user != yearbook_user.user %}
+							<p>You are not authorized to edit this yearbook profile.</p>
+						{% else %}
+							<form method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								<fieldset class="form-group">
+									{{ update_form.as_p}}
+								</fieldset>
+								<div class="form-group">
+									<button class="btn btn-outline-info" type="submit">Update</button>
+								</div>
+							</form>
+						{% endif %}
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
 	<h1>Education History:</h1>
 	{% if not history %}
 		<p>This user has not joined any schools.</p>
