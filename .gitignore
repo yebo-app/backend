@@ -116,3 +116,5 @@ GitHub.sublime-settings
 .history
 
 server_start.bat
+
+node_modules/
