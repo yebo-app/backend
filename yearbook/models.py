@@ -10,6 +10,15 @@ class YearbookUser(models.Model):
     avatar = models.ImageField(upload_to='avatars', default='default_profile_picture.png')
     bio = models.CharField(max_length=140, default="")
     
+    def register_year(self, institutionyear):
+        iyp = InstitutionYearProfile.create(self, institutionyear)
+        iyp.save()
+
+    def register_years(self, institutionyears):
+        for institutionyear in institutionyears:
+            iyp = InstitutionYearProfile.create(self, institutionyear)
+            iyp.save()
+
     def register(self, institution, start_year, end_year, is_educator):
         if start_year > end_year:
             raise Exception("Start Year: " + str(start_year) + " cannot be greater than End Year: " + str(end_year))
@@ -99,7 +108,7 @@ class Institution(models.Model):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
 
     def get_absolute_url(self):
-        return "/institution/%i" % self.id
+        return "/institutions/%i" % self.id
 
 class InstitutionYear(models.Model):
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
@@ -133,7 +142,6 @@ class InstitutionYearProfile(models.Model):
     yearbook_picture = models.ImageField(upload_to='yearbook_pictures', default='default_profile_picture.png')
     yearbook_quote = models.CharField(max_length=140, default="")
     institution_year = models.ForeignKey(InstitutionYear, on_delete=models.CASCADE)
-    is_educator = models.BooleanField(default= False)
    
     @classmethod
     def check_duplicate(cls, yearbook_user, institution_year):
@@ -142,18 +150,15 @@ class InstitutionYearProfile(models.Model):
                 raise Exception("InstitutionYearProfile with YearbookUser: " + str(yearbook_user) + " and InstitutionYear: " + str(institution_year) + " already exists.")
 
     @classmethod
-    def create(cls, yearbook_user, institution_year, yearbook_quote="", is_educator=False):
+    def create(cls, yearbook_user, institution_year, yearbook_quote=""):
         InstitutionYearProfile.check_duplicate(yearbook_user, institution_year) 
-        return cls(yearbook_user=yearbook_user, institution_year=institution_year, yearbook_quote=yearbook_quote, is_educator=is_educator)
+        return cls(yearbook_user=yearbook_user, institution_year=institution_year, yearbook_quote=yearbook_quote)
 
-    def set_is_educator(self, is_educator):
-        self.is_educator = is_educator
-    
     def set_yearbook_quote(self, yearbook_quote):
         self.yearbook_quote = yearbook_quote
 
     def __str__(self):
-        return self.yearbook_user.user.first_name + " " + self.yearbook_user.user.last_name + " | " + str(self.institution_year) + (" | Educator" if self.is_educator else "")
+        return self.yearbook_user.user.first_name + " " + self.yearbook_user.user.last_name + " | " + str(self.institution_year)
 
     def get_absolute_url(self):
         return "/profile/%i" % self.id
