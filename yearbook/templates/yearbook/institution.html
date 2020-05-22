@@ -8,6 +8,44 @@
 	<h1>{{ institution.institution_name }}</h1>
 	<p>Founded in {{ institution.institution_year_founded|add:"-1" }}</p>
 	<p>Currently there are {{ institution.unique_members }} members of this school</p>
+
+	{% if user.is_authenticated %}
+		<div>
+			<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
+				Join
+			</button>	
+		</div>
+	{% endif %}
+
+	<!-- Modal -->
+	<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel1">Join Institution</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class= "content-section">
+						<form method="POST">
+							{% csrf_token %}
+							<fieldset class="form-group">
+								<div class="scrollbox">
+									{{ institution_join_form.as_p}}
+								</div>
+							</fieldset>
+							<div class="form-group">
+								<button class="btn btn-outline-info" type="submit">Register</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-12">
 		{% for iy in institutionyears %}
@@ -21,8 +59,8 @@
 						<div class="col-12">
 							<p>A year full of grace</p>
 							<!-- basic buttons -->
-							<a type="button" href="{{ request.scheme }}://{{ request.get_host }}/year/{{ iy.id }}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
-							<a type="button" href="{{ request.scheme }}://{{ request.get_host }}/year/{{ iy.id }}" class="btn btn-outline-success mr-1 mb-1 waves-effect waves-light">Join</a>
+							<a type="button" href="{% url 'institutionyear' iy.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
+							<a type="button" href="{% url 'institutionyear' iy.id %}" class="btn btn-outline-success mr-1 mb-1 waves-effect waves-light">Join</a>
 						</div>
 					</div>
 				</div>
