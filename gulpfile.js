@@ -12,8 +12,9 @@ gulp.task('browser-sync', function(done) {
     proxy: 'localhost:8000'
   });
 
-  browserSync.watch('yearbook/templates/yearbook/*.html').on('change', browserSync.reload);
-
+  //browserSync.watch('yearbook/templates/yearbook/*.html').on('change', browserSync.reload);
+  browserSync.watch('yearbook/templates/yearbook/*').on('change', browserSync.reload);
+  //browserSync.watch('static/**/**/*').on('change', browserSync.reload);
   done()
 });
 
