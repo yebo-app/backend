@@ -63,7 +63,15 @@ def institution(request, id):
     institution = Institution.objects.all().get(id=id)
     institutionyears = institution.institutionyear_set.all().order_by('-year')
     page_title = institution.institution_name
-    context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title}
+    
+    institution_join_form = InstitutionJoinForm(request.POST or None)
+    if institution_join_form.is_valid():
+        institutionyears = institution_join_form.cleaned_data.get("institutionyears")
+        print(institutionyears)
+        request.user.yearbookuser.register_years(institutionyears)
+        return redirect(request.user.yearbookuser.get_absolute_url())
+
+    context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'institution_join_form' : institution_join_form}
     return render(request, 'yearbook/institution.html', context)
 
 def institutions(request):

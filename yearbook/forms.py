@@ -62,3 +62,6 @@ class InstitutionYearProfileCreationForm(forms.Form):
     start_year = forms.IntegerField()
     end_year = forms.IntegerField()
     is_educator = forms.BooleanField(label='Check if you were a teacher', required= False)
+
+class InstitutionJoinForm(forms.Form):
+    institutionyears = forms.ModelMultipleChoiceField(queryset=InstitutionYear.objects.all())
