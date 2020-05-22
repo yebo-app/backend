@@ -20,11 +20,7 @@
 				<div class="ml-auto user-like"><i class="feather icon-heart"></i></div>
 			</div>
 <h2></h2>
-{% if institutionyearprofile.is_educator %}
-	<p>Educator</p>
-{% else %}
-	<p>Student</p>
-{% endif %}
+
 
 <p>Quote: {{ institutionyearprofile.yearbook_quote }}</p>
 
@@ -192,7 +188,7 @@
 												</fieldset>
 											{% endfor %}
 											<div class="form-group">
-												<button type="submit" class="btn btn-sm btn-primary waves-effect waves-light" name="default{{ signatureform.2 }}">
+												<button type="submit" class="btn btn-sm btn-primary waves-effect waves-light" name="update{{ signatureupdateform.2 }}">
 													Update
 												</button>
 											</div>
