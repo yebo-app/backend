@@ -108,20 +108,22 @@ def institutionyearprofile(request, id):
         queryset = None
 
     
-    signatureforms = []
-    i = 0
-    for signature in queryset:
-        instance = get_object_or_404(Signature, id=signature.id)
-        form = SignatureUpdateForm(request.POST or None, instance=instance)
-        signatureforms.append((form, signature, i))
-        if request.method == "POST":
-            for j in range(i + 1):
-                if "default" + str(j) in request.POST:
-                    form = signatureforms[j][0]
-                    if form.is_valid():
-                        form.save()
-                        return redirect(institutionyearprofile.get_absolute_url())
-        i += 1
+    signatureupdateforms = []
+    # If there are forms that the user can update
+    if queryset:
+        # Loop through all signatures to create respective update forms
+        for signature in queryset:
+            instance = signature
+            form = SignatureUpdateForm(request.POST or None, instance=instance)
+            signatureupdateforms.append((form, instance, instance.id))
+            if request.method == "POST":
+                for signatureupdateformtuple in signatureupdateforms:
+                    if "update" + str(signatureupdateformtuple[2]) in request.POST:
+                        # Select this form and save changes
+                        form = signatureupdateformtuple[0]
+                        if form.is_valid():
+                            form.save()
+                            return redirect(institutionyearprofile.get_absolute_url())
 
     # IYP Update Form
     instance = get_object_or_404(InstitutionYearProfile, id=id)
@@ -143,7 +145,7 @@ def institutionyearprofile(request, id):
     else:
         signatureform = SignatureForm()
     
-    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureforms' : signatureforms}
+    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureupdateforms' : signatureupdateforms if queryset is not None else []}
 
     return render(request, 'yearbook/institutionyearprofile.html', context)
 

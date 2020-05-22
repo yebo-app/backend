@@ -34,6 +34,9 @@ class SignatureForm(forms.ModelForm):
     class Meta:
         model = Signature
         fields = ['signature']
+        widgets = {
+            'signature': forms.Textarea(attrs = {'class' : "form-control", 'id' : "label-textarea2", 'rows' : "3", 'placeholder' : "Sign Here"}),
+        }
 
 class YearbookUserUpdateForm(forms.ModelForm):
     class Meta:
@@ -51,6 +54,9 @@ class SignatureUpdateForm(forms.ModelForm):
     class Meta:
         model = Signature
         fields = ['signature']
+        widgets = {
+            'signature': forms.Textarea(attrs = {'class' : "form-control", 'id' : "label-textarea2", 'rows' : "3", 'placeholder' : "Update Signature Here"}),
+        }
 
 class InstitutionCreationForm(forms.ModelForm):
     class Meta:
