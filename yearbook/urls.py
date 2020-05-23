@@ -20,6 +20,7 @@ urlpatterns = [
     path('year/<id>', views.institutionyear, name='institutionyear'),
     path('institutions/<id>', views.institution, name='institution'),
     path('institutions', views.institutions, name='institutions'),
+    path('settings/<id>', views.settings, name='settings'), 
     path('u/<id>', views.yearbookuser, name='user'),
     path('u', views.yearbookusers, name='users'),
 ]
