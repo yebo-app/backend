@@ -35,13 +35,54 @@ class SignatureForm(forms.ModelForm):
         model = Signature
         fields = ['signature']
         widgets = {
-            'signature': forms.Textarea(attrs = {'class' : "form-control", 'id' : "label-textarea2", 'rows' : "3", 'placeholder' : "Sign Here"}),
+            'signature': forms.Textarea(
+                attrs = {
+                    'class' : "form-control",
+                    'id' : "label-textarea2",
+                    'rows' : "3",
+                    'placeholder' : "Sign Here"
+                }
+            ),
         }
 
 class YearbookUserUpdateForm(forms.ModelForm):
     class Meta:
         model = YearbookUser
-        fields= ['bio', 'avatar']
+        fields = ['bio', 'avatar']
+        widgets = {
+            'bio': forms.TextInput(
+                attrs = {
+                    'class' : "form-control",
+                }
+            ),
+            'avatar': forms.FileInput(
+                attrs = {
+                    'input' : "btn btn-outline-dark"
+                }
+            )
+        }
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name']
+        widgets = {
+            'username': forms.TextInput(
+                attrs = {
+                    'class' : "form-control",
+                }
+            ),
+            'first_name': forms.TextInput(
+                attrs = {
+                    'class' : "form-control",
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs = {
+                    'class' : "form-control",
+                }
+            ),
+        }
 
 class IYPUpdateForm(forms.ModelForm):
     class Meta:
@@ -55,7 +96,14 @@ class SignatureUpdateForm(forms.ModelForm):
         model = Signature
         fields = ['signature']
         widgets = {
-            'signature': forms.Textarea(attrs = {'class' : "form-control", 'id' : "label-textarea2", 'rows' : "3", 'placeholder' : "Update Signature Here"}),
+            'signature': forms.Textarea
+                (attrs = {
+                    'class' : "form-control",
+                    'id' : "label-textarea2",
+                    'rows' : "3",
+                    'placeholder' : "Update Signature Here"
+                }
+            ),
         }
 
 class InstitutionCreationForm(forms.ModelForm):
