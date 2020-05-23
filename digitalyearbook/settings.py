@@ -71,6 +71,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'digitalyearbook.wsgi.application'
 
+ALLOWED_HOSTS = ['yebo.pythonanywhere.com', 'community.pythonanywhere.com']
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
