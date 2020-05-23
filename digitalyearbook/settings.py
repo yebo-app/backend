@@ -80,10 +80,10 @@ ALLOWED_HOSTS = ['yebo.pythonanywhere.com', 'community.pythonanywhere.com']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smirk_yebo2',
-        'USER': 'smirk_user',
-        'PASSWORD': 'password',
-        'HOST': '65.19.141.67',
+        'NAME': 'yebo',
+        'USER': 'yebo',
+        'PASSWORD': 'stronkpassword',
+        'HOST': 'yebo.mysql.pythonanywhere-services.com',
         'PORT': '3306',
 
     }
