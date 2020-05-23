@@ -102,7 +102,7 @@
 								{% if user.is_authenticated %}	
 								<div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ user.first_name }}</span><span class="user-status">Available</span></div><span><img class="round" src="{{ user.yearbookuser.avatar.url }}" alt="avatar" height="40" width="40"></span>
 								</a>
-								<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"  href="{{ request.scheme }}://{{ request.get_host }}/u/{{ user.yearbookuser.id }}"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="#"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="feather icon-message-square"></i> Chats</a>
+								<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"  href="{% url 'user' user.yearbookuser.id %}"><i class="feather icon-user"></i>My Profile</a>{% if user.is_authenticated %}<a class="dropdown-item"  href="{% url 'settings' user.yearbookuser.id %}"><i class="feather icon-user"></i>Account Settings</a>{% endif %}<a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="#"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="feather icon-message-square"></i> Chats</a>
 									<div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'logout' %}"><i class="feather icon-power"></i> Logout</a>
 								</div>
 								{% else %}
