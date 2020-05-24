@@ -24,7 +24,7 @@ def yearbookuser(request, id):
 
     # Construct education history dictionary
     history = {}
-    for iyp in InstitutionYearProfile.objects.all().filter(yearbook_user=yearbook_user):
+    for iyp in InstitutionYearProfile.objects.all().filter(yearbook_user=yearbook_user).order_by('institution_year__year'):
         institution = iyp.institution_year.institution
         if institution not in history.keys():
             history[institution] = []
@@ -33,7 +33,7 @@ def yearbookuser(request, id):
     # Register IYP Form
     instance = get_object_or_404(YearbookUser, id=id)
     register_form = InstitutionYearProfileCreationForm(request.POST or None)
-    if register_form.is_valid() and not update_form.is_valid():
+    if register_form.is_valid():
         institution = register_form.cleaned_data.get("institution")
         start_year = register_form.cleaned_data.get("start_year")
         end_year = register_form.cleaned_data.get("end_year")
@@ -68,7 +68,13 @@ def settings(request, id):
         user_update_form = UserUpdateForm(instance=user)
         yearbookuser_update_form = YearbookUserUpdateForm(instance=yearbook_user)
 
-    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'user_update_form' : user_update_form, 'yearbookuser_update_form' : yearbookuser_update_form}    
+    # IYP Delete Form
+    user_delete_form = IYPDeleteForm(request.POST or None, instance=user)
+    if user_delete_form.is_valid():
+        user_delete_form.instance.delete()
+        return redirect('home')
+
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'user_update_form' : user_update_form, 'yearbookuser_update_form' : yearbookuser_update_form, 'user_delete_form' : user_delete_form}
     return render(request, 'yearbook/accountsettings.html', context)
 
 def institution(request, id):
@@ -119,22 +125,30 @@ def institutionyearprofile(request, id):
     else:
         queryset = None
 
-    
     signatureupdateforms = []
+    signaturedeleteforms = []
     # If there are forms that the user can update
     if queryset:
         # Loop through all signatures to create respective update forms
         for signature in queryset:
             instance = signature
-            form = SignatureUpdateForm(request.POST or None, instance=instance)
-            signatureupdateforms.append((form, instance, instance.id))
+            update_form = SignatureUpdateForm(request.POST or None, instance=instance)
+            delete_form = SignatureDeleteForm(request.POST or None, instance=instance)
+            signatureupdateforms.append((update_form, instance, instance.id))
+            signaturedeleteforms.append((delete_form, instance, instance.id))
             if request.method == "POST":
                 for signatureupdateformtuple in signatureupdateforms:
                     if "update" + str(signatureupdateformtuple[2]) in request.POST:
                         # Select this form and save changes
-                        form = signatureupdateformtuple[0]
-                        if form.is_valid():
-                            form.save()
+                        u_form = signatureupdateformtuple[0]
+                        if u_form.is_valid():
+                            u_form.save()
+                            return redirect(institutionyearprofile.get_absolute_url())
+                for signaturedeleteformtuple in signaturedeleteforms:
+                    if "delete" + str(signaturedeleteformtuple[2]) in request.POST:
+                        d_form = signaturedeleteformtuple[0]
+                        if d_form.is_valid():
+                            d_form.instance.delete()
                             return redirect(institutionyearprofile.get_absolute_url())
 
     # IYP Update Form
@@ -156,9 +170,14 @@ def institutionyearprofile(request, id):
             return redirect(institutionyearprofile.get_absolute_url())
     else:
         signatureform = SignatureForm()
-    
-    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureupdateforms' : signatureupdateforms if queryset is not None else []}
 
+    # IYP Delete Form
+    iypdeleteform = IYPDeleteForm(request.POST or None, instance=instance)
+    if iypdeleteform.is_valid():
+        iypdeleteform.instance.delete()
+        return redirect(request.user.yearbookuser.get_absolute_url())
+    
+    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureupdateforms' : signatureupdateforms if queryset is not None else [], 'signaturedeleteforms' : signaturedeleteforms if queryset is not None else [], 'iypdeleteform' : iypdeleteform}
     return render(request, 'yearbook/institutionyearprofile.html', context)
 
 def register(request):
