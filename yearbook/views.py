@@ -30,14 +30,6 @@ def yearbookuser(request, id):
             history[institution] = []
         history[institution].append(iyp)
     
-    # Yearbook User Update Form
-    instance = get_object_or_404(YearbookUser, id=id)
-    update_form = YearbookUserUpdateForm(request.POST or None, request.FILES or None, instance=instance)
-    if update_form.is_valid():
-        update_form.save()
-        messages.success(request, 'Profile Updated Successfully')
-        return redirect(instance.get_absolute_url())
-
     # Register IYP Form
     instance = get_object_or_404(YearbookUser, id=id)
     register_form = InstitutionYearProfileCreationForm(request.POST or None)
@@ -50,7 +42,7 @@ def yearbookuser(request, id):
         messages.success(request, 'Profiles Created')
         return redirect(request.user.yearbookuser.get_absolute_url())
     
-    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'history' : history, 'update_form' : update_form, 'register_form' : register_form}    
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'history' : history, 'register_form' : register_form}    
     return render(request, 'yearbook/user.html', context)
 
 def yearbookusers(request):
@@ -58,6 +50,26 @@ def yearbookusers(request):
     page_title = 'Users'
     context = {'users' : users, 'page_title' : page_title}
     return render(request, 'yearbook/users.html', context)
+
+def settings(request, id):
+    page_title = 'Settings'
+
+    yearbook_user = get_object_or_404(YearbookUser, id=id)
+    user = yearbook_user.user
+
+    if request.method == "POST":
+        user_update_form = UserUpdateForm(request.POST, instance=user) # Django User ModelForm
+        yearbookuser_update_form = YearbookUserUpdateForm(request.POST, request.FILES, instance=yearbook_user) # YearbookUser Model Form
+        if yearbookuser_update_form.is_valid() and user_update_form.is_valid():
+            user_update_form.save()
+            yearbookuser_update_form.save()
+            return redirect('/settings/' + str(request.user.yearbookuser.id))
+    else:
+        user_update_form = UserUpdateForm(instance=user)
+        yearbookuser_update_form = YearbookUserUpdateForm(instance=yearbook_user)
+
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'user_update_form' : user_update_form, 'yearbookuser_update_form' : yearbookuser_update_form}    
+    return render(request, 'yearbook/accountsettings.html', context)
 
 def institution(request, id):
     institution = Institution.objects.all().get(id=id)
