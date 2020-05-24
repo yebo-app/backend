@@ -37,8 +37,7 @@ def yearbookuser(request, id):
         institution = register_form.cleaned_data.get("institution")
         start_year = register_form.cleaned_data.get("start_year")
         end_year = register_form.cleaned_data.get("end_year")
-        is_educator = register_form.cleaned_data.get("is_educator")
-        instance.register(institution, start_year, end_year, is_educator)
+        instance.register(institution, start_year, end_year)
         messages.success(request, 'Profiles Created')
         return redirect(request.user.yearbookuser.get_absolute_url())
     

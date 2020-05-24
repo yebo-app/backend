@@ -19,7 +19,7 @@ class YearbookUser(models.Model):
             iyp = InstitutionYearProfile.create(self, institutionyear)
             iyp.save()
 
-    def register(self, institution, start_year, end_year, is_educator):
+    def register(self, institution, start_year, end_year):
         if start_year > end_year:
             raise Exception("Start Year: " + str(start_year) + " cannot be greater than End Year: " + str(end_year))
         if start_year < institution.institution_year_founded:
@@ -30,7 +30,7 @@ class YearbookUser(models.Model):
             except InstitutionYear.DoesNotExist:
                 iy = InstitutionYear.create(institution, year)
                 iy.save()
-            iyp = InstitutionYearProfile.create(self, iy, is_educator)
+            iyp = InstitutionYearProfile.create(self, iy)
             iyp.save()
         institution.update_unique_users()
     
