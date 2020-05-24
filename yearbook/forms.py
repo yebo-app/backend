@@ -126,7 +126,6 @@ class InstitutionYearProfileCreationForm(forms.Form):
     institution = forms.ModelChoiceField(Institution.objects.all())
     start_year = forms.IntegerField()
     end_year = forms.IntegerField()
-    is_educator = forms.BooleanField(label='Check if you were a teacher', required= False)
 
 class IYPDeleteForm(forms.ModelForm):
     class Meta:

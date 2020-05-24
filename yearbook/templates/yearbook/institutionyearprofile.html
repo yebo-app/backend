@@ -92,7 +92,11 @@
 							</div>
 						{% endif %}
 					</div>
-					<p>Quote: {{ institutionyearprofile.yearbook_quote }}</p>
+					{% if not institutionyearprofile.yearbook_quote %}
+						<p>A quote has not been provided for this profile.</p>
+					{% else %}
+						<p>Quote: "{{ institutionyearprofile.yearbook_quote }}"</p>
+					{% endif %}
 					<!-- Update IYP -->
 					<!-- Only authorize if the user logged in is viewing their own profile -->
 					<br>
