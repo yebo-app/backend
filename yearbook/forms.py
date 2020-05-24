@@ -46,6 +46,8 @@ class SignatureForm(forms.ModelForm):
         }
 
 class YearbookUserUpdateForm(forms.ModelForm):
+    avatar = forms.ImageField()
+
     class Meta:
         model = YearbookUser
         fields = ['bio', 'avatar']
@@ -57,7 +59,6 @@ class YearbookUserUpdateForm(forms.ModelForm):
             ),
             'avatar': forms.FileInput(
                 attrs = {
-                    'input' : "btn btn-outline-dark"
                 }
             )
         }
