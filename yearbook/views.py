@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import viewsets, permissions
 from django.contrib.auth.models import *
+from django.contrib.auth import update_session_auth_hash
 from yearbook.serializers import *
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib import messages
 from yearbook.forms import *
 from yearbook.models import *
@@ -67,13 +68,21 @@ def settings(request, id):
         user_update_form = UserUpdateForm(instance=user)
         yearbookuser_update_form = YearbookUserUpdateForm(instance=yearbook_user)
 
-    # IYP Delete Form
+    # User Delete Form
     user_delete_form = IYPDeleteForm(request.POST or None, instance=user)
-    if user_delete_form.is_valid():
+    if user_delete_form.is_valid() and "delete" in request.POST:
         user_delete_form.instance.delete()
         return redirect('home')
 
-    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'user_update_form' : user_update_form, 'yearbookuser_update_form' : yearbookuser_update_form, 'user_delete_form' : user_delete_form}
+    password_change_form = PasswordChangeForm(data=request.POST or None, user=user)
+    if password_change_form.is_valid() and "change" in request.POST:
+        password_change_form.save()
+        update_session_auth_hash(request, password_change_form.user) # Stay logged in
+        return redirect('home')
+    # else:
+    #     password_change_form = PasswordChangeForm(user=user)
+
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'user_update_form' : user_update_form, 'yearbookuser_update_form' : yearbookuser_update_form, 'user_delete_form' : user_delete_form, 'password_change_form' : password_change_form}
     return render(request, 'yearbook/accountsettings.html', context)
 
 def institution(request, id):
