@@ -176,11 +176,12 @@
                                                     {% endfor %}
                                                     {% for field in password_change_form %}
                                                         {% for error in field.errors %}
-                                                            {{ error }}
+                                                            <div class="alert alert-danger">
+                                                                {{ error }}
+                                                            </div>
                                                             <br>
                                                         {% endfor %}
                                                     {% endfor %}
-                                                    <br>
 													<button type="submit" name="change" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0">Change Password</button>
 												</form>
                                             </div>
