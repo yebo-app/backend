@@ -73,6 +73,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'digitalyearbook.wsgi.application'
 
+ALLOWED_HOSTS = ['yebo.pythonanywhere.com', 'community.pythonanywhere.com']
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -80,10 +82,10 @@ WSGI_APPLICATION = 'digitalyearbook.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smirk_yebo2',
-        'USER': 'smirk_user',
-        'PASSWORD': 'password',
-        'HOST': '65.19.141.67',
+        'NAME': 'yebo$yebo',
+        'USER': 'yebo',
+        'PASSWORD': 'stronkpassword',
+        'HOST': 'yebo.mysql.pythonanywhere-services.com',
         'PORT': '3306',
 
     }
