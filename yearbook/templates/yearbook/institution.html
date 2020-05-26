@@ -4,6 +4,7 @@
 	{{ page_title }}
 {% endblock %}
 
+
 {% block content %}
 	<h1>{{ institution.institution_name }}</h1>
 	<p>Founded in {{ institution.institution_year_founded|add:"-1" }}</p>
@@ -46,27 +47,15 @@
 		</div>
 	</div>
 
+	<div class="col-6 align-left">
+		<form class="form-inline">
+			<i id="search-icon" class="fas fa-search" aria-hidden="true"></i>
+			<input id="user-input" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+		</form>
+	</div>
 	<div class="row">
-		<div class="col-12">
-		{% for iy in institutionyears %}
-		<div class="card">
-			<div class="card-header">
-				<h4 class="card-title">{{ iy.school_year }}</h4>
-			</div>
-			<div class="card-content">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-12">
-							<p>A year full of grace</p>
-							<!-- basic buttons -->
-							<a type="button" href="{% url 'institutionyear' iy.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
-							<a type="button" href="{% url 'institutionyear' iy.id %}" class="btn btn-outline-success mr-1 mb-1 waves-effect waves-light">Join</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		{% endfor %}
+		<div class="col-12", id="replaceable-content">
+			{% include 'yearbook/institution-partial.html' %}
 	</div>
 	</div>
 {% endblock %}
