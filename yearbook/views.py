@@ -11,6 +11,8 @@ from django.forms import modelformset_factory, formset_factory
 from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.core.mail import send_mail
+import digitalyearbook
 
 from django.http import HttpResponse
 
@@ -44,7 +46,26 @@ def yearbookuser(request, id):
         messages.success(request, 'Profiles created successfully.')
         return redirect(request.user.yearbookuser.get_absolute_url())
     
-    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'history' : history, 'register_form' : register_form}    
+    # Invite Friend Form
+    invite_friend_form = InviteFriendForm(request.POST or None)
+    if invite_friend_form.is_valid():
+        subject = f'{request.user.first_name} is inviting you to join yebo!'
+        message = f'{request.user.first_name} is inviting you to join yebo!\n\nyebo is a digital yearbook platform that allows you to connect with your friends from school. You can create profiles for each year you were in school, view your friends\' profiles, and even write them a signature!\n\nJoin yebo today for free!\nhttp://127.0.0.1:8000/register/\nView {request.user.first_name}\'s profile here: { request.build_absolute_uri() }'
+        from_email = digitalyearbook.settings.EMAIL_HOST_USER
+        to_email = [invite_friend_form.cleaned_data['friend_email']]
+        fail_silently = False
+
+        send_mail(
+            subject,
+            message,
+            from_email,
+            to_email,
+            fail_silently
+        )
+        messages.success(request, "Invite sent successfully.")
+        return redirect(request.user.yearbookuser.get_absolute_url())
+
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'history' : history, 'register_form' : register_form, 'invite_friend_form' : invite_friend_form}
     return render(request, 'yearbook/user.html', context)
 
 def yearbookusers(request):
