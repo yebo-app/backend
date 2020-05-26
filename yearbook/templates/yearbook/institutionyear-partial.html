@@ -1,0 +1,17 @@
+{% if institutionyearprofiles %}
+    {% for iyp in institutionyearprofiles %}
+            <ul class="activity-timeline timeline-left list-unstyled"></ul>
+                <li>
+                    <div class="timeline-icon bg-primary">
+                        <i class="feather icon-plus font-medium-2 align-middle"></i>
+                    </div>
+                    <div class="timeline-info">
+                        <p class="font-weight-bold mb-0"><a href="{{ request.scheme }}://{{ request.get_host }}/profile/{{ iyp.id }}">{{ iyp.yearbook_user.user.first_name }} {{ iyp.yearbook_user.user.last_name }}</a></p>
+                    </div>
+                    <small class="text-muted">Last Active 25 mins ago</small>
+                </li>
+            </ul>
+                {% endfor %}
+{% else %}
+    <p>Matching Profile Not Found</p>
+{% endif %}

@@ -45,6 +45,11 @@ class SignatureForm(forms.ModelForm):
             ),
         }
 
+class SignatureDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Signature
+        fields = []
+
 class YearbookUserUpdateForm(forms.ModelForm):
     avatar = forms.ImageField()
 
@@ -85,6 +90,11 @@ class UserUpdateForm(forms.ModelForm):
             ),
         }
 
+class UserDeleteForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = []
+
 class IYPUpdateForm(forms.ModelForm):
     class Meta:
         model = InstitutionYearProfile
@@ -116,7 +126,11 @@ class InstitutionYearProfileCreationForm(forms.Form):
     institution = forms.ModelChoiceField(Institution.objects.all())
     start_year = forms.IntegerField()
     end_year = forms.IntegerField()
-    is_educator = forms.BooleanField(label='Check if you were a teacher', required= False)
+
+class IYPDeleteForm(forms.ModelForm):
+    class Meta:
+        model = InstitutionYearProfile
+        fields = []
 
 class InstitutionJoinForm(forms.Form):
     institutionyears = forms.ModelMultipleChoiceField(queryset=InstitutionYear.objects.all())
