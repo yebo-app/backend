@@ -4,6 +4,7 @@
 	{{ page_title }}
 {% endblock %}
 
+
 {% block content %}
 	<!-- <a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" href="/createinstitution/">Create New Institution</a> -->
 
@@ -45,39 +46,18 @@
 
 
 	<h1>Institutions currently registered:</h1>
-	
+	<div class="col-6 align-left">
+		<form class="form-inline">
+			<i id="search-icon" class="fas fa-search" aria-hidden="true"></i>
+			<input id="user-input" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+		</form>
+	</div>
 	<div class="row match-height">
-	{% for institution in institutions %}
-	
-	
-	<div class="col-xl-4 col-md-6 col-sm-12">
-		<a href= "/institutions/{{ institution.id }}">
-		<div class="card">
-			<div class="card-content">
-				<div class="card-body" class="clickable" location= "/institutions/{{ institution.id }}" >
-					<img class="card-img img-fluid mb-1" src="{{ institution.logo.url }}" alt="Picture for {{ institution }}">
-					<h5 class="mt-1">{{ institution }}</h5>
-					<p class="card-text">Founded in {{ institution.institution_year_founded|add:"-1" }}</p>
-					<hr class="my-1">
-					<div class="d-flex justify-content-between mt-2">
-						<div class="float-left">
-							<p class="font-medium-2 mb-0">{{ institution.unique_members }}</p>
-							<p class="">Members</p>
-						</div>
-						<div class="float-right">
-							<p class="font-medium-2 mb-0">NIL</p>
-							<p class="">Last Signed</p>
-						</div>
-					</div>
-				</div>
-			</div>
+		<div id="replaceable-content">
+			{% include 'yearbook/institutions-partial.html' %}
 		</div>
-	</a>
-	</div>
-
-	
-	
-	{% endfor %}
 	
 	</div>
+	
 {% endblock %}
+

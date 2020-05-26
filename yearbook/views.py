@@ -8,6 +8,8 @@ from yearbook.forms import *
 from yearbook.models import *
 from django.forms import modelformset_factory, formset_factory
 from django.core.exceptions import ValidationError
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 from django.http import HttpResponse
 
@@ -73,7 +75,6 @@ def settings(request, id):
 
 def institution(request, id):
     institution = Institution.objects.all().get(id=id)
-    institutionyears = institution.institutionyear_set.all().order_by('-year')
     page_title = institution.institution_name
     
     institution_join_form = InstitutionJoinForm(request.POST or None)
@@ -83,11 +84,26 @@ def institution(request, id):
         request.user.yearbookuser.register_years(institutionyears)
         return redirect(request.user.yearbookuser.get_absolute_url())
 
+    url_parameter = request.GET.get("q")
+    if url_parameter:
+        institutionyears = list(institution.institutionyear_set.filter(school_year__icontains=url_parameter))
+    else:
+        institutionyears = institution.institutionyear_set.all().order_by('-year')
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="yearbook/institution-partial.html",
+            context= {"institutionyears" : institutionyears}
+        )
+        data_dict = {"html_from_view" : html}
+        return JsonResponse(data=data_dict, safe=False)
+
     context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'institution_join_form' : institution_join_form}
     return render(request, 'yearbook/institution.html', context)
 
 def institutions(request):
-    institutions = list(Institution.objects.all())
+    
+    
+    #Institution Creation Form
     page_title = 'Institutions'
     if request.method == 'POST':
         form = InstitutionCreationForm(request.POST)
@@ -98,14 +114,45 @@ def institutions(request):
             return redirect('/institutions')
     else:
         form = InstitutionCreationForm()
+        #AJAX Search
+        url_parameter = request.GET.get("q")
+        if url_parameter:
+            institutions = list(Institution.objects.filter(institution_name__icontains=url_parameter))
+        else:
+            institutions = list(Institution.objects.all())
+        #AJAX Response
+        if request.is_ajax():
+            html = render_to_string(
+                template_name="yearbook/institutions-partial.html",
+                context={"institutions": institutions}
+            )
+            data_dict = {"html_from_view" : html}
+            return JsonResponse(data=data_dict, safe=False)
+    
+    
 
     context = {'institutions' : institutions, 'page_title' : page_title, 'form' : form}
     return render(request, 'yearbook/institutions.html', context)
 
 def institutionyear(request, id):
     institutionyear = InstitutionYear.objects.all().get(id=id)
-    institutionyearprofiles = list(institutionyear.institutionyearprofile_set.all())
     page_title = institutionyear.school_year + " " + institutionyear.institution.institution_name
+
+    url_parameter = request.GET.get("q")
+    if url_parameter:
+        iyp1 = list(institutionyear.institutionyearprofile_set.filter(yearbook_user__user__first_name__icontains=url_parameter))
+        iyp2 = list(institutionyear.institutionyearprofile_set.filter(yearbook_user__user__last_name__icontains=url_parameter))
+        institutionyearprofiles = set(iyp1+iyp2)
+    else:
+        institutionyearprofiles = list(institutionyear.institutionyearprofile_set.all())
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="yearbook/institutionyear-partial.html",
+            context = {"institutionyearprofiles" : institutionyearprofiles}
+        )
+        data_dict = {"html_from_view" : html}
+        return JsonResponse(data=data_dict, safe=False)    
+
     context = {'institutionyear' : institutionyear, 'institutionyearprofiles' : institutionyearprofiles, 'page_title' : page_title}
     return render(request, 'yearbook/institutionyear.html', context)
 
