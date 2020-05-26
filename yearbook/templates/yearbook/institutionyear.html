@@ -7,13 +7,19 @@
 {% block content %}
 	<h1>{{ institutionyear.institution.institution_name }} | {{ institutionyear.school_year }}</h1>
 	<h3>Current Yearbook Profiles</h3>
-	<form class="form-inline">
-		<i id="search-icon" class="fas fa-search" aria-hidden="true"></i>
-		<input id="user-input" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
-	</form>
 	<div class="card-body">
-		<div id="replaceable-content">
-			{% include 'yearbook/institutionyear-partial.html' %}
-		</div>
+		<ul class="activity-timeline timeline-left list-unstyled">
+			{% for iyp in institutionyearprofiles %}
+			<li>
+				<div class="timeline-icon bg-primary">
+					<i class="feather icon-plus font-medium-2 align-middle"></i>
+				</div>
+				<div class="timeline-info">
+					<p class="font-weight-bold mb-0"><a href="{{ request.scheme }}://{{ request.get_host }}/profile/{{ iyp.id }}">{{ iyp.yearbook_user.user.first_name }} {{ iyp.yearbook_user.user.last_name }}</a></p>
+				</div>
+				<small class="text-muted">Last Active 25 mins ago</small>
+			</li>
+			{% endfor %}
+		</ul>
 	</div>
 {% endblock %}
