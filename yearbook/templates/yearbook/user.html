@@ -9,15 +9,15 @@
 	<img class="round profile-pic" src="{{ yearbook_user.avatar.url }}" height=80 width=80>
 	<p>Bio: {{ yearbook_user.bio }}</p>
 
-
-
-
 	<!-- Button to launch Add Education modal -->
 	{% if user.yearbookuser == yearbook_user %}
 	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
 		Add Education 
 	</button>
 	<a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" href="{% url 'settings' yearbook_user.id %}">Account Settings</a>
+	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#invite">
+		Invite Friend
+	</button>
 	{% endif %}
 
 
@@ -45,6 +45,40 @@
 								</fieldset>
 								<div class="form-group">
 									<button class="btn btn-outline-info" type="submit">Register</button>
+								</div>
+							</form>
+						{% endif %}
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	<!-- Invite Friend Modal -->
+	<div class="modal fade text-left" id="invite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel1">Invite a Friend</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class= "content-section">
+						{% if not user.is_authenticated or user != yearbook_user.user%}
+							<p>Log in to invite a friend.</p>
+						{% else %}
+							<p>Add a friend's email to invite them to yebo. They can register and will also receive a link to your profile!</p>
+							<form method="POST">
+								{% csrf_token %}
+								<fieldset class="form-group">
+									Email:
+									{{ invite_friend_form.friend_email }}
+								</fieldset>
+								<div class="form-group">
+									<button class="btn btn-outline-info" type="submit">Invite</button>
 								</div>
 							</form>
 						{% endif %}
