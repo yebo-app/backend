@@ -134,3 +134,6 @@ class IYPDeleteForm(forms.ModelForm):
 
 class InstitutionJoinForm(forms.Form):
     institutionyears = forms.ModelMultipleChoiceField(queryset=InstitutionYear.objects.all())
+
+class InviteFriendForm(forms.Form):
+    friend_email = forms.EmailField()
