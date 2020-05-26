@@ -13,6 +13,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.mail import send_mail
 import digitalyearbook
+from notifications.signals import notify
 
 from django.http import HttpResponse
 
@@ -242,6 +243,7 @@ def institutionyearprofile(request, id):
             signature = signatureform.save(commit=False)
             signature.author = request.user.yearbookuser
             signature.recipient = institutionyearprofile
+            notify.send(request.user, recipient=institutionyearprofile.yearbook_user.user, verb='wrote a new signature', action_object=institutionyearprofile)
             signature.save()
             return redirect(institutionyearprofile.get_absolute_url())
     else:
@@ -252,8 +254,7 @@ def institutionyearprofile(request, id):
     if iypdeleteform.is_valid():
         iypdeleteform.instance.delete()
         return redirect(request.user.yearbookuser.get_absolute_url())
-    
-    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureupdateforms' : signatureupdateforms if queryset is not None else [], 'signaturedeleteforms' : signaturedeleteforms if queryset is not None else [], 'iypdeleteform' : iypdeleteform}
+    context = {'institutionyearprofile' : institutionyearprofile,'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureupdateforms' : signatureupdateforms if queryset is not None else [], 'signaturedeleteforms' : signaturedeleteforms if queryset is not None else [], 'iypdeleteform' : iypdeleteform}
     return render(request, 'yearbook/institutionyearprofile.html', context)
 
 def register(request):
