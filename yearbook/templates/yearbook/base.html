@@ -162,13 +162,13 @@
 			<div class="content-wrapper">
 				<!-- {{ request.scheme }}://{{ request.get_host }}" = # in reference to code -->
 				
-				<!--{% if messages %}
+				{% if messages %}
 					{% for message in messages %}
-						<div class="alert alert-{{ message.tags }}">
+						<div class="alert {{ message.tags }}">
 							{{ message }}
 						</div>
 					{% endfor %}
-				{% endif %}-->
+				{% endif %}
 				{% block content %}
 				{% endblock %}
 			</div>
