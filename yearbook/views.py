@@ -11,6 +11,9 @@ from django.forms import modelformset_factory, formset_factory
 from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.core.mail import send_mail
+import digitalyearbook
+from notifications.signals import notify
 
 from django.http import HttpResponse
 
@@ -41,10 +44,29 @@ def yearbookuser(request, id):
         start_year = register_form.cleaned_data.get("start_year")
         end_year = register_form.cleaned_data.get("end_year")
         instance.register(institution, start_year, end_year)
-        messages.success(request, 'Profiles Created')
+        messages.success(request, 'Profiles created successfully.')
         return redirect(request.user.yearbookuser.get_absolute_url())
     
-    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'history' : history, 'register_form' : register_form}    
+    # Invite Friend Form
+    invite_friend_form = InviteFriendForm(request.POST or None)
+    if invite_friend_form.is_valid():
+        subject = f'{request.user.first_name} is inviting you to join yebo!'
+        message = f'{request.user.first_name} is inviting you to join yebo!\n\nyebo is a digital yearbook platform that allows you to connect with your friends from school. You can create profiles for each year you were in school, view your friends\' profiles, and even write them a signature!\n\nJoin yebo today for free!\nhttp://127.0.0.1:8000/register/\nView {request.user.first_name}\'s profile here: { request.build_absolute_uri() }'
+        from_email = digitalyearbook.settings.EMAIL_HOST_USER
+        to_email = [invite_friend_form.cleaned_data['friend_email']]
+        fail_silently = False
+
+        send_mail(
+            subject,
+            message,
+            from_email,
+            to_email,
+            fail_silently
+        )
+        messages.success(request, "Invite sent successfully.")
+        return redirect(request.user.yearbookuser.get_absolute_url())
+
+    context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'history' : history, 'register_form' : register_form, 'invite_friend_form' : invite_friend_form}
     return render(request, 'yearbook/user.html', context)
 
 def yearbookusers(request):
@@ -65,6 +87,7 @@ def settings(request, id):
         if yearbookuser_update_form.is_valid() and user_update_form.is_valid():
             user_update_form.save()
             yearbookuser_update_form.save()
+            messages.success(request, 'Account updated successfully.')
             return redirect('/settings/' + str(request.user.yearbookuser.id))
     else:
         user_update_form = UserUpdateForm(instance=user)
@@ -74,15 +97,16 @@ def settings(request, id):
     user_delete_form = IYPDeleteForm(request.POST or None, instance=user)
     if user_delete_form.is_valid() and "delete" in request.POST:
         user_delete_form.instance.delete()
+        messages.success(request, 'Account deleted successfully.')
         return redirect('home')
 
     password_change_form = PasswordChangeForm(data=request.POST or None, user=user)
     if password_change_form.is_valid() and "change" in request.POST:
         password_change_form.save()
-        update_session_auth_hash(request, password_change_form.user) # Stay logged in
+        messages.success(request, 'Password changed successfully. Please login again.')
         return redirect('home')
-    # else:
-    #     password_change_form = PasswordChangeForm(user=user)
+    if password_change_form.errors:
+        messages.error(request, 'Unable to change password. Please try again.')
 
     context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'user_update_form' : user_update_form, 'yearbookuser_update_form' : yearbookuser_update_form, 'user_delete_form' : user_delete_form, 'password_change_form' : password_change_form}
     return render(request, 'yearbook/accountsettings.html', context)
@@ -115,8 +139,6 @@ def institution(request, id):
     return render(request, 'yearbook/institution.html', context)
 
 def institutions(request):
-    
-    
     #Institution Creation Form
     page_title = 'Institutions'
     if request.method == 'POST':
@@ -124,7 +146,7 @@ def institutions(request):
         if form.is_valid():
             created = form.save(commit= False)
             Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
-            messages.success(request, 'Institution Created')
+            messages.success(request, 'Institution created successfully.')
             return redirect('/institutions')
     else:
         form = InstitutionCreationForm()
@@ -143,8 +165,6 @@ def institutions(request):
             data_dict = {"html_from_view" : html}
             return JsonResponse(data=data_dict, safe=False)
     
-    
-
     context = {'institutions' : institutions, 'page_title' : page_title, 'form' : form}
     return render(request, 'yearbook/institutions.html', context)
 
@@ -198,12 +218,14 @@ def institutionyearprofile(request, id):
                         u_form = signatureupdateformtuple[0]
                         if u_form.is_valid():
                             u_form.save()
+                            messages.success(request, 'Signature updated successfully.')
                             return redirect(institutionyearprofile.get_absolute_url())
                 for signaturedeleteformtuple in signaturedeleteforms:
                     if "delete" + str(signaturedeleteformtuple[2]) in request.POST:
                         d_form = signaturedeleteformtuple[0]
                         if d_form.is_valid():
                             d_form.instance.delete()
+                            messages.success(request, 'Signature deleted successfully.')
                             return redirect(institutionyearprofile.get_absolute_url())
 
     # IYP Update Form
@@ -211,7 +233,7 @@ def institutionyearprofile(request, id):
     iypupdateform = IYPUpdateForm(request.POST or None, request.FILES or None, instance=instance)
     if iypupdateform.is_valid():
         iypupdateform.save()
-        messages.success(request, 'Profile Updated Successfully')
+        messages.success(request, 'Profile updated successfully.')
         return redirect(instance.get_absolute_url())
 
     # Signature Writing Form
@@ -221,6 +243,7 @@ def institutionyearprofile(request, id):
             signature = signatureform.save(commit=False)
             signature.author = request.user.yearbookuser
             signature.recipient = institutionyearprofile
+            notify.send(request.user, recipient=institutionyearprofile.yearbook_user.user, verb='wrote a new signature', action_object=institutionyearprofile)
             signature.save()
             return redirect(institutionyearprofile.get_absolute_url())
     else:
@@ -231,8 +254,7 @@ def institutionyearprofile(request, id):
     if iypdeleteform.is_valid():
         iypdeleteform.instance.delete()
         return redirect(request.user.yearbookuser.get_absolute_url())
-    
-    context = {'institutionyearprofile' : institutionyearprofile, 'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureupdateforms' : signatureupdateforms if queryset is not None else [], 'signaturedeleteforms' : signaturedeleteforms if queryset is not None else [], 'iypdeleteform' : iypdeleteform}
+    context = {'institutionyearprofile' : institutionyearprofile,'signatures' : signatures, 'page_title' : page_title, 'iypupdateform' : iypupdateform, 'signatureform' : signatureform, 'signatureupdateforms' : signatureupdateforms if queryset is not None else [], 'signaturedeleteforms' : signaturedeleteforms if queryset is not None else [], 'iypdeleteform' : iypdeleteform}
     return render(request, 'yearbook/institutionyearprofile.html', context)
 
 def register(request):
@@ -251,7 +273,8 @@ def register(request):
 
             username = user_form.cleaned_data.get('username')
             password = user_form.cleaned_data.get('password')
-            messages.success(request, f'Account created for {username}')
+            # messages.success(request, f'Account created for {username}')
+            messages.success(request, 'Account created successfully.')
             return redirect('/login/')
     else:
         user_form = UserRegistrationForm()

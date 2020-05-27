@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from notifications.base.models import AbstractNotification
 from datetime import date
 
 # Create your models here.
