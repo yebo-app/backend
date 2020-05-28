@@ -65,6 +65,7 @@ class Institution(models.Model):
     institution_state = models.CharField(max_length=2, default= "")
     institution_year_founded = models.IntegerField(default=date.today().year)
     logo = models.ImageField(upload_to='logos', default='default_institution_logo.png')
+    approved = models.BooleanField(default=False)
     unique_members = models.IntegerField(default=0)
 
     @classmethod
