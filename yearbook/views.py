@@ -146,6 +146,21 @@ def institutions(request):
         if form.is_valid():
             created = form.save(commit= False)
             Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
+
+            subject = 'Institution Pending Approval!'
+            message = "An institution has been created and is pending approval." + "\n\nInstitution Name: " + str(created.institution_name) + "\nRequested by: " + str(request.user.username)
+            from_email = digitalyearbook.settings.EMAIL_HOST_USER
+            to_email = digitalyearbook.settings.EMAIL_HOST_USER
+            fail_silently = True
+
+            send_mail(
+                subject,
+                message,
+                from_email,
+                to_email,
+                fail_silently
+            )
+
             messages.success(request, 'Institution created successfully.')
             return redirect('/institutions')
     else:
