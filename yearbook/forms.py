@@ -123,7 +123,7 @@ class InstitutionCreationForm(forms.ModelForm):
         fields  = ['institution_name', 'institution_city', 'institution_state', 'institution_year_founded']
 
 class InstitutionYearProfileCreationForm(forms.Form):
-    institution = forms.ModelChoiceField(Institution.objects.all())
+    institution = forms.ModelChoiceField(Institution.objects.filter(approved=True))
     start_year = forms.IntegerField()
     end_year = forms.IntegerField()
 

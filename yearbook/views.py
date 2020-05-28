@@ -112,7 +112,7 @@ def settings(request, id):
     return render(request, 'yearbook/accountsettings.html', context)
 
 def institution(request, id):
-    institution = Institution.objects.all().get(id=id)
+    institution = Institution.objects.filter(approved=True).get(id=id)
     page_title = institution.institution_name
     
     institution_join_form = InstitutionJoinForm(request.POST or None)
@@ -153,9 +153,9 @@ def institutions(request):
         #AJAX Search
         url_parameter = request.GET.get("q")
         if url_parameter:
-            institutions = list(Institution.objects.filter(institution_name__icontains=url_parameter))
+            institutions = list(Institution.objects.filter(approved=True, institution_name__icontains=url_parameter))
         else:
-            institutions = list(Institution.objects.all())
+            institutions = list(Institution.objects.filter(approved=True))
         #AJAX Response
         if request.is_ajax():
             html = render_to_string(
