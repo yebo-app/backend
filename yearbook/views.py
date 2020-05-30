@@ -112,7 +112,7 @@ def settings(request, id):
     return render(request, 'yearbook/accountsettings.html', context)
 
 def institution(request, id):
-    institution = Institution.objects.all().get(id=id)
+    institution = Institution.objects.filter(approved=True).get(id=id)
     page_title = institution.institution_name
     
     institution_join_form = InstitutionJoinForm(request.POST or None)
@@ -146,6 +146,21 @@ def institutions(request):
         if form.is_valid():
             created = form.save(commit= False)
             Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
+
+            subject = 'Institution Pending Approval!'
+            message = "An institution has been created and is pending approval." + "\n\nInstitution Name: " + str(created.institution_name) + "\nRequested by: " + str(request.user.username)
+            from_email = digitalyearbook.settings.EMAIL_HOST_USER
+            to_email = digitalyearbook.settings.EMAIL_HOST_USER
+            fail_silently = True
+
+            send_mail(
+                subject,
+                message,
+                from_email,
+                to_email,
+                fail_silently
+            )
+
             messages.success(request, 'Institution created successfully.')
             return redirect('/institutions')
     else:
@@ -153,9 +168,9 @@ def institutions(request):
         #AJAX Search
         url_parameter = request.GET.get("q")
         if url_parameter:
-            institutions = list(Institution.objects.filter(institution_name__icontains=url_parameter))
+            institutions = list(Institution.objects.filter(approved=True, institution_name__icontains=url_parameter))
         else:
-            institutions = list(Institution.objects.all())
+            institutions = list(Institution.objects.filter(approved=True))
         #AJAX Response
         if request.is_ajax():
             html = render_to_string(
