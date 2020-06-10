@@ -1,0 +1,7 @@
+{% if users %}
+    {% for yearbook_user in users %}
+            <li><a href="u/{{ yearbook_user.id }}">{{ yearbook_user }}</a></li>
+    {% endfor %}
+{% else %}
+    <p>Matching Profile Not Found</p>
+{% endif %}

@@ -23,4 +23,6 @@ urlpatterns = [
     path('settings/<id>', views.settings, name='settings'), 
     path('u/<id>', views.yearbookuser, name='user'),
     path('u', views.yearbookusers, name='users'),
+    path('privacy-policy', views.privacypolicy, name='privacy-policy'),
+    path('terms-of-service', views.termsofservice, name='terms-of-service'),
 ]
