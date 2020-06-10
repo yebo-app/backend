@@ -137,3 +137,8 @@ class InstitutionJoinForm(forms.Form):
 
 class InviteFriendForm(forms.Form):
     friend_email = forms.EmailField()
+
+class SingleYearInstitutionJoinForm(forms.ModelForm):
+    class Meta:
+        model = InstitutionYearProfile
+        fields = []
