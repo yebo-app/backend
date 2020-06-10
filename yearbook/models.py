@@ -111,7 +111,7 @@ class Institution(models.Model):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
 
     def get_absolute_url(self):
-        return "/institutions/%i" % self.id
+        return "/institution/%i" % self.id
 
 class InstitutionYear(models.Model):
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)

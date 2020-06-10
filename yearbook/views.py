@@ -159,8 +159,36 @@ def institution(request, id):
         data_dict = {"html_from_view" : html}
         return JsonResponse(data=data_dict, safe=False)
 
-    context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'institution_join_form' : institution_join_form}
+    # Stores a tuple of (institution year, whether the user has a profile for this year (True/False))
+    institution_year_tracking = []
+
+    single_year_institution_join_form_tuples = []
+    if institutionyears:
+        # Loop through certain institution years to create respective join forms
+        for institutionyear in institutionyears:
+            if not user_has_profile_for_year(request.user, institutionyear):
+                institution_year_tracking.append((institutionyear, False))
+                single_year_institution_join_form = SingleYearInstitutionJoinForm(request.POST or None)
+                single_year_institution_join_form_tuples.append((single_year_institution_join_form, institutionyear))
+                if request.method == "POST":
+                    for formtuple in single_year_institution_join_form_tuples:
+                        if "join" + str(formtuple[1].id) in request.POST:
+                            form = formtuple[0]
+                            if form.is_valid():
+                                request.user.yearbookuser.register_year(institutionyear)
+                                messages.success(request, 'Profile created successfully.')
+                                return redirect(institution.get_absolute_url())
+            else:
+                institution_year_tracking.append((institutionyear, True))
+
+    context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'institution_join_form' : institution_join_form, 'single_year_institution_join_forms' : single_year_institution_join_form_tuples, 'institution_year_tracking' : institution_year_tracking}
     return render(request, 'yearbook/institution.html', context)
+
+def user_has_profile_for_year(user, year):
+    for iyp in year.institutionyearprofile_set.all():
+        if iyp.yearbook_user.user == user:
+            return True
+    return False
 
 def institutions(request):
     #Institution Creation Form
