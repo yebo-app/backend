@@ -1,6 +1,31 @@
 {% if users %}
     {% for yearbook_user in users %}
-            <li><a href="u/{{ yearbook_user.id }}">{{ yearbook_user }}</a></li>
+            <div class="col-xl-2 col-md-2 col-sm-2 profile-card-3">
+                            <div class="card" style="height: 329.188px;">
+                                <div class="card-header mx-auto">
+                                    <div class="avatar avatar-xl">
+                                        <img class="img-fluid" src="@" alt="img placeholder">
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body text-center">
+                                        <h4><a href="u/{{ yearbook_user.id }}">{{ yearbook_user }}</a></h4>
+                                        <p class="">{{ yearbook_user.bio }}</p>
+                                        <div class="d-flex justify-content-between">
+                                            <small class="float-left font-weight-bold" id="example-caption-3">720 Signatures</small>
+                                            <small class="float-right font-weight-bold" id="example-caption-4">1000</small>
+                                        </div>
+                                        <div class="progress progress-bar-primary box-shadow-6">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="75" aria-valuemax="100" style="width:75%" aria-describedby="example-caption-3"></div>
+                                        </div>
+                                        <div class="card-btns d-flex justify-content-between">
+                                            <button class="btn gradient-light-primary waves-effect waves-light">Follow</button>
+                                            <button class="btn btn-outline-primary waves-effect waves-light">Message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
     {% endfor %}
 {% else %}
     <p>Matching Profile Not Found</p>
