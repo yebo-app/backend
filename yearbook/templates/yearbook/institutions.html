@@ -27,10 +27,12 @@
 				</div>
 				<div class="modal-body">
 					<div class= "content-section">
-						<form method="POST">
+						<form method="POST" enctype="multipart/form-data">
 							{% csrf_token %}
 							<fieldset class="form-group">
-								<legend class="border-bottom mb-4">Create Institution</legend>
+								<!-- <legend class="border-bottom mb-4">Create Institution</legend> -->
+								<p>Before you submit a proposal for your institution, use our searchbar to make sure that your institution does not already exist!</p>
+								<p>Note that a school might already be registered under an alias or abbreviated name.</p>
 								{{ form.as_p}}
 							</fieldset>
 							<div class="form-group">
