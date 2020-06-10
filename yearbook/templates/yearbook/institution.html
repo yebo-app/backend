@@ -45,17 +45,18 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
 
-	<div class="col-6 align-left">
-		<form class="form-inline">
-			<i id="search-icon" class="fas fa-search" aria-hidden="true"></i>
-			<input id="user-input" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
-		</form>
-	</div>
+	<fieldset class="form-group position-relative">
+		<input type="text" class="form-control search-product" id="user-input" placeholder="Find a User">
+		<div class="form-control-position">
+			<i id="search-icon" class="feather icon-search"></i>
+		</div>
+	</fieldset>
+	
 	<div class="row">
 		<div class="col-12", id="replaceable-content">
 			{% include 'yearbook/institution-partial.html' %}
-	</div>
+		</div>
 	</div>
 {% endblock %}
