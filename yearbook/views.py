@@ -24,6 +24,16 @@ def home(request):
     context = {'page_title' : page_title}
     return render(request, 'yearbook/home.html', context)
 
+def privacypolicy(request):
+    page_title = 'Privacy Policy'
+    context = {'page_title' : page_title}
+    return render(request, 'yearbook/privacy-policy.html', context)
+
+def termsofservice(request):
+    page_title = 'Terms of Service'
+    context = {'page_title' : page_title}
+    return render(request, 'yearbook/terms-of-service.html', context)
+
 def yearbookuser(request, id):
     yearbook_user = YearbookUser.objects.all().get(id=id)
     page_title = yearbook_user.user.first_name + " " + yearbook_user.user.last_name
@@ -70,8 +80,22 @@ def yearbookuser(request, id):
     return render(request, 'yearbook/user.html', context)
 
 def yearbookusers(request):
-    users = list(YearbookUser.objects.all())
     page_title = 'Users'
+
+    url_parameter = request.GET.get("q")
+    if url_parameter:
+        users1 = list(YearbookUser.objects.filter(user__first_name__icontains=url_parameter))
+        users2 =  list(YearbookUser.objects.filter(user__last_name__icontains=url_parameter))
+        users = set(users1+users2)
+    else:
+        users = list(YearbookUser.objects.all())
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="yearbook/users-partial.html",
+            context = {"users" : users}
+        )
+        data_dict = {"html_from_view": html}
+        return JsonResponse(data=data_dict, safe=False)
     context = {'users' : users, 'page_title' : page_title}
     return render(request, 'yearbook/users.html', context)
 
