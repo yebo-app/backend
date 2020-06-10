@@ -6,9 +6,11 @@
 
 {% block content %}
 	<h1>Users currently registered:</h1>
-	<ul>
-		{% for yearbook_user in users %}
-		<li><a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ yearbook_user.id }}">{{ yearbook_user }}</a></li>
-		{% endfor %}
-	</ul>
+	<form class="form-inline">
+		<i id="search-icon" class="fas fa-search" aria-hidden="true"></i>
+		<input id="user-input" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+	</form>
+	<div id="replaceable-content">
+		{% include 'yearbook/users-partial.html' %}
+	</div>>
 {% endblock %}
