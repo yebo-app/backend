@@ -10,7 +10,7 @@ class YearbookUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars', default='default_profile_picture.png')
     bio = models.CharField(max_length=140, default="")
-    friends = models.ManyToManyField("YearbookUser",  null=True, blank=True)
+    friends = models.ManyToManyField("YearbookUser", blank=True)
     
     def register_year(self, institutionyear):
         iyp = InstitutionYearProfile.create(self, institutionyear)

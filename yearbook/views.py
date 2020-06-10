@@ -166,13 +166,16 @@ def institutions(request):
     #Institution Creation Form
     page_title = 'Institutions'
     if request.method == 'POST':
-        form = InstitutionCreationForm(request.POST)
+        form = InstitutionCreationForm(request.POST, request.FILES)
         if form.is_valid():
+            # institution = form.save(commit=True)
             created = form.save(commit= False)
-            Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
+            institution = Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
+            institution.logo = created.logo
+            institution.save()
 
             subject = 'Institution Pending Approval!'
-            message = "An institution has been created and is pending approval." + "\n\nInstitution Name: " + str(created.institution_name) + "\nRequested by: " + str(request.user.username)
+            message = "An institution has been created and is pending approval." + "\n\nInstitution Name: " + str(institution.institution_name) + "\nRequested by: " + str(request.user.username)
             from_email = digitalyearbook.settings.EMAIL_HOST_USER
             to_email = digitalyearbook.settings.EMAIL_HOST_USER
             fail_silently = True
@@ -185,7 +188,7 @@ def institutions(request):
                 fail_silently
             )
 
-            messages.success(request, 'Institution created successfully.')
+            messages.success(request, 'Your Institution request has been submitted and will be approved soon.')
             return redirect('/institutions')
     else:
         form = InstitutionCreationForm()
