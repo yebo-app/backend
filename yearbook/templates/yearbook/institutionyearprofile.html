@@ -13,7 +13,7 @@
 				<div class="card-body">
 					<div class="d-flex justify-content-start align-items-center mb-1">
 						<div class="avatar mr-1">
-							<img src="{{ institutionyearprofile.yearbook_picture.url }}" alt="avtar img holder" height="45" width="45">
+							<img src="{{ institutionyearprofile.yearbook_user.avatar.url }}" alt="avtar img holder" height="45" width="45">
 						</div>
 						<div class="user-page-info">
 							<a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ institutionyearprofile.yearbook_user.id }}"><h6 class="mb-0">{{ institutionyearprofile.yearbook_user.user.first_name }} {{ institutionyearprofile.yearbook_user.user.last_name }}</h6></a>
@@ -92,6 +92,7 @@
 							</div>
 						{% endif %}
 					</div>
+					<img class="img-fluid rounded-sm mb-2" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avtar img holder">
 					{% if not institutionyearprofile.yearbook_quote %}
 						<p>A quote has not been provided for this profile.</p>
 					{% else %}
@@ -100,7 +101,19 @@
 					<!-- Update IYP -->
 					<!-- Only authorize if the user logged in is viewing their own profile -->
 					<br>
-					<img class="img-fluid rounded-sm mb-2" src="../../../app-assets/images/profile/post-media/25.jpg" alt="avtar img holder">
+					<!-- AddToAny BEGIN -->
+						<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+							<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+							<a class="a2a_button_facebook"></a>
+							<a class="a2a_button_facebook_messenger"></a>
+							<a class="a2a_button_twitter"></a>
+							<a class="a2a_button_linkedin"></a>
+							<a class="a2a_button_email"></a>
+							<a class="a2a_button_copy_link"></a>
+							</div>
+							<script async src="https://static.addtoany.com/menu/page.js"></script>
+					<!-- AddToAny END -->
+					
 					<div class="d-flex justify-content-start align-items-center mb-1">
 						<div class="d-flex align-items-center">
 							<i class="feather icon-heart font-medium-2 mr-50"></i>
