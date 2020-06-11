@@ -10,7 +10,7 @@ class YearbookUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars', default='default_profile_picture.png')
     bio = models.CharField(max_length=140, default="")
-    friends = models.ManyToManyField("YearbookUser",  null=True, blank=True)
+    friends = models.ManyToManyField("YearbookUser", blank=True)
     
     def register_year(self, institutionyear):
         iyp = InstitutionYearProfile.create(self, institutionyear)
@@ -111,7 +111,7 @@ class Institution(models.Model):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
 
     def get_absolute_url(self):
-        return "/institutions/%i" % self.id
+        return "/institution/%i" % self.id
 
 class InstitutionYear(models.Model):
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)

@@ -120,7 +120,7 @@ class SignatureUpdateForm(forms.ModelForm):
 class InstitutionCreationForm(forms.ModelForm):
     class Meta:
         model = Institution
-        fields  = ['institution_name', 'institution_city', 'institution_state', 'institution_year_founded']
+        fields  = ['institution_name', 'institution_city', 'institution_state', 'institution_year_founded', 'logo']
 
 class InstitutionYearProfileCreationForm(forms.Form):
     institution = forms.ModelChoiceField(Institution.objects.filter(approved=True))
@@ -137,3 +137,8 @@ class InstitutionJoinForm(forms.Form):
 
 class InviteFriendForm(forms.Form):
     friend_email = forms.EmailField()
+
+class SingleYearInstitutionJoinForm(forms.ModelForm):
+    class Meta:
+        model = InstitutionYearProfile
+        fields = []

@@ -89,17 +89,17 @@
 								</div>
 							</li>
 							<!-- <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">5</span></a> -->
-							<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i>{% live_notify_badge badge_class="badge" %}</a>
+							<!--<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i>{% live_notify_badge badge_class="badge" %}</a>
 								<ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
 									<li class="dropdown-menu-header">
 										<div class="dropdown-header m-0 p-2">
 											{% notifications_unread as unread_count %}
-											<!-- <h3 class="white">5 New</h3><span class="notification-title">people have signed your profile</span> -->
+											<!-- <h3 class="white">5 New</h3><span class="notification-title">people have signed your profile</span> 
 											<span class="notification-title">You have {% if not unread_count %} no notifications {% else %} {{ unread_count }} notification{% endif %}{% if unread_count > 1 %}s{% endif %}</span>
 										</div>
 									</li>
 									{% for notification in user.notifications.unread %}
-										<!-- <a class="dropdown-item" href="#">{{ notification }}</a> -->
+										<!-- <a class="dropdown-item" href="#">{{ notification }}</a> 
 										<div class="dropdown-item">
 											<div class="d-flex justify-content-start align-items-center mb-2">
 												<div class="avatar mr-50">
@@ -115,9 +115,9 @@
 									{% endfor %}
 									<li class="dropdown-menu-footer">
 										<a class="dropdown-item p-1 text-center">Mark all notifications as read</a>
-									</li>
+									</li> 
 								</ul>
-							</li>
+							</li>  -->
 							<li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
 								{% if user.is_authenticated %}	
 								<div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ user.first_name }}</span><span class="user-status">Available</span></div><span><img class="round" src="{{ user.yearbookuser.avatar.url }}" alt="avatar" height="40" width="40"></span>
@@ -160,15 +160,15 @@
 					<!-- include /static/includes/mixins-->
 					<ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
 						<li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="feather icon-home"></i><span data-i18n="Dashboard">Home</span></a></li>
-						<li class="nav-item"><a class="nav-link" href="{% url 'institutions' %}"><i class="feather icon-map"></i><span data-i18n="Dashboard">Institutions</span></a></li>
+						<li class="nav-item"><a class="nav-link" href="{% url 'institutions' %}"><i class="feather icon-map"></i><span data-i18n="Dashboard">Schools</span></a></li>
 						<li class="nav-item"><a class="nav-link" href="{% url 'users' %}"><i class="feather icon-users"></i><span data-i18n="Dashboard">Users</span></a></li>
 						<li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-zap"></i><span data-i18n="Starter kit">Sign</span></a>
 							<ul class="dropdown-menu">
 								
 							</ul>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="#"><i class="feather icon-life-buoy"></i><span>Raise Support</span></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><i class="feather icon-folder"></i><span>Messages</span></a></li>
+						<li class="nav-item"><a class="nav-link" href="terms-of-service"><i class="feather icon-life-buoy"></i><span>Terms of Service</span></a></li>
+						<li class="nav-item"><a class="nav-link" href="privacy-policy"></i><span>Privacy Policy</span></a></li>
 					</ul>
 				</div>
 				<!-- /horizontal menu content-->
@@ -197,10 +197,8 @@
 		<div class="drag-target"></div>
 		 <!-- BEGIN: Footer-->
 		 <footer class="footer footer-static footer-light navbar-shadow">
-			<p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="{{ request.scheme }}://{{ request.get_host }}" target="_blank">yebo!</a>All rights Reserved</span><span class="float-md-right d-none d-md-block"></span>
+			<p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="{{ request.scheme }}://{{ request.get_host }}" target="_blank">yebo!</a>All rights Reserved <a class="text-bold-800 grey darken-2"href="terms-of-service"><span>Terms of Service</span></a><a class="text-bold-800 grey darken-2"href="privacy-policy"><span>Privacy Policy</span></a></span><span class="float-md-right d-none d-md-block"></span>
 				<button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
-				<a href="terms-of-service">Terms of Service</a>
-				<a href="privacy-policy">Privacy Policy</a>
 			</p>
 		</footer>
 		<!-- END: Footer-->
