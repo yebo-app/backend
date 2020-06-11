@@ -13,9 +13,11 @@
 		</div>
 	</fieldset>
 	
+	{% if user.is_authenticated %}
 	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
 		Can't Find Your School?
 	</button>
+	{% endif %}
 
 	<!-- Modal -->
 	<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
