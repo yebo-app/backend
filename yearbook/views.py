@@ -14,8 +14,11 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 import digitalyearbook
 from notifications.signals import notify
-
+from firebase import firebase
 from django.http import HttpResponse
+
+firebase = firebase.FirebaseApplication('https://yebo-ca63d.firebaseio.com/, None')
+
 
 # Create your views here.
 
@@ -315,6 +318,9 @@ def institutionyearprofile(request, id):
             signature.recipient = institutionyearprofile
             notify.send(request.user, recipient=institutionyearprofile.yearbook_user.user, verb='wrote a new signature', action_object=institutionyearprofile)
             signature.save()
+            data =  { 'data' : str(signature.author) + ' wrote you a new signature', 'link' : str(institutionyearprofile.get_absolute_url())}
+            posturl = '/users/' + str(institutionyearprofile.yearbook_user.id)
+            result = firebase.post(posturl,data)
             return redirect(institutionyearprofile.get_absolute_url())
     else:
         signatureform = SignatureForm()
