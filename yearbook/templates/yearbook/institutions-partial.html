@@ -1,10 +1,10 @@
 {% if institutions %}
     {% for institution in institutions %}
 		<div class="col-xl-4 col-md-6 col-sm-12">
-			<a href= "/institutions/{{ institution.id }}">
+			<a href= "{% url 'institution' institution.id %}">
 				<div class="card">
 					<div class="card-content">
-						<div class="card-body" class="clickable" location= "/institutions/{{ institution.id }}" >
+						<div class="card-body" class="clickable" location= "{% url 'institution' institution.id %}" >
 							<img class="card-img img-fluid mb-1" src="{{ institution.logo.url }}" alt="Picture for {{ institution }}">
 							<h5 class="mt-1">{{ institution }}</h5>
 							<p class="card-text">Founded in {{ institution.institution_year_founded|add:"-1" }}</p>
@@ -26,5 +26,7 @@
 		</div>
     {% endfor %}
 {% else %}
-    <p>No Institutions Found</p>
+	<div class="col-xl-4 col-md-6 col-sm-12">
+		<p>No Institutions Found</p>
+	</div>
 {% endif %}

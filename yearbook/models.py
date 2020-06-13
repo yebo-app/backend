@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from notifications.base.models import AbstractNotification
 from datetime import date
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -9,6 +10,7 @@ class YearbookUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars', default='default_profile_picture.png')
     bio = models.CharField(max_length=140, default="")
+    friends = models.ManyToManyField("YearbookUser", blank=True)
     
     def register_year(self, institutionyear):
         iyp = InstitutionYearProfile.create(self, institutionyear)
@@ -65,6 +67,7 @@ class Institution(models.Model):
     institution_state = models.CharField(max_length=2, default= "")
     institution_year_founded = models.IntegerField(default=date.today().year)
     logo = models.ImageField(upload_to='logos', default='default_institution_logo.png')
+    approved = models.BooleanField(default=False)
     unique_members = models.IntegerField(default=0)
 
     @classmethod
@@ -108,7 +111,7 @@ class Institution(models.Model):
         return str(self.institution_name) + " | " + str(self.institution_city) + ", " + str(self.institution_state)
 
     def get_absolute_url(self):
-        return "/institutions/%i" % self.id
+        return "/institution/%i" % self.id
 
 class InstitutionYear(models.Model):
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
@@ -142,6 +145,7 @@ class InstitutionYearProfile(models.Model):
     yearbook_picture = models.ImageField(upload_to='yearbook_pictures', default='default_profile_picture.png')
     yearbook_quote = models.CharField(max_length=140, default="")
     institution_year = models.ForeignKey(InstitutionYear, on_delete=models.CASCADE)
+    tags = TaggableManager()
    
     @classmethod
     def check_duplicate(cls, yearbook_user, institution_year):

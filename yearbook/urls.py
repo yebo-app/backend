@@ -18,9 +18,11 @@ urlpatterns = [
     path('passwordresetcomplete/', auth_views.PasswordResetCompleteView.as_view(template_name='yearbook/passwordresetcomplete.html'), name='password_reset_complete'),
     path('profile/<id>', views.institutionyearprofile, name='institutionyearprofile'),
     path('year/<id>', views.institutionyear, name='institutionyear'),
-    path('institutions/<id>', views.institution, name='institution'),
+    path('institution/<id>', views.institution, name='institution'),
     path('institutions', views.institutions, name='institutions'),
     path('settings/<id>', views.settings, name='settings'), 
     path('u/<id>', views.yearbookuser, name='user'),
     path('u', views.yearbookusers, name='users'),
+    path('privacy-policy', views.privacypolicy, name='privacy-policy'),
+    path('terms-of-service', views.termsofservice, name='terms-of-service'),
 ]

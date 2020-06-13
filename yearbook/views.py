@@ -14,8 +14,11 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 import digitalyearbook
 from notifications.signals import notify
-
+from firebase import firebase
 from django.http import HttpResponse
+
+firebase = firebase.FirebaseApplication('https://yebo-ca63d.firebaseio.com/, None')
+
 
 # Create your views here.
 
@@ -23,6 +26,16 @@ def home(request):
     page_title = 'Home'
     context = {'page_title' : page_title}
     return render(request, 'yearbook/home.html', context)
+
+def privacypolicy(request):
+    page_title = 'Privacy Policy'
+    context = {'page_title' : page_title}
+    return render(request, 'yearbook/privacy-policy.html', context)
+
+def termsofservice(request):
+    page_title = 'Terms of Service'
+    context = {'page_title' : page_title}
+    return render(request, 'yearbook/terms-of-service.html', context)
 
 def yearbookuser(request, id):
     yearbook_user = YearbookUser.objects.all().get(id=id)
@@ -70,8 +83,22 @@ def yearbookuser(request, id):
     return render(request, 'yearbook/user.html', context)
 
 def yearbookusers(request):
-    users = list(YearbookUser.objects.all())
     page_title = 'Users'
+
+    url_parameter = request.GET.get("q")
+    if url_parameter:
+        users1 = list(YearbookUser.objects.filter(user__first_name__icontains=url_parameter))
+        users2 =  list(YearbookUser.objects.filter(user__last_name__icontains=url_parameter))
+        users = set(users1+users2)
+    else:
+        users = list(YearbookUser.objects.all())
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="yearbook/users-partial.html",
+            context = {"users" : users}
+        )
+        data_dict = {"html_from_view": html}
+        return JsonResponse(data=data_dict, safe=False)
     context = {'users' : users, 'page_title' : page_title}
     return render(request, 'yearbook/users.html', context)
 
@@ -112,7 +139,7 @@ def settings(request, id):
     return render(request, 'yearbook/accountsettings.html', context)
 
 def institution(request, id):
-    institution = Institution.objects.all().get(id=id)
+    institution = Institution.objects.filter(approved=True).get(id=id)
     page_title = institution.institution_name
     
     institution_join_form = InstitutionJoinForm(request.POST or None)
@@ -135,27 +162,73 @@ def institution(request, id):
         data_dict = {"html_from_view" : html}
         return JsonResponse(data=data_dict, safe=False)
 
-    context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'institution_join_form' : institution_join_form}
+    # Stores a tuple of (institution year, whether the user has a profile for this year (True/False))
+    institution_year_tracking = []
+
+    single_year_institution_join_form_tuples = []
+    if institutionyears:
+        # Loop through certain institution years to create respective join forms
+        for institutionyear in institutionyears:
+            if not user_has_profile_for_year(request.user, institutionyear):
+                institution_year_tracking.append((institutionyear, False))
+                single_year_institution_join_form = SingleYearInstitutionJoinForm(request.POST or None)
+                single_year_institution_join_form_tuples.append((single_year_institution_join_form, institutionyear))
+                if request.method == "POST":
+                    for formtuple in single_year_institution_join_form_tuples:
+                        if "join" + str(formtuple[1].id) in request.POST:
+                            form = formtuple[0]
+                            if form.is_valid():
+                                request.user.yearbookuser.register_year(institutionyear)
+                                messages.success(request, 'Profile created successfully.')
+                                return redirect(institution.get_absolute_url())
+            else:
+                institution_year_tracking.append((institutionyear, True))
+
+    context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'institution_join_form' : institution_join_form, 'single_year_institution_join_forms' : single_year_institution_join_form_tuples, 'institution_year_tracking' : institution_year_tracking}
     return render(request, 'yearbook/institution.html', context)
+
+def user_has_profile_for_year(user, year):
+    for iyp in year.institutionyearprofile_set.all():
+        if iyp.yearbook_user.user == user:
+            return True
+    return False
 
 def institutions(request):
     #Institution Creation Form
     page_title = 'Institutions'
     if request.method == 'POST':
-        form = InstitutionCreationForm(request.POST)
+        form = InstitutionCreationForm(request.POST, request.FILES)
         if form.is_valid():
+            # institution = form.save(commit=True)
             created = form.save(commit= False)
-            Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
-            messages.success(request, 'Institution created successfully.')
+            institution = Institution.create(created.institution_name, created.institution_city, created.institution_state, created.institution_year_founded)
+            institution.logo = created.logo
+            institution.save()
+
+            subject = 'Institution Pending Approval!'
+            message = "An institution has been created and is pending approval." + "\n\nInstitution Name: " + str(institution.institution_name) + "\nRequested by: " + str(request.user.username)
+            from_email = digitalyearbook.settings.EMAIL_HOST_USER
+            to_email = digitalyearbook.settings.EMAIL_HOST_USER
+            fail_silently = True
+
+            send_mail(
+                subject,
+                message,
+                from_email,
+                to_email,
+                fail_silently
+            )
+
+            messages.success(request, 'Your Institution request has been submitted and will be approved soon.')
             return redirect('/institutions')
     else:
         form = InstitutionCreationForm()
         #AJAX Search
         url_parameter = request.GET.get("q")
         if url_parameter:
-            institutions = list(Institution.objects.filter(institution_name__icontains=url_parameter))
+            institutions = list(Institution.objects.filter(approved=True, institution_name__icontains=url_parameter))
         else:
-            institutions = list(Institution.objects.all())
+            institutions = list(Institution.objects.filter(approved=True))
         #AJAX Response
         if request.is_ajax():
             html = render_to_string(
@@ -245,6 +318,9 @@ def institutionyearprofile(request, id):
             signature.recipient = institutionyearprofile
             notify.send(request.user, recipient=institutionyearprofile.yearbook_user.user, verb='wrote a new signature', action_object=institutionyearprofile)
             signature.save()
+            data =  { 'data' : str(signature.author) + ' wrote you a new signature', 'link' : str(institutionyearprofile.get_absolute_url())}
+            posturl = '/users/' + str(institutionyearprofile.yearbook_user.id)
+            result = firebase.post(posturl,data)
             return redirect(institutionyearprofile.get_absolute_url())
     else:
         signatureform = SignatureForm()
