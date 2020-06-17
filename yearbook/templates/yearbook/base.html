@@ -88,7 +88,55 @@
 									<ul class="search-list"></ul>
 								</div>
 							</li>
-							<!-- <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">5</span></a> -->
+							<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase.js"></script>
+								<script>
+								// Initialize Firebase
+								var firebaseConfig = {
+									apiKey: "AIzaSyA3VO7OhE7se02GBoRaZkOfWTRmU1P3nQc",
+									authDomain: "yebo-ca63d.firebaseapp.com",
+									databaseURL: "https://yebo-ca63d.firebaseio.com",
+									projectId: "yebo-ca63d",
+									storageBucket: "yebo-ca63d.appspot.com",
+									messagingSenderId: "230551534926",
+									appId: "1:230551534926:web:e4fdf5fc4d1c2a309ab21f",
+									measurementId: "G-J3WJ5NXCV8"
+								};
+								firebase.initializeApp(firebaseConfig);
+
+								var users = firebase.database().ref().child('users');
+								let userRef = firebase.database().ref('users/'+ {{user.yearbookuser.id}});
+								var test;
+								users.on('value', snapshot => {
+									test = snapshot.val();
+									var notification_number = Object.keys(snapshot.val()[{{user.yearbookuser.id}}]).length;
+									number_update(notification_number);
+									notificationinnerhtml =  "";
+									for (x in snapshot.val()[{{user.yearbookuser.id}}]) {
+									notificationinnerhtml +="<a class=\"d-flex justify-content-between\" href=\""+test[{{user.yearbookuser.id}}][x].link+"\"> <div class=\"media d-flex align-items-start\"> <div class=\"media-left\"><i class=\"feather icon-plus-square font-medium-5 primary\"><\/i><\/div><div class=\"media-body\"> <h6 class=\"primary media-heading\">"+ test[{{user.yearbookuser.id}}][x].data +"<\/h6><small class=\"notification-text\"> <\/small> <\/div><\/div><\/a>";
+									}
+									document.getElementById("notificationlist").innerHTML = notificationinnerhtml;
+									document.getElementById("removeallnotifs").onclick = function() {userRef.remove(); number_update(0); document.getElementById("notificationlist").innerHTML = "";};
+								});
+								function number_update(value){
+									document.getElementById("numberupdate").innerHTML=value;
+									document.getElementById("numberupdate2").innerHTML=value;
+								}
+								
+								</script>
+							<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span id="numberupdate" class="badge badge-pill badge-primary badge-up">0</span></a>
+								<ul class="dropdown-menu dropdown-menu-media dropdown-menu-right show">
+                                <li class="dropdown-menu-header">
+                                    <div class="dropdown-header m-0 p-2">
+                                        <h3 class="white"><span id="numberupdate2">0</span> New</h3><span class="notification-title">People Have Signed!</span>
+                                    </div>
+                                </li>
+                                <li class="scrollable-container media-list ps">
+								<div id="notificationlist"></div>
+									
+									<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></li>
+                                <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" id="removeallnotifs" >Read all notifications</a></li>
+                            </ul>
+							</li>
 							<!--<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i>{% live_notify_badge badge_class="badge" %}</a>
 								<ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
 									<li class="dropdown-menu-header">
@@ -176,7 +224,6 @@
 		</div>
 		<!-- END: Main Menu-->
 		<!-- BEGIN: Content-->
-
 		<div class="app-content content">
 			<div class="content-wrapper">
 				<!-- {{ request.scheme }}://{{ request.get_host }}" = # in reference to code -->
