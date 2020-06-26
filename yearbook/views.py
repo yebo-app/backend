@@ -48,7 +48,7 @@ def yearbookuser(request, id):
         if institution not in history.keys():
             history[institution] = []
         history[institution].append(iyp)
-    
+
     # Register IYP Form
     instance = get_object_or_404(YearbookUser, id=id)
     register_form = InstitutionYearProfileCreationForm(request.POST or None)
@@ -59,7 +59,7 @@ def yearbookuser(request, id):
         instance.register(institution, start_year, end_year)
         messages.success(request, 'Profiles created successfully.')
         return redirect(request.user.yearbookuser.get_absolute_url())
-    
+
     # Invite Friend Form
     invite_friend_form = InviteFriendForm(request.POST or None)
     if invite_friend_form.is_valid():
@@ -108,21 +108,9 @@ def settings(request, id):
     yearbook_user = get_object_or_404(YearbookUser, id=id)
     user = yearbook_user.user
 
-    if request.method == "POST":
-        user_update_form = UserUpdateForm(request.POST, instance=user) # Django User ModelForm
-        yearbookuser_update_form = YearbookUserUpdateForm(request.POST, request.FILES, instance=yearbook_user) # YearbookUser Model Form
-        if yearbookuser_update_form.is_valid() and user_update_form.is_valid():
-            user_update_form.save()
-            yearbookuser_update_form.save()
-            messages.success(request, 'Account updated successfully.')
-            return redirect('/settings/' + str(request.user.yearbookuser.id))
-    else:
-        user_update_form = UserUpdateForm(instance=user)
-        yearbookuser_update_form = YearbookUserUpdateForm(instance=yearbook_user)
-
-    # User Delete Form
+	# User Delete Form
     user_delete_form = IYPDeleteForm(request.POST or None, instance=user)
-    if user_delete_form.is_valid() and "delete" in request.POST:
+    if user_delete_form.is_valid() and "deleteUser" in request.POST:
         user_delete_form.instance.delete()
         messages.success(request, 'Account deleted successfully.')
         return redirect('home')
@@ -132,8 +120,25 @@ def settings(request, id):
         password_change_form.save()
         messages.success(request, 'Password changed successfully. Please login again.')
         return redirect('home')
-    if password_change_form.errors:
+    if password_change_form.errors and "change" in request.POST:
         messages.error(request, 'Unable to change password. Please try again.')
+
+    if request.method == "POST":
+        user_update_form = UserUpdateForm(request.POST, instance=user) # Django User ModelForm
+        yearbookuser_update_form = YearbookUserUpdateForm(request.POST, request.FILES, instance=yearbook_user) # YearbookUser Model Form
+        if yearbookuser_update_form.is_valid() and user_update_form.is_valid():
+            print("Valid--------------------")
+            user_update_form.save()
+            yearbookuser_update_form.save()
+            messages.success(request, 'Account updated successfully.')
+            return redirect('/settings/' + str(request.user.yearbookuser.id))
+        if user_update_form.errors:
+            print("Invalid with errors--------------------")
+            messages.error(request, 'Unable to update account. If you changed your username, it might already be taken.')
+    else:
+        print("No POST--------------------")
+        user_update_form = UserUpdateForm(instance=user)
+        yearbookuser_update_form = YearbookUserUpdateForm(instance=yearbook_user)
 
     context = {'yearbook_user' : yearbook_user, 'page_title' : page_title, 'user_update_form' : user_update_form, 'yearbookuser_update_form' : yearbookuser_update_form, 'user_delete_form' : user_delete_form, 'password_change_form' : password_change_form}
     return render(request, 'yearbook/accountsettings.html', context)
@@ -141,7 +146,7 @@ def settings(request, id):
 def institution(request, id):
     institution = Institution.objects.filter(approved=True).get(id=id)
     page_title = institution.institution_name
-    
+
     institution_join_form = InstitutionJoinForm(request.POST or None)
     if institution_join_form.is_valid():
         institutionyears = institution_join_form.cleaned_data.get("institutionyears")
@@ -237,7 +242,7 @@ def institutions(request):
             )
             data_dict = {"html_from_view" : html}
             return JsonResponse(data=data_dict, safe=False)
-    
+
     context = {'institutions' : institutions, 'page_title' : page_title, 'form' : form}
     return render(request, 'yearbook/institutions.html', context)
 
@@ -258,7 +263,7 @@ def institutionyear(request, id):
             context = {"institutionyearprofiles" : institutionyearprofiles}
         )
         data_dict = {"html_from_view" : html}
-        return JsonResponse(data=data_dict, safe=False)    
+        return JsonResponse(data=data_dict, safe=False)
 
     context = {'institutionyear' : institutionyear, 'institutionyearprofiles' : institutionyearprofiles, 'page_title' : page_title}
     return render(request, 'yearbook/institutionyear.html', context)
