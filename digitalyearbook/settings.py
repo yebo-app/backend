@@ -79,16 +79,25 @@ WSGI_APPLICATION = 'digitalyearbook.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smirk_yebo2',
-        'USER': 'smirk_user',
-        'PASSWORD': 'password',
-        'HOST': '65.19.141.67',
-        'PORT': '3306',
+	'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'smirk_yebo2',
+        # 'USER': 'smirk_user',
+        # 'PASSWORD': 'password',
+        # 'HOST': '65.19.141.67',
+        # 'PORT': '3306',
+
+		# 'ENGINE': 'django.db.backends.mysql',
+		# 'NAME': '',
+        # 'USER': 'yebodev',
+        # 'PASSWORD': 'password',
+        # 'HOST': '136.56.62.47',
+        # 'PORT': '3306',
     }
-    
+
 }
 
 # Password validation
@@ -138,7 +147,7 @@ MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 30 
+    'PAGE_SIZE': 30
 }
 
 LOGIN_REDIRECT_URL = 'home'
