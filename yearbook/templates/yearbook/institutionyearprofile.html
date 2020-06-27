@@ -54,7 +54,7 @@
 												</form>
 											</div>
 										</div>
-										
+
 									</div>
 								</div>
 							</div>
@@ -84,7 +84,7 @@
 															</button>
 														</div>
 													{% endif %}
-												</form>	
+												</form>
 											</div>
 										</div>
 									</div>
@@ -92,7 +92,7 @@
 							</div>
 						{% endif %}
 					</div>
-					
+
 					<img class="card-img mb-1" height="400" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avtar img holder">
 					{% if not institutionyearprofile.yearbook_quote %}
 						<p>A quote has not been provided for this profile.</p>
@@ -114,7 +114,7 @@
 							</div>
 							<script async src="https://static.addtoany.com/menu/page.js"></script>
 					<!-- AddToAny END -->
-					
+
 					<div class="d-flex justify-content-start align-items-center mb-1">
 						<div class="d-flex align-items-center">
 							<i class="feather icon-heart font-medium-2 mr-50"></i>
@@ -152,7 +152,7 @@
 						{% for signature in signatures %}
 							<div class="d-flex justify-content-start align-items-center mb-2">
 								<div class="avatar mr-50">
-									<img src="{{ user.yearbookuser.avatar.url }}" alt="Avatar" height="30" width="30">
+									<img src="{{ signature.author.avatar.url }}" alt="Avatar" height="30" width="30">
 								</div>
 								<div class="user-page-info">
 									<a href="{% url 'user' signature.author.id %}"><h6 class="mb-0">{{ signature.author }}</h6></a>
@@ -201,7 +201,7 @@
 																			</button>
 																		</div>
 																	{% endif %}
-																</form>	
+																</form>
 															</div>
 														</div>
 													</div>
@@ -246,7 +246,7 @@
 																			</button>
 																		</div>
 																	{% endif %}
-																</form>	
+																</form>
 															</div>
 														</div>
 													</div>
@@ -262,9 +262,7 @@
 					<div class="content-section">
 						{% if not user.is_authenticated %}
 							<p>Log in to sign this yearbook profile.</p>
-						{% elif user == institutionyearprofile.yearbook_user.user %}
-							<p>You cannot sign your own yearbook.</p>
-						{% else %}
+						{% elif not user == institutionyearprofile.yearbook_user.user %}
 							<form method="POST">
 								{% csrf_token %}
 								{% for field in signatureform %}
