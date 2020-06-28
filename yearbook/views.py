@@ -16,6 +16,8 @@ import digitalyearbook
 from notifications.signals import notify
 from firebase import firebase
 from django.http import HttpResponse
+import itertools
+import random
 
 firebase = firebase.FirebaseApplication('https://yebo-ca63d.firebaseio.com/, None')
 
@@ -23,8 +25,19 @@ firebase = firebase.FirebaseApplication('https://yebo-ca63d.firebaseio.com/, Non
 # Create your views here.
 
 def home(request):
+    recent_profiles = []
+    if request.user.is_authenticated:
+        # Get data for new profiles in the user's institutions
+        profiles = request.user.yearbookuser.institutionyearprofile_set.all()
+        years = InstitutionYear.objects.filter(id__in=profiles.values('institution_year'))
+        # years holds all the InstitutionYears which the user is part of
+        # Now retrieve some of the newer profiles from each year
+        recent_profiles = list(itertools.chain.from_iterable([year.institutionyearprofile_set.exclude(yearbook_user=request.user.yearbookuser).order_by('-id') for year in years]))
+        # Shuffle and select a few of these profiles to display
+        # random.shuffle(recent_profiles)
+        recent_profiles = recent_profiles[:10]
     page_title = 'Home'
-    context = {'page_title' : page_title}
+    context = {'page_title' : page_title, 'recent_profiles' : recent_profiles}
     return render(request, 'yearbook/home.html', context)
 
 def privacypolicy(request):
@@ -147,11 +160,21 @@ def institution(request, id):
     institution = Institution.objects.filter(approved=True).get(id=id)
     page_title = institution.institution_name
 
-    institution_join_form = InstitutionJoinForm(request.POST or None)
-    if institution_join_form.is_valid():
-        institutionyears = institution_join_form.cleaned_data.get("institutionyears")
-        print(institutionyears)
-        request.user.yearbookuser.register_years(institutionyears)
+    # institution_join_form = InstitutionJoinForm(request.POST or None)
+    # if institution_join_form.is_valid():
+    #     institutionyears = institution_join_form.cleaned_data.get("institutionyears")
+    #     print(institutionyears)
+    #     request.user.yearbookuser.register_years(institutionyears)
+    #     return redirect(request.user.yearbookuser.get_absolute_url())
+
+    # Register IYP Form
+    register_form = InstitutionYearProfileCreationForm(request.POST or None)
+    if register_form.is_valid():
+        institution = register_form.cleaned_data.get("institution")
+        start_year = register_form.cleaned_data.get("start_year")
+        end_year = register_form.cleaned_data.get("end_year")
+        request.user.yearbookuser.register(institution, start_year, end_year)
+        messages.success(request, 'Profiles created successfully.')
         return redirect(request.user.yearbookuser.get_absolute_url())
 
     url_parameter = request.GET.get("q")
@@ -189,7 +212,7 @@ def institution(request, id):
             else:
                 institution_year_tracking.append((institutionyear, True))
 
-    context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'institution_join_form' : institution_join_form, 'single_year_institution_join_forms' : single_year_institution_join_form_tuples, 'institution_year_tracking' : institution_year_tracking}
+    context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'register_form' : register_form, 'single_year_institution_join_forms' : single_year_institution_join_form_tuples, 'institution_year_tracking' : institution_year_tracking}
     return render(request, 'yearbook/institution.html', context)
 
 def user_has_profile_for_year(user, year):
