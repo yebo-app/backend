@@ -137,35 +137,6 @@
                                 <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" id="removeallnotifs" >Read all notifications</a></li>
                             </ul>
 							</li>
-							<!--<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i>{% live_notify_badge badge_class="badge" %}</a>
-								<ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-									<li class="dropdown-menu-header">
-										<div class="dropdown-header m-0 p-2">
-											{% notifications_unread as unread_count %}
-											<!-- <h3 class="white">5 New</h3><span class="notification-title">people have signed your profile</span>
-											<span class="notification-title">You have {% if not unread_count %} no notifications {% else %} {{ unread_count }} notification{% endif %}{% if unread_count > 1 %}s{% endif %}</span>
-										</div>
-									</li>
-									{% for notification in user.notifications.unread %}
-										<!-- <a class="dropdown-item" href="#">{{ notification }}</a>
-										<div class="dropdown-item">
-											<div class="d-flex justify-content-start align-items-center mb-2">
-												<div class="avatar mr-50">
-													<img src="{{ notification.actor.yearbookuser.avatar.url }}" alt="Avatar" height="80" width="80">
-												</div>
-												<div class="user-page-info">
-													<a href="{% url 'institutionyearprofile' notification.action_object.id %}"><h6 class="mb-0">{{ notification.actor.first_name }} {{ notification.actor.last_name }}</h6></a>
-													<p>{{ notification.verb }}</p>
-													<span class="font-small-2">{{ notification.timestamp|timesince }}</span>
-												</div>
-											</div>
-										</div>
-									{% endfor %}
-									<li class="dropdown-menu-footer">
-										<a class="dropdown-item p-1 text-center">Mark all notifications as read</a>
-									</li>
-								</ul>
-							</li>  -->
 							<li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
 								{% if user.is_authenticated %}
 								<div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ user.first_name }}</span><span class="user-status">Available</span></div><span><img class="round" src="{{ user.yearbookuser.avatar.url }}" alt="avatar" height="40" width="40"></span>
@@ -173,7 +144,7 @@
 								<div class="dropdown-menu dropdown-menu-right">
 									<a class="dropdown-item"  href="{% url 'user' user.yearbookuser.id %}"><i class="feather icon-user"></i>My Profile</a>
 									<a class="dropdown-item"  href="{% url 'settings' user.yearbookuser.id %}"><i class="feather icon-settings"></i>Account Settings</a>
-									<a class="dropdown-item"  href="{% url 'settings' user.yearbookuser.id %}"><i class="feather icon-user-plus"></i>Invite Your Friends</a>
+									<a class="dropdown-item"  href="{% url 'user'  user.yearbookuser.id %}"><i class="feather icon-user-plus"></i>Invite Your Friends</a>
 									<a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a>
 									<a class="dropdown-item" href="#"><i class="feather icon-check-square"></i> Task</a>
 									<a class="dropdown-item" href="#"><i class="feather icon-message-square"></i> Chats</a>
@@ -204,21 +175,23 @@
 					</ul>
 				</div>
 				<!-- Horizontal menu content-->
-				<div class="navbar-container main-menu-content" data-menu="menu-container">
-					<!-- include /static/includes/mixins-->
-					<ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-						<li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="feather icon-home"></i><span data-i18n="Dashboard">Home</span></a></li>
-						<li class="nav-item"><a class="nav-link" href="{% url 'institutions' %}"><i class="feather icon-map"></i><span data-i18n="Dashboard">Schools</span></a></li>
-						<li class="nav-item"><a class="nav-link" href="{% url 'users' %}"><i class="feather icon-users"></i><span data-i18n="Dashboard">Users</span></a></li>
-						<li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-zap"></i><span data-i18n="Starter kit">Sign</span></a>
-							<ul class="dropdown-menu">
+                {% if user.is_authenticated %}
+    				<div class="navbar-container main-menu-content" data-menu="menu-container">
+    					<!-- include /static/includes/mixins-->
+    					<ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
+    						<li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="feather icon-home"></i><span data-i18n="Dashboard">Home</span></a></li>
+    						<li class="nav-item"><a class="nav-link" href="{% url 'institutions' %}"><i class="feather icon-map"></i><span data-i18n="Dashboard">Schools</span></a></li>
+    						<li class="nav-item"><a class="nav-link" href="{% url 'users' %}"><i class="feather icon-users"></i><span data-i18n="Dashboard">Users</span></a></li>
+    						<li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-zap"></i><span data-i18n="Starter kit">Sign</span></a>
+    							<ul class="dropdown-menu">
 
-							</ul>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="{% url 'terms-of-service' %}"><i class="feather icon-life-buoy"></i><span>Terms of Service</span></a></li>
-						<li class="nav-item"><a class="nav-link" href="{% url 'privacy-policy' %}"></i><span>Privacy Policy</span></a></li>
-					</ul>
-				</div>
+    							</ul>
+    						</li>
+    						<li class="nav-item"><a class="nav-link" href="{% url 'terms-of-service' %}"><i class="feather icon-life-buoy"></i><span>Terms of Service</span></a></li>
+    						<li class="nav-item"><a class="nav-link" href="{% url 'privacy-policy' %}"></i><span>Privacy Policy</span></a></li>
+    					</ul>
+    				</div>
+                {% endif %}
 				<!-- /horizontal menu content-->
 			</div>
 		</div>

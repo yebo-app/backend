@@ -14,7 +14,7 @@
 		<div>
 			<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
 				Join
-			</button>	
+			</button>
 		</div>
 	{% endif %}
 
@@ -34,7 +34,7 @@
 							{% csrf_token %}
 							<fieldset class="form-group">
 								<div class="scrollbox">
-									{{ institution_join_form.as_p}}
+									{{ register_form.as_p}}
 								</div>
 							</fieldset>
 							<div class="form-group">
@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 
 	<fieldset class="form-group position-relative">
 		<input type="text" class="form-control search-product" id="user-input" placeholder="Find a School Year">
@@ -53,7 +53,7 @@
 			<i id="search-icon" class="feather icon-search"></i>
 		</div>
 	</fieldset>
-	
+
 	<div class="row">
 		<div class="col-12", id="replaceable-content">
 			{% include 'yearbook/institution-partial.html' %}
