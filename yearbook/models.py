@@ -11,7 +11,7 @@ class YearbookUser(models.Model):
     avatar = models.ImageField(upload_to='avatars', default='default_profile_picture.png')
     bio = models.CharField(max_length=140, default="")
     friends = models.ManyToManyField("YearbookUser", blank=True)
-    
+
     def register_year(self, institutionyear):
         iyp = InstitutionYearProfile.create(self, institutionyear)
         iyp.save()
@@ -35,12 +35,12 @@ class YearbookUser(models.Model):
             iyp = InstitutionYearProfile.create(self, iy)
             iyp.save()
         institution.update_unique_users()
-    
+
     def write_signature(self, recipient, message):
         s = Signature.create(self, recipient, message)
         s.save()
         return s
-    
+
     def set_bio(self, bio):
         self.bio = bio
 
@@ -85,7 +85,7 @@ class Institution(models.Model):
             iy = InstitutionYear.create(institution, year)
             iy.save()
         return institution
-  
+
     def set_institution_name(self, institution_name):
         #Institution.check_duplicate(institution_name, self.institution_city, self.institution_state)
         self.institution_name=institution_name
@@ -146,7 +146,7 @@ class InstitutionYearProfile(models.Model):
     yearbook_quote = models.CharField(max_length=140, default="")
     institution_year = models.ForeignKey(InstitutionYear, on_delete=models.CASCADE)
     tags = TaggableManager()
-   
+
     @classmethod
     def check_duplicate(cls, yearbook_user, institution_year):
         for institution_year_profile in InstitutionYearProfile.objects.all():
@@ -155,7 +155,7 @@ class InstitutionYearProfile(models.Model):
 
     @classmethod
     def create(cls, yearbook_user, institution_year, yearbook_quote=""):
-        InstitutionYearProfile.check_duplicate(yearbook_user, institution_year) 
+        InstitutionYearProfile.check_duplicate(yearbook_user, institution_year)
         return cls(yearbook_user=yearbook_user, institution_year=institution_year, yearbook_quote=yearbook_quote)
 
     def set_yearbook_quote(self, yearbook_quote):

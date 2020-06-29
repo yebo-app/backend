@@ -12,7 +12,7 @@
 			<i id="search-icon" class="feather icon-search"></i>
 		</div>
 	</fieldset>
-	
+
 	{% if user.is_authenticated %}
 	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
 		Can't Find Your School?
@@ -29,7 +29,7 @@
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
-				
+
 				<div class="modal-body">
 					<div class= "content-section">
 						<form method="POST" enctype="multipart/form-data">
@@ -39,6 +39,7 @@
 								<p>Before you submit a proposal for your institution, use our searchbar to make sure that your institution does not already exist!</p>
 								<p>Note that a school might already be registered under an alias or abbreviated name.</p>
 								{{ form.as_p}}
+                                <p>It might take some time for your institution to be generated. Please stay on this page until the page refreshes. You will then see an alert confirming your request.</p>
 							</fieldset>
 							<div class="form-group">
 								<button class="btn btn-outline-info" type="submit">Create</button>
@@ -46,7 +47,7 @@
 						</form>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -62,6 +63,5 @@
 	<div id="replaceable-content" class="row match-height">
 		{% include 'yearbook/institutions-partial.html' %}
 	</div>
-	
-{% endblock %}
 
+{% endblock %}
