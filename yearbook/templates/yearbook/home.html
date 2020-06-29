@@ -7,25 +7,34 @@
 {% block content %}
     {% if user.is_authenticated %}
         <h1>New Users in Your Schools</h1>
-        {% for recent_profile in recent_profiles %}
-        <div class=”row”>
-    		<div class="col d-flex justify-content-center">
-    			<div class="card w-75">
-    				<div class="card-body">
-                        <div class="d-flex justify-content-start align-items-center mb-2">
-                            <div class="avatar mr-50">
-                                <img src="{{ recent_profile.yearbook_user.avatar.url }}" alt="Avatar" height="30" width="30">
-                            </div>
-                            <div class="user-page-info">
-                                <a href="{% url 'user' recent_profile.yearbook_user.id %}"><h6 class="mb-0">{{ recent_profile.yearbook_user }}</h6></a>
-                                <span class="font-small-2">{{ recent_profile.institution_year }}</span>
-                            </div>
-                        </div class="ml-auto cursor-pointer">
+        {% if recent_profiles %}
+          {% for recent_profile in recent_profiles %}
+            <div class=”row”>
+        		<div class="col d-flex justify-content-center">
+        			<div class="card w-75">
+        				<div class="card-body">
+                            <div class="d-flex justify-content-start align-items-center mb-2">
+                                <div class="avatar mr-50">
+                                    <img src="{{ recent_profile.yearbook_user.avatar.url }}" alt="Avatar" height="30" width="30">
+                                </div>
+                                <div class="user-page-info">
+                                    <a href="{% url 'user' recent_profile.yearbook_user.id %}"><h6 class="mb-0">{{ recent_profile.yearbook_user }}</h6></a>
+                                    <span class="font-small-2">{{ recent_profile.institution_year }}</span>
+                                </div>
+                            </div class="ml-auto cursor-pointer">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {% endfor %}
+          {% endfor %}
+        {% else %}
+          <p>Join your school to see your classmates!</p>
+        {% endif %}
+        <h1>Invite Your Friends</h1>
+        <p>Want to see your friends' profiles? Invite them to yebo!</p>
+        <a href="{% url 'user' user.yearbookuser.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">
+          Invite Friend
+        </a>
     {% else %}
         <h1>Landing page content</h1>
     {% endif %}
