@@ -10,8 +10,10 @@ from yearbook.models import *
 from django.forms import modelformset_factory, formset_factory
 from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
+from django.template import RequestContext
 from django.http import JsonResponse
 from django.core.mail import send_mail
+
 import digitalyearbook
 from notifications.signals import notify
 from firebase import firebase
@@ -21,8 +23,18 @@ import random
 
 firebase = firebase.FirebaseApplication('https://yebo-ca63d.firebaseio.com/, None')
 
-
 # Create your views here.
+
+def handler404(request, exception, template_name="yearbook/404.html"):
+    console.log("rendering this one")
+    response = render(request, template_name)
+    response.status_code = 404
+    return response
+
+def handler500(request, template_name="yearbook/500.html"):
+    response = render(request, template_name)
+    response.status_code = 500
+    return response
 
 def home(request):
     recent_profiles = []
