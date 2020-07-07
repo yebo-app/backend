@@ -1,5 +1,18 @@
 .navbar-wrapper {
-	background-color: #FFD110; }
+	background-color: #FFE315;
+  //#FFD110;
+}
+
 .logo {
 	font-size: 40px;
+}
+
+#about {
+  background: rgb(248,248,248);
+  background: linear-gradient(0deg, rgba(248,248,248,1) 0%, rgba(255,227,21,1) 100%);
+}
+
+section {
+    padding: 60px 0;
+    overflow: hidden;
 }

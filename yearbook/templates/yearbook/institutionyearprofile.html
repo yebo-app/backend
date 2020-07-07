@@ -17,7 +17,7 @@
 						</div>
 						<div class="user-page-info">
 							<a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ institutionyearprofile.yearbook_user.id }}"><h6 class="mb-0">{{ institutionyearprofile.yearbook_user.user.first_name }} {{ institutionyearprofile.yearbook_user.user.last_name }}</h6></a>
-							<span class="font-small-2">{{ institutionyearprofile.institution_year }}</span>
+							<span class="font-small-2"><a href="{% url 'institutionyear' institutionyearprofile.institution_year.id %}">{{ institutionyearprofile.institution_year }}</a></span>
 						</div>
 						{% if user.is_authenticated and user == institutionyearprofile.yearbook_user.user %}
 							<!-- IYP Update & Delete Buttons -->
