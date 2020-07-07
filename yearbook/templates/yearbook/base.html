@@ -39,10 +39,6 @@
 		<script src="/static/yearbook/jquery-3.5.1.min.js"></script>
 		<!-- END: JQUERY-->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
-
-
-
 	</head>
 <!-- END: Head-->
 
@@ -166,7 +162,6 @@
 		</nav>
 		<!-- END: Header-->
 		<!-- BEGIN: Main Menu-->
-    {% if user.is_authenticated %}
 		<div class="horizontal-menu-wrapper">
 			<div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-without-dd-arrow navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper">
 				<div class="navbar-header">
@@ -192,13 +187,15 @@
     						</li> -->
     						<li class="nav-item"><a class="nav-link" href="{% url 'terms-of-service' %}"><i class="feather icon-life-buoy"></i><span>Terms of Service</span></a></li>
 							<li class="nav-item"><a class="nav-link" href="{% url 'privacy-policy' %}"></i><span>Privacy Policy</span></a></li>
+              <!-- User can only invite friend if they are logged in -->
+              {% if user.is_authenticated %}
 							<li class="nav-item"><a class="nav-link" href="{% url 'user' user.yearbookuser.id %}"></i><span>Invite Friend</span></a></li>
+              {% endif %}
     					</ul>
     				</div>
 				<!-- /horizontal menu content-->
 			</div>
 		</div>
-    {% endif %}
 		<!-- END: Main Menu-->
 		<!-- BEGIN: Content-->
 		<div class="app-content content">
