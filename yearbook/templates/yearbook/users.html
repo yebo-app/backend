@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Users currently registered:</h1>
+	<!-- <h1>Users currently registered:</h1> -->
+  <h1>Users</h1>
 
 	<fieldset class="form-group position-relative">
 		<input type="text" class="form-control search-product" id="user-input" placeholder="Find a User">
@@ -13,7 +14,7 @@
 			<i id="search-icon" class="feather icon-search"></i>
 		</div>
 	</fieldset>
-	
+
 	<div id="replaceable-content" class="row match-height">
 		{% include 'yearbook/users-partial.html' %}
 	</div>

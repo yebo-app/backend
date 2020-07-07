@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.conf.urls.static import static 
+from django.conf.urls.static import static
 from rest_framework import routers
 from yearbook import views
 import notifications.urls
@@ -29,6 +29,9 @@ from . import settings
 # router.register(r'institutionyear', views.InstitutionYearViewset)
 # router.register(r'institutionyearprofile', views.InstitutionYearProfileViewset)
 # router.register(r'signature', views.SignatureViewSet)
+
+handler404 = 'yearbook.views.handler404'
+handler500 = 'yearbook.views.handler500'
 
 urlpatterns = [
     path('', include('yearbook.urls')),

@@ -10,27 +10,119 @@
         {% if recent_profiles %}
           {% for recent_profile in recent_profiles %}
             <div class=”row”>
-        		<div class="col d-flex justify-content-center">
-        			<div class="card w-75">
-        				<div class="card-body">
-                            <div class="d-flex justify-content-start align-items-center mb-2">
-                                <div class="avatar mr-50">
-                                    <img src="{{ recent_profile.yearbook_user.avatar.url }}" alt="Avatar" height="30" width="30">
-                                </div>
-                                <div class="user-page-info">
-                                    <a href="{% url 'user' recent_profile.yearbook_user.id %}"><h6 class="mb-0">{{ recent_profile.yearbook_user }}</h6></a>
-                                    <span class="font-small-2">{{ recent_profile.institution_year }}</span>
-                                </div>
-                            </div class="ml-auto cursor-pointer">
+        		  <div class="col d-flex justify-content-center">
+          			<div class="card w-75">
+          				<div class="card-body">
+                    <div class="d-flex justify-content-start align-items-center mb-1">
+                        <div class="avatar mr-50">
+                            <img src="{{ recent_profile.yearbook_user.avatar.url }}" alt="Avatar" height="30" width="30">
                         </div>
-                    </div>
+                        <div class="user-page-info">
+                            <a href="{% url 'user' recent_profile.yearbook_user.id %}"><h6 class="mb-0">{{ recent_profile.yearbook_user }}</h6></a>
+                            <a href="{% url 'institutionyearprofile' recent_profile.id %}">
+                              <span class="font-small-2">{{ recent_profile.institution_year }}</span>
+                            </a>
+                        </div>
+                    </div class="ml-auto cursor-pointer">
+                  </div>
                 </div>
+              </div>
             </div>
           {% endfor %}
         {% else %}
-          <p>Join your school to see your classmates!</p>
+          <p>Join your school to see your classmates! You may also be the first person in your school.</p>
         {% endif %}
     {% else %}
-        <h1>Landing page content</h1>
+      <!-- <div class="container"> -->
+      <!-- ======= Hero Section ======= -->
+      <section id="hero" class="d-flex align-items-center rounded-top" style="background: #FFE315;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1>Your online yearbook experience.</h1>
+              <h2>Connect with your classmates, share memories, and build new ones!</h2>
+              <br><br>
+              <div class="d-lg-flex">
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg mr-1 mb-1 waves-effect waves-light">Join</a>
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg mr-1 mb-1 waves-effect waves-light">Login</a>
+              </div>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+              <img src="/static/app-assets/images/logo/yebo-logo.png" class="img-fluid" alt="">
+            </div>
+          </div>
+        </div>
+      </section><!-- End Hero -->
+
+      <section id="about" class="d-flex align-items-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <br><h1>Features</h1>
+              <h4 style="color: black;">yebo! isn’t your typical yearbook experience - we put the focus on you!</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1>Signatures</h1>
+              <h4>Sign your friends’ yearbooks! Personalize your message!</h4>
+              <h1>User-Focused</h1>
+              <h4>View your profiles from all of the schools you went to, without having the hassle of finding schools.</h4>
+              <br><br>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+              <img src="/static/app-assets/images/pages/graphic-2.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+              <img src="/static/app-assets/images/pages/graphic-3.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1>Quotes</h1>
+              <h4>Express yourself and capture the essence of the year with a quote under your profile for the year! (and no, this isn’t restricted to seniors… everybody can have a quote!)</h4>
+              <h1>Pictures</h1>
+              <h4>Upload a picture of yourself for each school year and remind yourself and your peers of how much you’ve changed, or how much has stayed the same!</h4>
+              <br><br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+              <img src="/static/app-assets/images/pages/graphic-6.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1>Social Media Integration</h1>
+              <h4>Build your network as you connect with classmates and others from your school through services such as Instagram, Facebook, and LinkedIn!</h4>
+
+            </div>
+          </div>
+        </div>
+      </section><!-- End Hero -->
+
+      <!-- Instagram Logo Source: https://www.flaticon.com/free-icon/instagram_1384063?term=instagram%20logo&page=1&position=8 -->
+      <!-- Twitter Logo Source: https://www.flaticon.com/free-icon/twitter_733579?term=twitter%20logo&page=1&position=1 -->
+      <!-- GitHub Logo Source: https://www.flaticon.com/free-icon/github-logo_25231 -->
+      <section id="hero" class="d-flex align-items-center"  style="background: #F8F8F8;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1>Follow our social media!</h1>
+              <p>You can catch up on the latest about yebo! including new features and more!</p>
+              <p>
+                <a target="_blank" href="//twitter.com/yeboinc"><img height=30 width=30 src="/static/app-assets/images/logo/twitter.png" alt=""></a>
+                <a target="_blank" href="#"><img height=30 width=30 src="/static/app-assets/images/logo/instagram-sketched.png" alt=""></a>
+              </p>
+            </div>
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1>yebo! is free and open source.</h1>
+              <p>If you would like to contribute, raise issues, or are just interested in our source code, please visit our GitHub repository!</p>
+              <p>
+                <a target="_blank" href="//github.com/yebo-app/backend"><img height=30 width=30 src="/static/app-assets/images/logo/github-logo.png" alt=""></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
     {% endif %}
 {% endblock %}

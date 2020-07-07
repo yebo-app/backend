@@ -17,7 +17,7 @@
 						</div>
 						<div class="user-page-info">
 							<a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ institutionyearprofile.yearbook_user.id }}"><h6 class="mb-0">{{ institutionyearprofile.yearbook_user.user.first_name }} {{ institutionyearprofile.yearbook_user.user.last_name }}</h6></a>
-							<span class="font-small-2">{{ institutionyearprofile.institution_year }}</span>
+							<span class="font-small-2"><a href="{% url 'institutionyear' institutionyearprofile.institution_year.id %}">{{ institutionyearprofile.institution_year }}</a></span>
 						</div>
 						{% if user.is_authenticated and user == institutionyearprofile.yearbook_user.user %}
 							<!-- IYP Update & Delete Buttons -->
@@ -93,11 +93,13 @@
 						{% endif %}
 					</div>
 
-					<img class="card-img mb-1" height="400" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avtar img holder">
+					<!-- <img class="card-img mb-1" height="400" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avtar img holder"> -->
+          <!-- <img class="rounded mx-auto d-block" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avatar img holder"> -->
+          <img class="users-avatar-shadow w-100 rounded mb-2 pr-2 ml-1" alt="avatar" src="{{institutionyearprofile.yearbook_picture.url}}">
 					{% if not institutionyearprofile.yearbook_quote %}
-						<p>A quote has not been provided for this profile.</p>
+						<p class="text-center">A quote has not been provided for this profile.</p>
 					{% else %}
-						<p>Quote: "{{ institutionyearprofile.yearbook_quote }}"</p>
+						<p class="text-center">Quote: "{{ institutionyearprofile.yearbook_quote }}"</p>
 					{% endif %}
 					<!-- Update IYP -->
 					<!-- Only authorize if the user logged in is viewing their own profile -->
@@ -114,8 +116,8 @@
 							</div>
 							<script async src="https://static.addtoany.com/menu/page.js"></script>
 					<!-- AddToAny END -->
-
-					<div class="d-flex justify-content-start align-items-center mb-1">
+          <br>
+					<!-- <div class="d-flex justify-content-start align-items-center mb-1">
 						<div class="d-flex align-items-center">
 							<i class="feather icon-heart font-medium-2 mr-50"></i>
 							<span>276</span>
@@ -145,7 +147,7 @@
 						<p class="ml-auto d-flex align-items-center">
 							<i class="feather icon-message-square font-medium-2 mr-50"></i>105
 						</p>
-					</div>
+					</div> -->
 					{% if not signatures %}
 						<p>There are currently no signatures under this profile.</p>
 					{% else %}
