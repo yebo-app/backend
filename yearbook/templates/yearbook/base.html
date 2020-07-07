@@ -80,14 +80,15 @@
 						<ul class="nav navbar-nav float-right">
 
 							<li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
-							<li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
+              <!-- Search -->
+							<!-- <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
 								<div class="search-input">
 									<div class="search-input-icon"><i class="feather icon-search primary"></i></div>
 									<input class="input" type="text" placeholder="Explore yebo..." tabindex="-1" data-search="starter-list">
 									<div class="search-input-close"><i class="feather icon-x"></i></div>
 									<ul class="search-list"></ul>
 								</div>
-							</li>
+							</li> -->
 							<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase.js"></script>
 								<script>
 								// Initialize Firebase
@@ -123,6 +124,7 @@
 								}
 
 								</script>
+              {% if user.is_authenticated %}
 							<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span id="numberupdate" class="badge badge-pill badge-primary badge-up">0</span></a>
 								<ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                                 <li class="dropdown-menu-header">
@@ -137,6 +139,7 @@
                                 <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" id="removeallnotifs" >Read all notifications</a></li>
                             </ul>
 							</li>
+              {% endif %}
 							<li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
 								{% if user.is_authenticated %}
 								<div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ user.first_name }}</span><span class="user-status">Available</span></div><span><img class="round" src="{{ user.yearbookuser.avatar.url }}" alt="avatar" height="40" width="40"></span>
@@ -145,14 +148,14 @@
 									<a class="dropdown-item"  href="{% url 'user' user.yearbookuser.id %}"><i class="feather icon-user"></i>My Profile</a>
 									<a class="dropdown-item"  href="{% url 'settings' user.yearbookuser.id %}"><i class="feather icon-settings"></i>Account Settings</a>
 									<a class="dropdown-item"  href="{% url 'user'  user.yearbookuser.id %}"><i class="feather icon-user-plus"></i>Invite Your Friends</a>
-									<a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a>
+									<!-- <a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a>
 									<a class="dropdown-item" href="#"><i class="feather icon-check-square"></i> Task</a>
-									<a class="dropdown-item" href="#"><i class="feather icon-message-square"></i> Chats</a>
-									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#"><i class="feather icon-message-square"></i> Chats</a> -->
+									<!-- <div class="dropdown-divider"></div> -->
 									<a class="dropdown-item" href="{% url 'logout' %}"><i class="feather icon-power"></i> Logout</a>
 								</div>
 								{% else %}
-									<div class="user-nav d-sm-flex d-none"><a class="user-name text-bold-600" href= "{% url 'login' %}">LOGIN NOW!</a>
+									<div class="user-nav d-sm-flex d-none"><a class="user-name text-bold-600" href= "{% url 'login' %}">Login</a>
 									<!-- </a> -->
 								{% endif %}
 							</li>
@@ -163,6 +166,7 @@
 		</nav>
 		<!-- END: Header-->
 		<!-- BEGIN: Main Menu-->
+    {% if user.is_authenticated %}
 		<div class="horizontal-menu-wrapper">
 			<div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-without-dd-arrow navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper">
 				<div class="navbar-header">
@@ -175,33 +179,31 @@
 					</ul>
 				</div>
 				<!-- Horizontal menu content-->
-                {% if user.is_authenticated %}
     				<div class="navbar-container main-menu-content" data-menu="menu-container">
     					<!-- include /static/includes/mixins-->
     					<ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
     						<li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="feather icon-home"></i><span data-i18n="Dashboard">Home</span></a></li>
     						<li class="nav-item"><a class="nav-link" href="{% url 'institutions' %}"><i class="feather icon-map"></i><span data-i18n="Dashboard">Schools</span></a></li>
     						<li class="nav-item"><a class="nav-link" href="{% url 'users' %}"><i class="feather icon-users"></i><span data-i18n="Dashboard">Users</span></a></li>
-    						<li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-zap"></i><span data-i18n="Starter kit">Sign</span></a>
+    						<!-- <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-zap"></i><span data-i18n="Starter kit">Sign</span></a>
     							<ul class="dropdown-menu">
 
     							</ul>
-    						</li>
+    						</li> -->
     						<li class="nav-item"><a class="nav-link" href="{% url 'terms-of-service' %}"><i class="feather icon-life-buoy"></i><span>Terms of Service</span></a></li>
 							<li class="nav-item"><a class="nav-link" href="{% url 'privacy-policy' %}"></i><span>Privacy Policy</span></a></li>
 							<li class="nav-item"><a class="nav-link" href="{% url 'user' user.yearbookuser.id %}"></i><span>Invite Friend</span></a></li>
     					</ul>
     				</div>
-                {% endif %}
 				<!-- /horizontal menu content-->
 			</div>
 		</div>
+    {% endif %}
 		<!-- END: Main Menu-->
 		<!-- BEGIN: Content-->
 		<div class="app-content content">
 			<div class="content-wrapper">
 				<!-- {{ request.scheme }}://{{ request.get_host }}" = # in reference to code -->
-
 				{% if messages %}
 					{% for message in messages %}
 						<div class="alert {{ message.tags }}">

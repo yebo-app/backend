@@ -19,7 +19,9 @@
                                 </div>
                                 <div class="user-page-info">
                                     <a href="{% url 'user' recent_profile.yearbook_user.id %}"><h6 class="mb-0">{{ recent_profile.yearbook_user }}</h6></a>
-                                    <span class="font-small-2">{{ recent_profile.institution_year }}</span>
+                                    <a href="{% url 'institutionyearprofile' recent_profile.id %}">
+                                      <span class="font-small-2">{{ recent_profile.institution_year }}</span>
+                                    </a>
                                 </div>
                             </div class="ml-auto cursor-pointer">
                         </div>
@@ -28,7 +30,7 @@
             </div>
           {% endfor %}
         {% else %}
-          <p>Join your school to see your classmates!</p>
+          <p>Join your school to see your classmates! You may also be the first person in your school.</p>
         {% endif %}
     {% else %}
         <h1>Landing page content</h1>
