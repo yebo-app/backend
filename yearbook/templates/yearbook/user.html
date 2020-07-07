@@ -34,13 +34,15 @@
 				<div class="modal-body">
 					<div class= "content-section">
 						{% if not user.is_authenticated %}
-							<p>Log in to update your yearbook profile.</p>
+							<p>Log in to join a school.</p>
 						{% elif user != yearbook_user.user %}
-							<p>You are not authorized to edit this yearbook profile.</p>
+							<p>You are not authorized to access this page.</p>
 						{% else %}
 							<form method="POST">
 								{% csrf_token %}
 								<fieldset class="form-group">
+                  <p>Don't see your school? <a href="{% url 'institutions' %}">Register your school here.</a></p>
+                  <p>Note: If you were at this school from 2016-2017 until 2019-2020, please enter 2016 for the start year and 2020 for the end year.</p>
 									{{ register_form.as_p}}
 								</fieldset>
 								<div class="form-group">
