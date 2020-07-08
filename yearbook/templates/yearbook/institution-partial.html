@@ -15,10 +15,13 @@
                   <a type="button" href="{% url 'institutionyear' tracking_tuple.0.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
                   {% if user.is_authenticated %}
                     <!--  If not joined, show button to join -->
+                    <h1>User is authed</h1>
                     {% if not tracking_tuple.1 %}
+                        <h2>you have not joined bröther</h2>
                         <button class="btn btn-outline-success mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#join{{ tracking_tuple.0.id }}">Join</button>
                     <!--  Otherwise joined, disable button to join -->
                     {% else %}
+                        <h2>you have joined bröther</h2>
                         <button disabled class="btn btn-outline-info mr-1 mb-1 waves-effect waves-light">Joined</button>
                     {% endif %}
                   {% endif %}

@@ -196,15 +196,8 @@ def institution(request, id):
         institutionyears = list(institution.institutionyear_set.filter(school_year__icontains=url_parameter))
     else:
         institutionyears = institution.institutionyear_set.all().order_by('-year')
-    if request.is_ajax():
-        html = render_to_string(
-            template_name="yearbook/institution-partial.html",
-            context= {"institutionyears" : institutionyears}
-        )
-        data_dict = {"html_from_view" : html}
-        return JsonResponse(data=data_dict, safe=False)
-
-    # Stores a tuple of (institution year, whether the user has a profile for this year (True/False))
+   
+       # Stores a tuple of (institution year, whether the user has a profile for this year (True/False))
     institution_year_tracking = []
 
     single_year_institution_join_form_tuples = []
@@ -225,6 +218,16 @@ def institution(request, id):
                                 return redirect(institution.get_absolute_url())
             else:
                 institution_year_tracking.append((institutionyear, True))
+   
+    if request.is_ajax():
+        html = render_to_string(
+            template_name="yearbook/institution-partial.html",
+            context= {"institutionyears" : institutionyears, 'institution_year_tracking': institution_year_tracking}
+        )
+        data_dict = {"html_from_view" : html}
+        return JsonResponse(data=data_dict, safe=False)
+
+
 
     context = {'institution' : institution, 'institutionyears' : institutionyears, 'page_title' : page_title, 'register_form' : register_form, 'single_year_institution_join_forms' : single_year_institution_join_form_tuples, 'institution_year_tracking' : institution_year_tracking}
     return render(request, 'yearbook/institution.html', context)
