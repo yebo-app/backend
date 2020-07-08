@@ -9,7 +9,7 @@
 
 #about {
   background: rgb(248,248,248);
-  background: linear-gradient(0deg, rgba(248,248,248,1) 0%, rgba(255,227,21,1) 100%);
+  background: linear-gradient(0deg, rgba(255,227,21,1) 0%, rgba(248,248,248,1) 100%);
 }
 
 section {
