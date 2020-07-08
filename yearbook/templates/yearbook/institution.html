@@ -6,17 +6,43 @@
 
 
 {% block content %}
-	<h1>{{ institution.institution_name }}</h1>
-	<p>Founded in {{ institution.institution_year_founded|add:"-1" }}</p>
-	<p>Currently there are {{ institution.unique_members }} members of this school</p>
-
-	{% if user.is_authenticated %}
-		<div>
-			<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
-				Join
-			</button>
-		</div>
-	{% endif %}
+  <!-- <div class="container"> -->
+  <div class=”row”>
+    <div class="col d-flex justify-content-center">
+      <div class="card w-75">
+        <div class="card-body">
+          <div class="d-flex justify-content-start align-items-center mb-1">
+              <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                <h1>{{ institution.institution_name }}</h1>
+                <h4>{{ institution.institution_city }}, {{ institution.institution_state }}</h4>
+                <p>Founded in  {{ institution.institution_year_founded }}</p>
+                <p>{{ institution.unique_members }} members</p>
+                <br><br>
+                <div class="d-lg-flex">
+                  {% if user.is_authenticated %}
+                    <div>
+                      <button type="button" class="btn btn-primary btn-lg mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
+                        Join
+                      </button>
+                    </div>
+                  {% endif %}
+                  <!-- <a href="{% url 'login' %}" class="btn btn-primary btn-lg mr-1 mb-1 waves-effect waves-light">Login</a> -->
+                </div>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                <img src="{{ institution.logo.url }}" class="img-fluid institution-logo" alt="">
+              </div>
+          </div>
+          <fieldset class="form-group position-relative">
+        		<input type="text" class="form-control search-product" id="user-input" placeholder="Find a School Year">
+        		<div class="form-control-position">
+        			<i id="search-icon" class="feather icon-search"></i>
+        		</div>
+        	</fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
 
 	<!-- Modal -->
 	<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
@@ -47,16 +73,10 @@
 		</div>
 	</div>
 
-	<fieldset class="form-group position-relative">
-		<input type="text" class="form-control search-product" id="user-input" placeholder="Find a School Year">
-		<div class="form-control-position">
-			<i id="search-icon" class="feather icon-search"></i>
-		</div>
-	</fieldset>
-
 	<div class="row">
-		<div class="col-12", id="replaceable-content">
+		<div class="col-12" id="replaceable-content">
 			{% include 'yearbook/institution-partial.html' %}
 		</div>
 	</div>
+  <!-- </div> -->
 {% endblock %}

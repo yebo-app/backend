@@ -170,6 +170,8 @@ def settings(request, id):
 
 def institution(request, id):
     institution = Institution.objects.filter(approved=True).get(id=id)
+    institution.update_unique_members()
+
     page_title = institution.institution_name
 
     # institution_join_form = InstitutionJoinForm(request.POST or None)

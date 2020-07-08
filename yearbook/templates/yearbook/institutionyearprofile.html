@@ -16,7 +16,7 @@
 							<img src="{{ institutionyearprofile.yearbook_user.avatar.url }}" alt="avtar img holder" height="45" width="45">
 						</div>
 						<div class="user-page-info">
-							<a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ institutionyearprofile.yearbook_user.id }}"><h6 class="mb-0">{{ institutionyearprofile.yearbook_user.user.first_name }} {{ institutionyearprofile.yearbook_user.user.last_name }}</h6></a>
+							<a href="{% url 'user' institutionyearprofile.yearbook_user.id %}"><h6 class="mb-0">{{ institutionyearprofile.yearbook_user.user.first_name }} {{ institutionyearprofile.yearbook_user.user.last_name }}</h6></a>
 							<span class="font-small-2"><a href="{% url 'institutionyear' institutionyearprofile.institution_year.id %}">{{ institutionyearprofile.institution_year }}</a></span>
 						</div>
 						{% if user.is_authenticated and user == institutionyearprofile.yearbook_user.user %}
@@ -95,7 +95,9 @@
 
 					<!-- <img class="card-img mb-1" height="400" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avtar img holder"> -->
           <!-- <img class="rounded mx-auto d-block" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avatar img holder"> -->
-          <img class="users-avatar-shadow w-100 rounded mb-2 pr-2 ml-1" alt="avatar" src="{{institutionyearprofile.yearbook_picture.url}}">
+          <div class="text-center">
+            <img class="yearbook-picture users-avatar-shadow rounded mb-2 pr-2 ml-1" alt="avatar" src="{{institutionyearprofile.yearbook_picture.url}}">
+          </div>
 					{% if not institutionyearprofile.yearbook_quote %}
 						<p class="text-center">A quote has not been provided for this profile.</p>
 					{% else %}
