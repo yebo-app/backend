@@ -1,30 +1,34 @@
 {% if institutionyears %}
     {% for tracking_tuple in institution_year_tracking %}
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">{{ tracking_tuple.0.school_year }}</h4>
-            </div>
-            <div class="card-content">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <!-- <p>A year full of grace</p> -->
-                            <!-- basic buttons -->
-                            <a type="button" href="{% url 'institutionyear' tracking_tuple.0.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
-                            {% if user.is_authenticated %}
-                                <!--  If not joined, show button to join -->
-                                {% if not tracking_tuple.1 %}
-                                    <button class="btn btn-outline-success mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#join{{ tracking_tuple.0.id }}">Join</button>
-                                <!--  Otherwise joined, disable button to join -->
-                                {% else %}
-                                    <button disabled class="btn btn-outline-info mr-1 mb-1 waves-effect waves-light">Joined</button>
-                                {% endif %}
-                            {% endif %}
-                        </div>
-                    </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <div class="card w-75">
+          <div class="card-header">
+              <h4 class="card-title">{{ tracking_tuple.0.school_year }}</h4>
+          </div>
+          <div class="card-content">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <!-- <p>A year full of grace</p> -->
+                  <!-- basic buttons -->
+                  <a type="button" href="{% url 'institutionyear' tracking_tuple.0.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
+                  {% if user.is_authenticated %}
+                    <!--  If not joined, show button to join -->
+                    {% if not tracking_tuple.1 %}
+                        <button class="btn btn-outline-success mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#join{{ tracking_tuple.0.id }}">Join</button>
+                    <!--  Otherwise joined, disable button to join -->
+                    {% else %}
+                        <button disabled class="btn btn-outline-info mr-1 mb-1 waves-effect waves-light">Joined</button>
+                    {% endif %}
+                  {% endif %}
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
     {% endfor %}
 
     {% for form in single_year_institution_join_forms %}
@@ -64,5 +68,7 @@
         </div>
     {% endfor %}
 {% else %}
-    <p> Matching Year Not Found</p>
+  <div class="col-xl-2 col-md-2 col-sm-2 profile-card-3">
+      <p>Matching Year Not Found</p>
+  </div>
 {% endif %}

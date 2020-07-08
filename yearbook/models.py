@@ -34,7 +34,7 @@ class YearbookUser(models.Model):
                 iy.save()
             iyp = InstitutionYearProfile.create(self, iy)
             iyp.save()
-        institution.update_unique_users()
+        institution.update_unique_members()
 
     def write_signature(self, recipient, message):
         s = Signature.create(self, recipient, message)
@@ -98,7 +98,7 @@ class Institution(models.Model):
         #Institution.check_duplicate(self.institution_name, self.set_institution_name, institution_state)
         self.institution_state = institution_state
 
-    def update_unique_users(self):
+    def update_unique_members(self):
         yu_set = []
         for iy in list(self.institutionyear_set.all()):
             for iyp in list(iy.institutionyearprofile_set.all()):
