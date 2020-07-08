@@ -6,7 +6,7 @@
 
 {% block content %}
 	<h1>{{ institutionyear.institution.institution_name }} | {{ institutionyear.school_year }}</h1>
-	<h3>Current Yearbook Profiles</h3>
+	<!-- <h3>Current Yearbook Profiles</h3> -->
 	<fieldset class="form-group position-relative">
 		<input type="text" class="form-control search-product" id="user-input" placeholder="Find a Profile"">
 		<div class="form-control-position">
@@ -14,7 +14,7 @@
 		</div>
 	</fieldset>
 	<div class="card-body">
-		<div id="replaceable-content">
+		<div id="replaceable-content" class="row match-height">
 			{% include 'yearbook/institutionyear-partial.html' %}
 		</div>
 	</div>
