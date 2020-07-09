@@ -12,18 +12,14 @@ class UserLoginForm(forms.ModelForm):
         fields = ['user']
 
 class UserRegistrationForm(UserCreationForm):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
-
     def clean_email(self):
         if User.objects.filter(email=self.cleaned_data['email']).exists():
-            raise forms.ValidationError("the given email is already registered")
+            raise forms.ValidationError("The given email is already registered.")
         return self.cleaned_data['email']
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name','username', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
 class YearbookUserRegistrationForm(forms.ModelForm):
     class Meta:

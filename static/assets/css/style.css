@@ -23,3 +23,15 @@ section {
   max-width: 500px;
   max-height: 500px;
 }
+
+.login-register-left{
+	background-color: #FFE315;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: #fff;
+}
+
+.login-register-right{
+	background-color: #FFFFFF;
+}

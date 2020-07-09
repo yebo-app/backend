@@ -138,7 +138,7 @@
               {% endif %}
 							<li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
 								{% if user.is_authenticated %}
-								<div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ user.first_name }}</span><span class="user-status">Available</span></div><span><img class="round" src="{{ user.yearbookuser.avatar.url }}" alt="avatar" height="40" width="40"></span>
+								<div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ user.first_name }}</span><span class="user-status">{{ user.last_name }}</span></div><span><img class="round" src="{{ user.yearbookuser.avatar.url }}" alt="avatar" height="40" width="40"></span>
 								</a>
 								<div class="dropdown-menu dropdown-menu-right">
 									<a class="dropdown-item"  href="{% url 'user' user.yearbookuser.id %}"><i class="feather icon-user"></i>My Profile</a>
@@ -186,10 +186,10 @@
     							</ul>
     						</li> -->
     						<li class="nav-item"><a class="nav-link" href="{% url 'terms-of-service' %}"><i class="feather icon-life-buoy"></i><span>Terms of Service</span></a></li>
-							<li class="nav-item"><a class="nav-link" href="{% url 'privacy-policy' %}"></i><span>Privacy Policy</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="{% url 'privacy-policy' %}"><i class="feather icon-lock"></i><span>Privacy Policy</span></a></li>
               <!-- User can only invite friend if they are logged in -->
               {% if user.is_authenticated %}
-							<li class="nav-item"><a class="nav-link" href="{% url 'user' user.yearbookuser.id %}"></i><span>Invite Friend</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="{% url 'user' user.yearbookuser.id %}"><i class="feather icon-user-plus"></i><span>Invite Friend</span></a></li>
               {% endif %}
     					</ul>
     				</div>
