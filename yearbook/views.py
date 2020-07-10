@@ -44,7 +44,10 @@ def home(request):
         years = InstitutionYear.objects.filter(id__in=profiles.values('institution_year'))
         # years holds all the InstitutionYears which the user is part of
         # Now retrieve some of the newer profiles from each year
+        # print(profiles)
+        # print(years)
         recent_profiles = list(itertools.chain.from_iterable([year.institutionyearprofile_set.exclude(yearbook_user=request.user.yearbookuser).order_by('-id') for year in years]))
+        # print(recent_profiles)
         # Shuffle and select a few of these profiles to display
         # random.shuffle(recent_profiles)
         recent_profiles = recent_profiles[:10]
