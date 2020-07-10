@@ -6,32 +6,95 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h1>New Users in Your Schools</h1>
-        {% if recent_profiles %}
-          {% for recent_profile in recent_profiles %}
-            <div class=”row”>
-        		  <div class="col d-flex justify-content-center">
-          			<div class="card w-75">
-          				<div class="card-body">
-                    <div class="d-flex justify-content-start align-items-center mb-1">
-                        <div class="avatar mr-50">
-                            <img src="{{ recent_profile.yearbook_user.avatar.url }}" alt="Avatar" height="30" width="30">
-                        </div>
-                        <div class="user-page-info">
-                            <a href="{% url 'user' recent_profile.yearbook_user.id %}"><h6 class="mb-0">{{ recent_profile.yearbook_user }}</h6></a>
-                            <a href="{% url 'institutionyearprofile' recent_profile.id %}">
-                              <span class="font-small-2">{{ recent_profile.institution_year }}</span>
-                            </a>
-                        </div>
-                    </div class="ml-auto cursor-pointer">
+      <div class="row">
+        <div class="col-4 justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-start align-items-center mb-1">
+                  <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                    <h2>{{ user.yearbookuser }}</h2>
+                    <h6>{{ user.yearbookuser.bio }}</h6>
+                    <br>
+                    <a href="{% url 'user' user.yearbookuser.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View Profile</a>
+
                   </div>
-                </div>
+                  <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="{{ user.yearbookuser.avatar.url }}" class="round profile-pic" alt="" height=200 width=200>
+                  </div>
               </div>
             </div>
-          {% endfor %}
-        {% else %}
-          <p>Join your school to see your classmates! You may also be the first person in your school.</p>
-        {% endif %}
+          </div>
+        </div>
+        <div class="col-8 justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Profiles You May Want to View</h5>
+              {% if recent_profiles %}
+              {% for recent_profile in recent_profiles %}
+                <div class=”row”>
+            		  <div class="col d-flex">
+              			<!-- <div class="card w-75">
+              				<div class="card-body"> -->
+                        <div class="d-flex justify-content-start align-items-center mb-1 py-1">
+                            <div class="avatar mr-50">
+                                <img src="{{ recent_profile.yearbook_user.avatar.url }}" alt="Avatar" height="30" width="30">
+                            </div>
+                            <div class="user-page-info">
+                                <a href="{% url 'user' recent_profile.yearbook_user.id %}"><h6 class="mb-0">{{ recent_profile.yearbook_user }}</h6></a>
+                                <a href="{% url 'institutionyearprofile' recent_profile.id %}">
+                                  <span class="font-small-2">{{ recent_profile.institution_year }}</span>
+                                </a>
+                            </div>
+                        </div class="ml-auto cursor-pointer">
+                      <!-- </div> -->
+                    <!-- </div> -->
+                  </div>
+                </div>
+              {% endfor %}
+              {% else %}
+                <p>Join your schools to see your classmates!</p>
+              {% endif %}
+            </div>
+          </div>
+          <!-- <div class="card w-75">
+            <div class="card-body">
+              <div class="d-flex justify-content-start align-items-center mb-1">
+                  <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                    <h1>{{ user.yearbookuser }}</h1>
+                    <h4>{{ user.yearbookuser.bio }}</h4>
+                    <br>
+                    <a href="{% url 'user' user.yearbookuser.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View Profile</a>
+
+                  </div>
+                  <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="{{ user.yearbookuser.avatar.url }}" class="round profile-pic" alt="" height=200 width=200>
+                  </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <section id="hero" class="d-flex align-items-center"  style="background: #F8F8F8;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1>Follow our social media!</h1>
+              <p>You can catch up on the latest about yebo! including new features and more!</p>
+              <p>
+                <a target="_blank" href="//twitter.com/yeboinc"><img height=30 width=30 src="/static/app-assets/images/logo/twitter.png" alt=""></a>
+                <a target="_blank" href="#"><img height=30 width=30 src="/static/app-assets/images/logo/instagram-sketched.png" alt=""></a>
+              </p>
+            </div>
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1>yebo! is free and open source.</h1>
+              <p>If you would like to contribute, raise issues, or are just interested in our source code, please visit our GitHub repository!</p>
+              <p>
+                <a target="_blank" href="//github.com/yebo-app/backend"><img height=30 width=30 src="/static/app-assets/images/logo/github-logo.png" alt=""></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     {% else %}
       <!-- <div class="container"> -->
       <!-- ======= Hero Section ======= -->

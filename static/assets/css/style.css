@@ -24,7 +24,7 @@ section {
   max-height: 500px;
 }
 
-.login-register-left{
+.login-register-left {
 	background-color: #FFE315;
 	display: flex;
 	flex-direction: column;
@@ -32,6 +32,6 @@ section {
 	color: #fff;
 }
 
-.login-register-right{
+.login-register-right {
 	background-color: #FFFFFF;
 }
