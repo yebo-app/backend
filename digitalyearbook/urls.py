@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.conf.urls.static import static 
+from django.conf.urls.static import static
 from rest_framework import routers
 from yearbook import views
+import notifications.urls
 from . import settings
 
 # router = routers.DefaultRouter()
@@ -29,8 +30,12 @@ from . import settings
 # router.register(r'institutionyearprofile', views.InstitutionYearProfileViewset)
 # router.register(r'signature', views.SignatureViewSet)
 
+handler404 = 'yearbook.views.handler404'
+handler500 = 'yearbook.views.handler500'
+
 urlpatterns = [
     path('', include('yearbook.urls')),
+    path('notifications/', include(notifications.urls, namespace='notifications')),
     path('admin/', admin.site.urls),
     # path('', include(router.urls)),
     # path('api-auth', include('rest_framework.urls', namespace= 'rest_framework')),

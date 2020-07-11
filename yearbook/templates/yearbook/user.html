@@ -5,20 +5,161 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{{ yearbook_user.user.first_name }} {{ yearbook_user.user.last_name }}</h1>
-	<img class="profile-pic" src="{{request.yearbook_user.user.avatar}}">
-	<p>{{ yearbook_user.bio }}</p>
-	{% if user.yearbookuser == yearbook_user %}
-		<a href="{% url 'yu-update' %}">Update my profile</a>
-	{% endif %}
-	{% if user.yearbookuser == yearbook_user %}
-		<a href="{% url 'registeriyp' %}">Add School Information</a>
-	{% endif %}
-	<h1>Education History:</h1>
-	<ul>
-		{% for iyp in institutionyearprofiles %}
-		<li><a href="{{ request.scheme }}://{{ request.get_host }}/profile/{{ iyp.id }}">{{ iyp.institution_year }}</a></li>
-		{% endfor %}
-	</ul>
-{% endblock %}
+	<!-- <h1>{{ yearbook_user.user.first_name }} {{ yearbook_user.user.last_name }}</h1>
+	<img class="round profile-pic" src="{{ yearbook_user.avatar.url }}" height=80 width=80>
+	<p>Bio: {{ yearbook_user.bio }}</p> -->
 
+  <div class=”row”>
+    <div class="col d-flex justify-content-center">
+      <div class="card w-75">
+        <div class="card-body">
+          <div class="d-flex justify-content-start align-items-center mb-1">
+              <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                <h1>{{ yearbook_user.user.first_name }} {{ yearbook_user.user.last_name }}</h1>
+                <h4>{{ yearbook_user.bio }}</h4>
+                <br><br>
+                <div class="d-lg-flex">
+                  {% if user.is_authenticated and user.yearbookuser == yearbook_user %}
+                  <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
+                    Add Education
+                  </button>
+                  <a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" href="{% url 'settings' yearbook_user.id %}">Account Settings</a>
+                  <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#invite">
+                    Invite Friend
+                  </button>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                <img src="{{ yearbook_user.avatar.url }}" class="round profile-pic" alt="" height=300 width=300>
+              </div>
+          </div>
+          <!-- AddToAny BEGIN -->
+        	<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+        		<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+        		<a class="a2a_button_facebook"></a>
+        		<a class="a2a_button_facebook_messenger"></a>
+        		<a class="a2a_button_twitter"></a>
+        		<a class="a2a_button_linkedin"></a>
+        		<a class="a2a_button_email"></a>
+        		<a class="a2a_button_copy_link"></a>
+        		</div>
+        		<script async src="https://static.addtoany.com/menu/page.js"></script>
+        	<!-- AddToAny END -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class=”row”>
+    <div class="col d-flex justify-content-center">
+      <div class="card w-75">
+        <div class="card-header">
+          <h1>Education</h1>
+        </div>
+        {% if not history %}
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">This user has not joined any schools.</li>
+          </ul>
+        {% else %}
+          {% for institution, iyps in history.items %}
+            <div class="d-flex justify-content-start align-items-center mb-1">
+              <div class="avatar mr-1">
+                <img src="{{ institution.logo.url }}" alt="avtar img holder" height="45" width="45">
+              </div>
+              <div class="user-page-info">
+                <a href="{% url 'institution' institution.id %}"><h6 class="mb-0">{{ institution }}</h6></a>
+              </div>
+            </div>
+            <ul class="list-group list-group-flush">
+              {% for iyp in iyps %}
+                <li class="list-group-item"><a href="{% url 'institutionyearprofile' iyp.id %}">{{ iyp.institution_year.school_year }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+	<!-- Button to launch Add Education modal -->
+	<!-- {% if user.yearbookuser == yearbook_user %}
+	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#default">
+		Add Education
+	</button>
+	<a class="btn btn-primary mr-1 mb-1 waves-effect waves-light" href="{% url 'settings' yearbook_user.id %}">Account Settings</a>
+	<button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#invite">
+		Invite Friend
+	</button>
+	{% endif %} -->
+
+	<!-- Add Education Modal -->
+	<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel1">Add Education</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class= "content-section">
+						{% if not user.is_authenticated %}
+							<p>Log in to join a school.</p>
+						{% elif user != yearbook_user.user %}
+							<p>You are not authorized to access this page.</p>
+						{% else %}
+							<form method="POST">
+								{% csrf_token %}
+								<fieldset class="form-group">
+                  <p>Don't see your school? <a href="{% url 'institutions' %}">Register your school here.</a></p>
+                  <p>Note: If you were at this school from 2016-2017 until 2019-2020, please enter 2016 for the start year and 2020 for the end year.</p>
+									{{ register_form.as_p}}
+								</fieldset>
+								<div class="form-group">
+									<button class="btn btn-outline-info" type="submit">Register</button>
+								</div>
+							</form>
+						{% endif %}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Invite Friend Modal -->
+	<div class="modal fade text-left" id="invite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel1">Invite a Friend</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class= "content-section">
+						{% if not user.is_authenticated or user != yearbook_user.user%}
+							<p>Log in to invite a friend.</p>
+						{% else %}
+							<p>Add a friend's email to invite them to yebo. They can register and will also receive a link to your profile!</p>
+							<form method="POST">
+								{% csrf_token %}
+								<fieldset class="form-group">
+									Email:
+									{{ invite_friend_form.friend_email }}
+								</fieldset>
+								<div class="form-group">
+									<button class="btn btn-outline-info" type="submit">Invite</button>
+								</div>
+							</form>
+						{% endif %}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

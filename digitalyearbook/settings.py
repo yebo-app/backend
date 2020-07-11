@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,8 +25,7 @@ SECRET_KEY = 'yewj(zhy*==az#7)suz8w03$^w8qf@#b1uyk1nyw6as4t^g@gt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'notifications',
+    'taggit'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'digitalyearbook.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,16 +78,25 @@ WSGI_APPLICATION = 'digitalyearbook.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smirk_yebo2',
-        'USER': 'smirk_user',
-        'PASSWORD': 'password',
-        'HOST': '65.19.141.67',
-        'PORT': '3306',
+	'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'smirk_yebo2',
+         'USER': 'smirk_user',
+         'PASSWORD': 'password',
+         'HOST': '65.19.141.67',
+         'PORT': '3306',
+
+		# 'ENGINE': 'django.db.backends.mysql',
+		# 'NAME': '',
+        # 'USER': 'yebodev',
+        # 'PASSWORD': 'password',
+        # 'HOST': '136.56.62.47',
+        # 'PORT': '3306',
     }
-    
+
 }
 
 # Password validation
@@ -135,7 +146,7 @@ MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 30 
+    'PAGE_SIZE': 30
 }
 
 LOGIN_REDIRECT_URL = 'home'
@@ -148,4 +159,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Custom Django-to-Bootstrap Message Tags
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

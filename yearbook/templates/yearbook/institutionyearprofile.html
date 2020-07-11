@@ -1,39 +1,288 @@
 {% extends 'yearbook/base.html' %}
 
 {% block pagetitle %}
-{{ page_title }}
+	{{ page_title }}
 {% endblock %}
 
 {% block content %}
-<h1>Yearbook Profile</h1>
-<h3><a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ institutionyearprofile.yearbook_user.id }}">{{ institutionyearprofile.yearbook_user.user.first_name }}
-		{{ institutionyearprofile.yearbook_user.user.last_name }}</a></h3>
-{% if institutionyearprofile.is_educator %}
-<p>Educator</p>
-{% endif %}
-<p>Picture Goes Here</p>
-{% if user.yearbookuser == yearbook_user %}
-		<p><a href="{% url 'yu-update' %}">Update my profile</a></p>
-{% endif %}
+	<div class=”row”>
+		<div class="col d-flex justify-content-center">
+		<!-- Center Large -->
+		<!-- <div class="col-sm-12 align-self-center" > -->
+			<div class="card w-75">
+				<div class="card-body">
+					<div class="d-flex justify-content-start align-items-center mb-1">
+						<div class="avatar mr-1">
+							<img src="{{ institutionyearprofile.yearbook_user.avatar.url }}" alt="avtar img holder" height="45" width="45">
+						</div>
+						<div class="user-page-info">
+							<a href="{% url 'user' institutionyearprofile.yearbook_user.id %}"><h6 class="mb-0">{{ institutionyearprofile.yearbook_user.user.first_name }} {{ institutionyearprofile.yearbook_user.user.last_name }}</h6></a>
+							<span class="font-small-2"><a href="{% url 'institutionyear' institutionyearprofile.institution_year.id %}">{{ institutionyearprofile.institution_year }}</a></span>
+						</div>
+						{% if user.is_authenticated and user == institutionyearprofile.yearbook_user.user %}
+							<!-- IYP Update & Delete Buttons -->
+							<div class="ml-auto user-like">
+								<button type="button" class="btn btn-icon btn-flat-success  waves-effect waves-light" data-toggle="modal" data-target="#iypupdate">
+									<i class="feather icon-edit"></i>
+								</button>
+								<button type="button" class="btn btn-icon btn-flat-danger  waves-effect waves-light" data-toggle="modal" data-target="#iypdelete">
+									<i class="feather icon-trash-2"></i>
+								</button>
+							</div>
+							<!-- IYP Update Modal -->
+							<div class="modal fade text-left" id="iypupdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-scrollable" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel1">Update Profile</h4>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">×</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<div class= "content-section">
+												<form method="POST" enctype="multipart/form-data">
+													{% csrf_token %}
+													<fieldset class="form-group">
+														{{ iypupdateform.as_p}}
+													</fieldset>
+													<div class="form-group">
+														<button class="btn btn-outline-info" type="submit" name="iypudpate">
+															Update
+														</button>
+													</div>
+												</form>
+											</div>
+										</div>
 
-<h2>Signatures</h2>
-{% if user.is_authenticated and user.yearbookuser != institutionyearprofile.yearbook_user %}
-<div class="content-section"></div>
-	<form method="POST">
-		{% csrf_token %}
-		<fieldset class="form-group">
-			<legend class="border-bottom mb-4">Sign Yearbook!</legend>
-			{{ form.as_p }}
-		</fieldset>
-		<div class="form-group">
-			<button class="btn btn-outline-info" type="submit">Sign</button>
+									</div>
+								</div>
+							</div>
+							<!-- IYP Delete Modal -->
+							<div class="modal fade text-left" id="iypdelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-scrollable" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel1">Delete Signature</h4>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">×</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<div class="content-section">
+												<form method="POST" enctype="multipart/form-data">
+													{% if not user.is_authenticated or user != institutionyearprofile.yearbook_user.user %}
+														<p>You are not authenticated to delete this profile.</p>
+													{% else %}
+														<div class="d-flex justify-content-start align-items-center mb-2">
+															<h3>Are you sure you want to delete this yearbook profile?</h3>
+														</div>
+														{% csrf_token %}
+														<div class="form-group">
+															<button type="submit" class="btn btn-sm btn-primary waves-effect waves-light" name="iypdelete">
+																Delete
+															</button>
+														</div>
+													{% endif %}
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+
+					<!-- <img class="card-img mb-1" height="400" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avtar img holder"> -->
+          <!-- <img class="rounded mx-auto d-block" src="{{institutionyearprofile.yearbook_picture.url}}" alt="avatar img holder"> -->
+          <div class="text-center">
+            <img class="yearbook-picture users-avatar-shadow rounded mb-2 pr-2 ml-1" alt="avatar" src="{{institutionyearprofile.yearbook_picture.url}}">
+          </div>
+					{% if not institutionyearprofile.yearbook_quote %}
+						<p class="text-center">A quote has not been provided for this profile.</p>
+					{% else %}
+						<p class="text-center">Quote: "{{ institutionyearprofile.yearbook_quote }}"</p>
+					{% endif %}
+					<!-- Update IYP -->
+					<!-- Only authorize if the user logged in is viewing their own profile -->
+					<br>
+					<!-- AddToAny BEGIN -->
+						<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+							<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+							<a class="a2a_button_facebook"></a>
+							<a class="a2a_button_facebook_messenger"></a>
+							<a class="a2a_button_twitter"></a>
+							<a class="a2a_button_linkedin"></a>
+							<a class="a2a_button_email"></a>
+							<a class="a2a_button_copy_link"></a>
+							</div>
+							<script async src="https://static.addtoany.com/menu/page.js"></script>
+					<!-- AddToAny END -->
+          <br>
+					<!-- <div class="d-flex justify-content-start align-items-center mb-1">
+						<div class="d-flex align-items-center">
+							<i class="feather icon-heart font-medium-2 mr-50"></i>
+							<span>276</span>
+						</div>
+						<div class="ml-2">
+							<ul class="list-unstyled users-list m-0  d-flex align-items-center">
+								<li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Lai Lewandowski" class="avatar pull-up">
+									<img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="30" width="30">
+								</li>
+								<li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Elicia Rieske" class="avatar pull-up">
+									<img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-7.jpg" alt="Avatar" height="30" width="30">
+								</li>
+								<li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Darcey Nooner" class="avatar pull-up">
+									<img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="Avatar" height="30" width="30">
+								</li>
+								<li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Julee Rossignol" class="avatar pull-up">
+									<img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-10.jpg" alt="Avatar" height="30" width="30">
+								</li>
+								<li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Jeffrey Gerondale" class="avatar pull-up">
+									<img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" height="30" width="30">
+								</li>
+								<li class="d-inline-block pl-50">
+									<span>+271 more</span>
+								</li>
+							</ul>
+						</div>
+						<p class="ml-auto d-flex align-items-center">
+							<i class="feather icon-message-square font-medium-2 mr-50"></i>105
+						</p>
+					</div> -->
+					{% if not signatures %}
+						<p>There are currently no signatures under this profile.</p>
+					{% else %}
+						{% for signature in signatures %}
+							<div class="d-flex justify-content-start align-items-center mb-2">
+								<div class="avatar mr-50">
+									<img src="{{ signature.author.avatar.url }}" alt="Avatar" height="30" width="30">
+								</div>
+								<div class="user-page-info">
+									<a href="{% url 'user' signature.author.id %}"><h6 class="mb-0">{{ signature.author }}</h6></a>
+									<span class="font-small-2">{{ signature.signature }}</span>
+								</div>
+								<div class="ml-auto cursor-pointer">
+									{% for signatureupdateform in signatureupdateforms %}
+										{% if signatureupdateform.1 == signature %}
+											<button type="button" class="btn btn-icon btn-flat-success  waves-effect waves-light" data-toggle="modal" data-target="#update{{ signatureupdateform.2 }}"><i class="feather icon-edit"></i></button>
+											<div class="modal fade text-left" id="update{{ signatureupdateform.2 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-scrollable" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h4 class="modal-title" id="myModalLabel1">Edit Signature</h4>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="content-section">
+																<form method="POST" enctype="multipart/form-data">
+																	{% if not user.is_authenticated %}
+																		<p>Log in to edit your signatures.</p>
+																	{% elif user == institutionyearprofile.yearbook_user.user %}
+																		<p>There are no signatures for you to update.</p>
+																	{% else %}
+																		<div class="d-flex justify-content-start align-items-center mb-2">
+																			<div class="avatar mr-50">
+																				<img src="{{ user.yearbookuser.avatar.url }}" alt="Avatar" height="30" width="30">
+																			</div>
+																			<div class="user-page-info">
+																				<a href="{% url 'user' signature.author.id %}"><h6 class="mb-0">{{ signature.author }}</h6></a>
+																				<span class="font-small-2">{{ signature.signature }}</span>
+																			</div>
+																		</div>
+																		{% csrf_token %}
+																		{% for field in signatureupdateform.0 %}
+																			<fieldset class="form-label-group mb-50">
+																				{{ field }}
+																				<label for="{{ field.id_for_label }}">Update Signature Here</label>
+																			</fieldset>
+																		{% endfor %}
+																		<div class="form-group">
+																			<button type="submit" class="btn btn-sm btn-primary waves-effect waves-light" name="update{{ signatureupdateform.2 }}">
+																				Update
+																			</button>
+																		</div>
+																	{% endif %}
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endif %}
+									{% endfor %}
+									{% for signaturedeleteform in signaturedeleteforms %}
+										{% if signaturedeleteform.1 == signature %}
+											<button type="button" class="btn btn-icon btn-flat-danger  waves-effect waves-light" data-toggle="modal" data-target="#delete{{ signaturedeleteform.2 }}"><i class="feather icon-trash-2"></i></button>
+											<div class="modal fade text-left" id="delete{{ signaturedeleteform.2 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-scrollable" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h4 class="modal-title" id="myModalLabel1">Delete Signature</h4>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="content-section">
+																<form method="POST" enctype="multipart/form-data">
+																	{% if not user.is_authenticated %}
+																		<p>Log in to delete your signatures.</p>
+																	{% elif user == institutionyearprofile.yearbook_user.user %}
+																		<p>There are no signatures for you to delete.</p>
+																	{% else %}
+																		<h3>Are you sure you want to delete this signature?</h3>
+																		<div class="d-flex justify-content-start align-items-center mb-2">
+																			<div class="avatar mr-50">
+																				<img src="{{ user.yearbookuser.avatar.url }}" alt="Avatar" height="30" width="30">
+																			</div>
+																			<div class="user-page-info">
+																				<a href="{% url 'user' signature.author.id %}"><h6 class="mb-0">{{ signature.author }}</h6></a>
+																				<span class="font-small-2">{{ signature.signature }}</span>
+																			</div>
+																		</div>
+																		{% csrf_token %}
+																		<div class="form-group">
+																			<button type="submit" class="btn btn-sm btn-primary waves-effect waves-light" name="delete{{ signaturedeleteform.2 }}">
+																				Delete
+																			</button>
+																		</div>
+																	{% endif %}
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
+							<br>
+						{% endfor %}
+					{% endif %}
+					<div class="content-section">
+						{% if not user.is_authenticated %}
+							<p>Log in to sign this yearbook profile.</p>
+						{% elif not user == institutionyearprofile.yearbook_user.user %}
+							<form method="POST">
+								{% csrf_token %}
+								{% for field in signatureform %}
+									<fieldset class="form-label-group mb-50">
+										{{ field }}
+										<label for="{{ field.id_for_label }}">Sign Here</label>
+									</fieldset>
+								{% endfor %}
+								<button type="submit" class="btn btn-sm btn-primary waves-effect waves-light">
+									Sign
+								</button>
+							</form>
+						{% endif %}
+					</div>
+				</div>
+			</div>
 		</div>
-	</form>
-</div>
-{% endif %}
-
-{% for signature in signatures %}
-	<strong>From <a href="{{ request.scheme }}://{{ request.get_host }}/u/{{ signature.author.id }}">{{ signature.author }}</a></strong>
-	<p>{{ signature.signature }}</p>
-{% endfor %}
+	</div>
 {% endblock %}

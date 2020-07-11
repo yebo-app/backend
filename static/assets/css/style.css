@@ -1,5 +1,37 @@
 .navbar-wrapper {
-	background-color: #FFD110; }
+	background-color: #FFE315;
+  //#FFD110;
+}
+
 .logo {
-	font-size: 80px;
+	font-size: 40px;
+}
+
+#about {
+  background: rgb(248,248,248);
+  background: linear-gradient(0deg, rgba(255,227,21,1) 0%, rgba(248,248,248,1) 100%);
+}
+
+section {
+    padding: 60px 0;
+    overflow: hidden;
+}
+
+.yearbook-picture {
+  height: auto;
+  width: auto;
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.login-register-left {
+	background-color: #FFE315;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: #fff;
+}
+
+.login-register-right {
+	background-color: #FFFFFF;
 }

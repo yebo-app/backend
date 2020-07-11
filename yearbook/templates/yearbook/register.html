@@ -5,22 +5,129 @@
 {% endblock %}
 
 {% block content %}
-	<div class= "content-section">
+  <div class="container login-register-ui shadow-lg">
+    <div class="row flexbox-container">
+      <div class="col-4 login-register-left align-items-center rounded-left">
+        <img class="w-100" src="/static/app-assets/images/logo/yebo-logo.png" alt="">
+      </div>
+      <div class="col-8 login-register-right align-items-center rounded-right py-2">
+        <h5 class="card-title">Register</h5>
+        <p>We value your privacy and will not share your information with anyone.</p>
         <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Yebo</legend>
-                {{ user_form.as_p}}
-				{{ yearbook_user_form.as_p }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Join Yebo!</button>
-            </div>
+          {% csrf_token %}
+          <fieldset class="form-group">
+              {% if user_form.errors %}
+                   {% for field in user_form %}
+                    {% for error in field.errors %}
+                      <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                      </div>
+                    {% endfor %}
+                   {% endfor %}
+              {% endif %}
+              {% if yearbook_user_form.errors %}
+                   {% for field in yearbook_user_form %}
+                    {% for error in field.errors %}
+                      <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                      </div>
+                    {% endfor %}
+                   {% endfor %}
+              {% endif %}
+
+              <label>First Name</label>
+              <input type="text" name="first_name" value="" class="form-control">
+
+              <label>Last Name</label>
+              <input type="text" name="last_name" value="" class="form-control">
+
+              <label>Email</label>
+              <input type="email" name="email" value="" class="form-control">
+
+              <label>Username</label>
+              <input type="text" name="username" value="" class="form-control">
+
+              <label>Password</label>
+              <input type="password" name="password1" value="" class="form-control">
+
+              <label>Password Confirmation</label>
+              <input type="password" name="password2" value="" class="form-control">
+
+              <label>Bio</label>
+              <input type="text" name="bio" value="" class="form-control">
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-primary btn-lg mr-1 mb-1 waves-effect waves-light" type="submit">Join yebo!</button>
+          </div>
         </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
-            </small>
-        </div>
+        <p>Already have an account?</p>
+        <a class="btn btn-primary btn mr-1 mb-1 waves-effect waves-light" href="{% url 'login' %}">Login</a>
+      </div>
     </div>
+
+  </div>
+  <!-- <section id="hero" class="d-flex align-items-center rounded" style="background: #FFE315;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <div class="card my-5 shadow-lg">
+            <div class="card-body">
+              <h5 class="card-title">Register</h5>
+              <p>We value your privacy and will not share your information with anyone.</p>
+              <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {% if user_form.errors %}
+                         {% for field in user_form %}
+                          {% for error in field.errors %}
+                            <div class="alert alert-danger" role="alert">
+                              {{ error }}
+                            </div>
+                          {% endfor %}
+                         {% endfor %}
+                    {% endif %}
+                    {% if yearbook_user_form.errors %}
+                         {% for field in yearbook_user_form %}
+                          {% for error in field.errors %}
+                            <div class="alert alert-danger" role="alert">
+                              {{ error }}
+                            </div>
+                          {% endfor %}
+                         {% endfor %}
+                    {% endif %}
+
+                    <label>First Name</label>
+                    <input type="text" name="first_name" value="" class="form-control">
+
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" value="" class="form-control">
+
+                    <label>Email</label>
+                    <input type="email" name="email" value="" class="form-control">
+
+                    <label>Username</label>
+                    <input type="text" name="username" value="" class="form-control">
+
+                    <label>Password</label>
+                    <input type="password" name="password1" value="" class="form-control">
+
+                    <label>Password Confirmation</label>
+                    <input type="password" name="password2" value="" class="form-control">
+
+                    <label>Bio</label>
+                    <input type="text" name="bio" value="" class="form-control">
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-lg mr-1 mb-1 waves-effect waves-light" type="submit">Join Yebo!</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="/static/app-assets/images/logo/yebo-logo.png" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+  </section> -->
 {% endblock %}
