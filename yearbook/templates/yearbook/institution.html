@@ -15,7 +15,7 @@
               <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
                 <h1>{{ institution.institution_name }}</h1>
                 <h4>{{ institution.institution_city }}, {{ institution.institution_state }}</h4>
-                <p>Founded in  {{ institution.institution_year_founded }}</p>
+                <p>Founded in  {{ institution.institution_year_founded|add:"-1" }}</p>
                 <p>{{ institution.unique_members }} members</p>
                 <br><br>
                 <div class="d-lg-flex">
