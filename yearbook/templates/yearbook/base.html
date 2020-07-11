@@ -1,4 +1,4 @@
-{% load static notifications_tags %}
+{% load static %} <!--notifications_tags %} -->
 <!DOCTYPE html>
 
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -246,7 +246,6 @@
 
 		<!-- BEGIN: Notifications JS -->
 		<script src="/static/notifications/notify.js" type="text/javascript"></script>
-		{% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
 		<!-- END: Notifications JS -->
 
 		{% block footer %}

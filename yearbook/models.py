@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from notifications.base.models import AbstractNotification
+# from notifications.base.models import AbstractNotification
 from datetime import date
-from taggit.managers import TaggableManager
+# from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -145,7 +145,7 @@ class InstitutionYearProfile(models.Model):
     yearbook_picture = models.ImageField(upload_to='yearbook_pictures', default='default_profile_picture.png')
     yearbook_quote = models.CharField(max_length=140, default="")
     institution_year = models.ForeignKey(InstitutionYear, on_delete=models.CASCADE)
-    tags = TaggableManager()
+    # tags = TaggableManager()
 
     @classmethod
     def check_duplicate(cls, yearbook_user, institution_year):
