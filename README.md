@@ -1,7 +1,7 @@
 # **yebo!**
 Your online yearbook experience.
 
-Join us at [yebo!](yebo.pythonanywhere.com)
+Join us at [yebo!](https://yebo.pythonanywhere.com)
 
 ## Wiki
 
