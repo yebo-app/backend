@@ -15,7 +15,7 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 
 import digitalyearbook
-from notifications.signals import notify
+# from notifications.signals import notify
 from firebase import firebase
 from django.http import HttpResponse
 import itertools
