@@ -92,7 +92,7 @@ def yearbookuser(request, id):
     invite_friend_form = InviteFriendForm(request.POST or None)
     if invite_friend_form.is_valid():
         subject = f'{request.user.first_name} is inviting you to join yebo!'
-        message = f'{request.user.first_name} is inviting you to join yebo!\n\nyebo is a digital yearbook platform that allows you to connect with your friends from school. You can create profiles for each year you were in school, view your friends\' profiles, and even write them a signature!\n\nJoin yebo today for free!\nhttp://127.0.0.1:8000/register/\nView {request.user.first_name}\'s profile here: { request.build_absolute_uri() }'
+        message = f'{request.user.first_name} is inviting you to join yebo!\n\nyebo! is a digital yearbook platform that allows you to connect with your friends from school. You can create profiles for each year you were in school, view your friends\' profiles, and even write them a signature!\n\nJoin yebo! today for free!\nhttps://yebo.pythonanywhere.com/register/\nView {request.user.first_name}\'s profile here: { request.build_absolute_uri() }'
         from_email = digitalyearbook.settings.EMAIL_HOST_USER
         to_email = [invite_friend_form.cleaned_data['friend_email']]
         fail_silently = False
