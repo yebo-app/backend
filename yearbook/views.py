@@ -255,7 +255,7 @@ def institutions(request):
             subject = 'Institution Pending Approval!'
             message = "An institution has been created and is pending approval." + "\n\nInstitution Name: " + str(institution.institution_name) + "\nRequested by: " + str(request.user.username)
             from_email = digitalyearbook.settings.EMAIL_HOST_USER
-            to_email = digitalyearbook.settings.EMAIL_HOST_USER
+            to_email = [digitalyearbook.settings.EMAIL_HOST_USER]
             fail_silently = True
 
             send_mail(
