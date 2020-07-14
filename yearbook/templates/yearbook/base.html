@@ -134,7 +134,7 @@
 								<div id="notificationlist"></div>
 
 									<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></li>
-                                <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" id="removeallnotifs" >Read all notifications</a></li>
+                                <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" id="removeallnotifs" >Mark all notifications as read</a></li>
                             </ul>
 							</li>
               {% endif %}
@@ -145,7 +145,7 @@
 								<div class="dropdown-menu dropdown-menu-right">
 									<a class="dropdown-item"  href="{% url 'user' user.yearbookuser.id %}"><i class="feather icon-user"></i>My Profile</a>
 									<a class="dropdown-item"  href="{% url 'settings' user.yearbookuser.id %}"><i class="feather icon-settings"></i>Account Settings</a>
-									<a class="dropdown-item"  href="{% url 'user'  user.yearbookuser.id %}"><i class="feather icon-user-plus"></i>Invite Your Friends</a>
+									<!-- <a class="dropdown-item"  href="{% url 'user'  user.yearbookuser.id %}"><i class="feather icon-user-plus"></i>Invite Your Friends</a> -->
 									<!-- <a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a>
 									<a class="dropdown-item" href="#"><i class="feather icon-check-square"></i> Task</a>
 									<a class="dropdown-item" href="#"><i class="feather icon-message-square"></i> Chats</a> -->
@@ -180,7 +180,7 @@
     					<!-- include /static/includes/mixins-->
     					<ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
     						<li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="feather icon-home"></i><span data-i18n="Dashboard">Home</span></a></li>
-    						<li class="nav-item"><a class="nav-link" href="{% url 'institutions' %}"><i class="feather icon-map"></i><span data-i18n="Dashboard">Schools</span></a></li>
+    						<li class="nav-item"><a class="nav-link" href="{% url 'institutions' %}"><i class="feather icon-book-open"></i><span data-i18n="Dashboard">Schools</span></a></li>
     						<li class="nav-item"><a class="nav-link" href="{% url 'users' %}"><i class="feather icon-users"></i><span data-i18n="Dashboard">Users</span></a></li>
     						<!-- <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-zap"></i><span data-i18n="Starter kit">Sign</span></a>
     							<ul class="dropdown-menu">

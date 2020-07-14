@@ -13,7 +13,7 @@
                 <div class="col-12">
                   <!-- <p>A year full of grace</p> -->
                   <!-- basic buttons -->
-                  <a type="button" href="{% url 'institutionyear' tracking_tuple.0.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
+                  <a href="{% url 'institutionyear' tracking_tuple.0.id %}" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">View</a>
                   {% if user.is_authenticated %}
                     <!--  If not joined, show button to join -->
                     {% if not tracking_tuple.1 %}
@@ -55,7 +55,7 @@
                                     <p>{{ form.1 }}</p>
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-sm btn-primary waves-effect waves-light" name="join{{ form.1.id }}">
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light" name="join{{ form.1.id }}">
                                             Join
                                         </button>
                                     </div>
