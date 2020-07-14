@@ -118,10 +118,38 @@ class InstitutionCreationForm(forms.ModelForm):
         model = Institution
         fields  = ['institution_name', 'institution_city', 'institution_state', 'institution_year_founded', 'logo']
 
+        widgets = {
+            'institution_name': forms.TextInput(
+                attrs = {
+                    'class' : "form-control",
+                }
+            ),
+            'institution_city': forms.TextInput(
+                attrs = {
+                    'class' : "form-control",
+                }
+            ),
+            'institution_state': forms.TextInput(
+                attrs = {
+                    'class' : "form-control",
+                }
+            ),
+            'institution_year_founded': forms.NumberInput(
+                attrs = {
+                    'class' : "form-control",
+                }
+            ),
+            'logo' : forms.FileInput(
+                attrs = {
+                    'class' : ""
+                }
+            )
+        }
+
 class InstitutionYearProfileCreationForm(forms.Form):
-    institution = forms.ModelChoiceField(Institution.objects.filter(approved=True))
-    start_year = forms.IntegerField()
-    end_year = forms.IntegerField()
+    institution = forms.ModelChoiceField(Institution.objects.filter(approved=True), widget=forms.Select(attrs={'class' : 'form-control'}))
+    start_year = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control'}))
+    end_year = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control'}))
 
 class IYPDeleteForm(forms.ModelForm):
     class Meta:
@@ -132,7 +160,7 @@ class InstitutionJoinForm(forms.Form):
     institutionyears = forms.ModelMultipleChoiceField(queryset=InstitutionYear.objects.all())
 
 class InviteFriendForm(forms.Form):
-    friend_email = forms.EmailField()
+    friend_email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : "form-control"}))
 
 class SingleYearInstitutionJoinForm(forms.ModelForm):
     class Meta:

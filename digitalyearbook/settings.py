@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'notifications',
-    'taggit'
+    #'rest_framework',
+    # 'notifications',
+    # 'taggit'
 ]
 
 MIDDLEWARE = [
@@ -78,23 +78,13 @@ WSGI_APPLICATION = 'digitalyearbook.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-	'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-
-         'ENGINE': 'django.db.backends.mysql',
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
          'NAME': 'smirk_yebo2',
          'USER': 'smirk_user',
          'PASSWORD': 'password',
          'HOST': '65.19.141.67',
          'PORT': '3306',
-
-		# 'ENGINE': 'django.db.backends.mysql',
-		# 'NAME': '',
-        # 'USER': 'yebodev',
-        # 'PASSWORD': 'password',
-        # 'HOST': '136.56.62.47',
-        # 'PORT': '3306',
     }
 
 }
@@ -135,13 +125,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = "/home/yebo/backend/static"
 STATIC_URL = '/static/'
 
+"""
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+"""
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = "/home/yebo/backend/media"
 MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
@@ -156,8 +150,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.environ.get("EMAIL")
+EMAIL_HOST_PASSWORD = os.environ.get("PASSWORD")
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
