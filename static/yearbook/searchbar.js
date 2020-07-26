@@ -2,18 +2,18 @@ const user_input = $("#user-input")
 const search_icon = $('#search-icon')
 const current_div = $('#replaceable-content')
 const endpoint = $(this).attr('id')
-const delay_by_in_ms = 700
+const delay_by_in_ms = 350
 let scheduled_function = false
 
 let ajax_call = function (endpoint, request_parameters) {
 	$.getJSON(endpoint, request_parameters)
 		.done(response => {
 			// fade out the current_div, then:
-			current_div.fadeTo('slow', 0).promise().then(() => {
+			current_div.fadeTo('fast', 0).promise().then(() => {
 				// replace the HTML contents
 				current_div.html(response['html_from_view'])
 				// fade-in the div with new contents
-				current_div.fadeTo('slow', 1)
+				current_div.fadeTo('fast', 1)
 				// stop animating search icon
 				search_icon.removeClass('blink')
 			})
