@@ -80,11 +80,12 @@ WSGI_APPLICATION = 'digitalyearbook.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'smirk_yebo2',
-         'USER': 'smirk_user',
-         'PASSWORD': 'password',
-         'HOST': '65.19.141.67',
-         'PORT': '3306',
+
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT"),
     }
 
 }
