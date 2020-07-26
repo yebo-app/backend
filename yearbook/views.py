@@ -363,7 +363,7 @@ def institutionyearprofile(request, id):
             signature = signatureform.save(commit=False)
             signature.author = request.user.yearbookuser
             signature.recipient = institutionyearprofile
-            notify.send(request.user, recipient=institutionyearprofile.yearbook_user.user, verb='wrote a new signature', action_object=institutionyearprofile)
+            # notify.send(request.user, recipient=institutionyearprofile.yearbook_user.user, verb='wrote a new signature', action_object=institutionyearprofile)
             signature.save()
             data =  { 'data' : str(signature.author) + ' wrote you a new signature', 'link' : str(institutionyearprofile.get_absolute_url())}
             posturl = '/users/' + str(institutionyearprofile.yearbook_user.id)
